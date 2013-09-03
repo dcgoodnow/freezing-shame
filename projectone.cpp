@@ -33,6 +33,16 @@ void PrintMenu(); //foo
 */
 void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH]);
 
+/**
+  *Name:    Print Deck
+  *Purpose: prints deck of cards
+  *Args:    array for deck (3-d)
+  *retval:  none, prints deck to screen
+**/
+void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH]);
+
+//void StringCopy(strA[], strB[]);
+
 int main()
 {
    char unshuffled[5][25][CARD_LENGTH]; 
@@ -56,7 +66,7 @@ int main()
          case '2':
 	    {
                LoadDeck(unshuffled);
-               cout << unshuffled[0][1];
+               PrintDeck(unshuffled);
 	       break;
 	    }
 
@@ -82,6 +92,7 @@ void PrintMenu()
 
 void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH])
 {
+   char temp[10];
    //open file 
    ifstream unoDeck;
    unoDeck.open("cards.txt");
@@ -91,12 +102,51 @@ void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH])
       for( int j = 0; j < 25; j++)
       {
          unoDeck >> unshuffledDeck[i][j];
-         unoDeck >> unshuffledDeck[i][j];
+         int k = 0;
+         while(unshuffledDeck[i][j][k] != '\0')
+         {
+            k++;
+         }
+         unoDeck >> unshuffledDeck[i][j][k];
+         k++;
+         while(unoDeck.peek() != ' ' && unoDeck.peek() != '\r' )
+         {
+            unoDeck >> unshuffledDeck[i][j][k];
+            k++;
+         }
+         unshuffledDeck[i][j][k] = '\0';
+
       }
    }
-   for( int i = 0; i < 25; i++)
+   for( int i = 0; i < 8; i++)
    {
       unoDeck >> unshuffledDeck[4][i];
    }
    unoDeck.close();
 }
+
+void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH])
+{
+   for(int i = 0;i < 4; i++)
+   {
+      for(int j=0; j< 25; j++)
+      {
+         cout << i*25 + j+1 << "   ";
+         cout << unshuffledDeck[i][j];
+         cout << endl; 
+      }
+   }
+   for(int i = 0; i < 8; i++)
+   {
+      cout << 101 + i << "   ";
+      cout << unshuffledDeck[4][i];
+      cout << endl;
+   }
+}
+/*void StringCopy(strA[], strB[])
+{
+   for(int i = 0; i < strA.len(); i++)
+   {
+      strB[i] = strA[i];
+   }
+}*/
