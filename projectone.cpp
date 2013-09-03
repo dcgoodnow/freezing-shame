@@ -41,7 +41,13 @@ void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH]);
 **/
 void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH]);
 
-//void StringCopy(strA[], strB[]);
+/**
+  *Name:    String Copy
+  *Purpose: Copies one c-style string to another location
+  *Args:    StrA (string to be copied), StrB (location to be copied to)
+  *retval:  none
+**/
+void StringCopy(strA*, strB*);
 
 int main()
 {
@@ -143,10 +149,14 @@ void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH])
       cout << endl;
    }
 }
-/*void StringCopy(strA[], strB[])
+void StringCopy(strA*,strB*) 
 {
-   for(int i = 0; i < strA.len(); i++)
+   while(strA* != '\0')
    {
-      strB[i] = strA[i];
+      strB* = strA*;
+      strB++;
+      strA++;
    }
-}*/
+   strB* = '\0';
+}
+
