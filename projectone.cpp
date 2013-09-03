@@ -47,14 +47,18 @@ void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH]);
   *Args:    StrA (string to be copied), StrB (location to be copied to)
   *retval:  none
 **/
-void StringCopy(strA*, strB*);
+void StringCopy(char* strA, char* strB);
 
 int main()
 {
    char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
+   char test1[10]= "Hello";
+   char test2[10];
    //display user menu
    PrintMenu();
+   StringCopy(test1, test2);
+   cout << test2;
 
    //get user response
    cin >> userResponse;
@@ -149,14 +153,14 @@ void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH])
       cout << endl;
    }
 }
-void StringCopy(strA*,strB*) 
+void StringCopy(char* strA, char* strB) 
 {
-   while(strA* != '\0')
+   while(*strA != '\0')
    {
-      strB* = strA*;
+      *strB = *strA;
       strB++;
       strA++;
    }
-   strB* = '\0';
+   *strB = '\0';
 }
 
