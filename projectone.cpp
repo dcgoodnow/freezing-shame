@@ -12,6 +12,7 @@
 *****************************************/
 #include <iostream>
 #include <fstream>
+#include "stdlib.h"
 
 using namespace std;
 
@@ -49,16 +50,21 @@ void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH]);
 **/
 void StringCopy(char* strA, char* strB);
 
+/**
+  *Name:    Shuffle Deck
+  *Purpose: moves the unshuffled deck to shuffled deck in random order
+  *Args:    unshuffled deck (3-d char array), shuffled deck(2-d char array)
+  *Retval:  moves shuffled deck into shuffled array by pointer
+**/
+void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH]);
+
 int main()
 {
    char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
-   char test1[10]= "Hello";
-   char test2[10];
+   char shuffled[108][CARD_LENGTH];
    //display user menu
    PrintMenu();
-   StringCopy(test1, test2);
-   cout << test2;
 
    //get user response
    cin >> userResponse;
@@ -153,6 +159,7 @@ void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH])
       cout << endl;
    }
 }
+
 void StringCopy(char* strA, char* strB) 
 {
    while(*strA != '\0')
@@ -164,3 +171,31 @@ void StringCopy(char* strA, char* strB)
    *strB = '\0';
 }
 
+void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
+{
+   //initialize shuffled deck to 0
+   for(int i = 0; i < 108; i++)
+   {
+      for(int j = 0; j < CARD_LENGTH; j++)
+      {
+         shuff[i][j] = 0;
+      }
+   }
+
+   for(int i = 0; i < 5; i++)
+   {
+      for(int j = 0; j < 25; j++)
+      {
+         bool good = true;
+         while(good)
+         {
+            int temp = rand()%108;
+            if(shuff[temp][0] != 0)
+            {
+               StringCopy(unshuff[i][j], shuff[temp]);
+               good = false;
+            }
+         }
+      }
+   }
+}
