@@ -83,6 +83,9 @@ int main()
 	    {
                LoadDeck(unshuffled);
                PrintDeck(unshuffled);
+               ShuffleDeck(unshuffled, shuffled);
+               cout << shuffled[3]<<endl;
+               cout << shuffled[5];
 	       break;
 	    }
 
@@ -164,11 +167,13 @@ void StringCopy(char* strA, char* strB)
 {
    while(*strA != '\0')
    {
+      cout << "here1";
       *strB = *strA;
       strB++;
       strA++;
    }
    *strB = '\0';
+   cout << "here 2"<<endl;
 }
 
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
@@ -178,7 +183,7 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
    {
       for(int j = 0; j < CARD_LENGTH; j++)
       {
-         shuff[i][j] = 0;
+         shuff[i][j] = '0';
       }
    }
 
@@ -190,7 +195,9 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
          while(good)
          {
             int temp = rand()%108;
-            if(shuff[temp][0] != 0)
+            cout << temp;
+            cout << shuff[temp][0];
+            if(shuff[temp][0] == '0')
             {
                StringCopy(unshuff[i][j], shuff[temp]);
                good = false;
