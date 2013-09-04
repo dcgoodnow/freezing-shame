@@ -68,54 +68,74 @@ void StringCopy(char* strA, char* strB);
 **/
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH]);
 
+void WriteDeck(char deck[108][CARD_LENGTH], char filename[]);
+
 int main()
 {
    char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
    char shuffled[108][CARD_LENGTH];
-   //display user menu
-   PrintMenu();
-
-   //get user response
-   cin >> userResponse;
+   bool running = true;
    
-      //respond to action
-      switch(userResponse)
-      {
-         case '1':
-	 {
-            cout << "working";
-	    break;
-	 }
+   //Load deck
+   LoadDeck(unshuffled);
 
-         //read in deck
-         case '2':
-	    {
-               LoadDeck(unshuffled);
-               PrintDeck(unshuffled);
+   //loop continuously until quit command ('q')
+   while(running)
+   {
+      //display user menu
+      PrintMenu();
+
+      //get user response
+      cin >> userResponse;
+      
+         //respond to action
+         switch(userResponse)
+         {
+            //Shuffle Deck
+            case '1':
+            {
                ShuffleDeck(unshuffled, shuffled);
-               PrintDeck(shuffled);
-	       break;
-	    }
+               break;
+            }
 
-	 //shuffle deck
-         case '3':
-	 {
-	    break;
-	 }
-      }
+            //Print Unshuffled Deck
+            case '2':
+               {
+                  PrintDeck(unshuffled);
+                  break;
+               }
 
-      cout << endl;
-      return 0;
+            //Write shuffled deck to file
+            case '3':
+            {
+               char name[30];
+               cout <<"What would you like to name the file?" << endl; 
+               cin  >> name;
+               WriteDeck(shuffled, name);
+               break;
+            }
+            
+            //quit
+            case 'q':
+            {
+               running = false;
+               break;
+            }
+         }
+
+   }
+   return 0;
 }
 
 void PrintMenu()
 {
-	cout << "Welcome to Uno Shuffler!" << endl;
-	cout << "What would you like to do?" << endl;
-	cout << "1. Shuffle the deck" << endl;
-	cout << "2. Print unshuffled deck" << endl;
-	cout << "3. Write shuffled deck to file" << endl;
+   cout << "Welcome to Uno Shuffler!" << endl;
+   cout << "What would you like to do?" << endl;
+   cout << "1. Shuffle the deck" << endl;
+   cout << "2. Print unshuffled deck" << endl;
+   cout << "3. Write shuffled deck to file" << endl;
+        
 }
 
 void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH])
@@ -125,19 +145,24 @@ void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH])
    ifstream unoDeck;
    unoDeck.open("cards.txt");
    
+   //loop through first 4 rows of cards
    for(int i = 0; i < 4; i++)
    {
       for( int j = 0; j < 25; j++)
       {
-         unoDeck >> unshuffledDeck[i][j];
+         unoDeck >> unshuffledDeck[i][j];       //input first word
          int k = 0;
-         while(unshuffledDeck[i][j][k] != '\0')
+         while(unshuffledDeck[i][j][k] != '\0') //find end of first word
          {
             k++;
          }
+         unshuffledDeck[i][j][k] = ' ';
+         k++;
          unoDeck >> unshuffledDeck[i][j][k];
          k++;
-         while(unoDeck.peek() != ' ' && unoDeck.peek() != '\r' )
+         
+         //input second word
+         while(unoDeck.peek() != ' ' && unoDeck.peek() != '\r' )  
          {
             unoDeck >> unshuffledDeck[i][j][k];
             k++;
@@ -146,15 +171,18 @@ void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH])
 
       }
    }
+   //loop through last row of cards
    for( int i = 0; i < 8; i++)
    {
       unoDeck >> unshuffledDeck[4][i];
    }
+
    unoDeck.close();
 }
 
 void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH])
 {
+   //loop through all cards
    for(int i = 0;i < 4; i++)
    {
       for(int j=0; j< 25; j++)
@@ -185,13 +213,14 @@ void PrintDeck(char shuffledDeck[108][CARD_LENGTH])
 
 void StringCopy(char* strA, char* strB) 
 {
+   //parse string until null character
    while(*strA != '\0')
    {
       *strB = *strA;
       strB++;
       strA++;
    }
-   *strB = '\0';
+   *strB = '\0';  //null-terminated
 }
 
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
@@ -215,12 +244,10 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
          while(good)
          {
             int temp = rand()%108;
-            cout << temp;
             if(shuff[temp][0] == '0')
             {
                StringCopy(unshuff[i][j], shuff[temp]);
                good = false;
-               cout << "gothere" << endl;
             }
          }
       }
@@ -231,14 +258,18 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
       while(good)
       {
          int temp = rand()%108;
-         cout << temp;
          if(shuff[temp][0] == '0')
          {
             StringCopy(unshuff[4][i], shuff[temp]);
             good = false;
-            cout << "gothere" << endl;
          }
       }
    }
 
 }
+
+
+void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
+{
+}
+
