@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include "stdlib.h"
+#include "time.h"
 
 using namespace std;
 
@@ -41,6 +42,15 @@ void LoadDeck(char unshuffledDeck[][25][CARD_LENGTH]);
   *retval:  none, prints deck to screen
 **/
 void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH]);
+
+
+/**
+  *Name:    Print Deck
+  *Purpose: prints deck of cards
+  *Args:    array for deck (2-d)
+  *retval:  none, prints deck to screen
+**/
+void PrintDeck(char shuffledDeck[108][CARD_LENGTH]);
 
 /**
   *Name:    String Copy
@@ -84,8 +94,7 @@ int main()
                LoadDeck(unshuffled);
                PrintDeck(unshuffled);
                ShuffleDeck(unshuffled, shuffled);
-               cout << shuffled[3]<<endl;
-               cout << shuffled[5];
+               PrintDeck(shuffled);
 	       break;
 	    }
 
@@ -161,19 +170,28 @@ void PrintDeck(char unshuffledDeck[][25][CARD_LENGTH])
       cout << unshuffledDeck[4][i];
       cout << endl;
    }
+
+}
+
+void PrintDeck(char shuffledDeck[108][CARD_LENGTH])
+{
+   for( int i = 0; i < 108; i++)
+   {
+      cout << i+1 << "   ";
+      cout << shuffledDeck[i];
+      cout << endl;
+   }
 }
 
 void StringCopy(char* strA, char* strB) 
 {
    while(*strA != '\0')
    {
-      cout << "here1";
       *strB = *strA;
       strB++;
       strA++;
    }
    *strB = '\0';
-   cout << "here 2"<<endl;
 }
 
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
@@ -186,8 +204,10 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
          shuff[i][j] = '0';
       }
    }
+   //seed random number generator
+   srand(time(NULL));
 
-   for(int i = 0; i < 5; i++)
+   for(int i = 0; i < 4; i++)
    {
       for(int j = 0; j < 25; j++)
       {
@@ -196,13 +216,29 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], char shuff[108][CARD_LENGTH])
          {
             int temp = rand()%108;
             cout << temp;
-            cout << shuff[temp][0];
             if(shuff[temp][0] == '0')
             {
                StringCopy(unshuff[i][j], shuff[temp]);
                good = false;
+               cout << "gothere" << endl;
             }
          }
       }
    }
+   for(int i = 0; i < 8; i++)
+   {
+      bool good = true;
+      while(good)
+      {
+         int temp = rand()%108;
+         cout << temp;
+         if(shuff[temp][0] == '0')
+         {
+            StringCopy(unshuff[4][i], shuff[temp]);
+            good = false;
+            cout << "gothere" << endl;
+         }
+      }
+   }
+
 }
