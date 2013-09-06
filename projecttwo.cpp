@@ -33,7 +33,7 @@ struct player
    char name[20];
    int id[5];
    card hand[7];
-}
+};
 
 /**
   *Name: PrintMenu
@@ -49,7 +49,7 @@ void PrintMenu();
   *Args:    array for deck to be loaded into
   *Retval:  loads array
 **/
-void LoadDeck(char unshuffledDeck[5][25][CARD_LENGTH]);
+void LoadDeck(card load[108]);
 
 /**
   *Name:    Print Deck
@@ -67,6 +67,8 @@ void PrintDeck(char unshuffledDeck[5][25][CARD_LENGTH]);
   *retval:  none, prints deck to screen
 **/
 void PrintDeck(char shuffledDeck[108][CARD_LENGTH]);
+
+void PrintDeck(card deck[108]);
 
 /**
   *Name:    String Copy
@@ -99,12 +101,13 @@ void InitializePlayer(player init[4]);
 
 int main()
 {
-   char unshuffled[5][25][CARD_LENGTH]; 
+   //char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
    char shuffled[108][CARD_LENGTH];
    bool running = true;
-   card deck[108];
+   card unshuffled[108];
    player players[4];
+   InitializeDeck(unshuffled);
 
    
    //Load deck
@@ -125,7 +128,7 @@ int main()
             //Shuffle Deck
             case '1':
             {
-               ShuffleDeck(unshuffled, shuffled);
+               //ShuffleDeck(unshuffled, shuffled);
                break;
             }
 
@@ -169,9 +172,9 @@ void PrintMenu()
         
 }
 
-void LoadDeck(char unshuffledDeck[5][25][CARD_LENGTH])
+void LoadDeck(card load[108])
 {
-   char temp[10];
+   char foo[10];
    char filename[40];
    //get file name for cards
    cout << "What is the name of the uno cards file?";
@@ -180,37 +183,23 @@ void LoadDeck(char unshuffledDeck[5][25][CARD_LENGTH])
    ifstream unoDeck;
    unoDeck.open(filename);
    
-   //loop through first 4 rows of cards
-   for(int i = 0; i < 4; i++)
+   for(int i = 0; i < 76; i++)
    {
-      for( int j = 0; j < 25; j++)
-      {
-         unoDeck >> unshuffledDeck[i][j];       //input first word
-         int k = 0;
-         while(unshuffledDeck[i][j][k] != '\0') //find end of first word
-         {
-            k++;
-         }
-         unshuffledDeck[i][j][k] = ' ';         //insert space between words
-         k++;
-
-         //input second word
-         unoDeck >> unshuffledDeck[i][j][k];
-         k++;
-         while(unoDeck.peek() != ' ' && unoDeck.peek() != '\r' )  
-         {
-            unoDeck >> unshuffledDeck[i][j][k];
-            k++;
-         }
-         unshuffledDeck[i][j][k] = '\0';
-
-      }
+      unoDeck >> load[i].color;
+      unoDeck >> foo;
+      unoDeck >> load[i].rank;
    }
-   //loop through last row of cards
-   for( int i = 0; i < 8; i++)
+   for(int i = 76; i < 100; i++)
    {
-      unoDeck >> unshuffledDeck[4][i];
+      unoDeck >> load[i].color;
+      unoDeck >> foo;
+      unoDeck >> load[i].action;
    }
+   for(int i = 100; i < 108; i++)
+   {
+      unoDeck >> load[i].action;
+   }
+   
 
    unoDeck.close();
 }
@@ -246,6 +235,18 @@ void PrintDeck(char shuffledDeck[108][CARD_LENGTH])
       cout << i+1 << "   ";
       cout << shuffledDeck[i];
       cout << endl;
+   }
+}
+
+void PrintDeck(card deck[108])
+{
+   for(int i = 0; i<108; i++)
+   {
+      cout << i << '\t';
+      cout << deck[i].color << '\t';
+      cout << deck[i].rank << '\t';
+      cout << deck[i].action << '\t';
+      cout << deck[i].location << endl;
    }
 }
 
@@ -330,12 +331,14 @@ void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
 
 void InitializeDeck(card init[108])
 {
+   char action[7] = "action";
+   char location[9] = "location";
    for( int i = 0; i < 108; i++)
    {
       init[i].color = 'c';
       init[i].rank = -1;
-      init[i].action = "action";
-      init[i].location = "location";
+      StringCopy(action, init[i].action);
+      StringCopy(location, init[i].location);
    }
 }
    
@@ -343,7 +346,6 @@ void InitializePlayer(player init[4])
 {
    for(int i = 0; i < 4; i++)
    {
-      init[i].name = "name";
       for(int j = 0; j < 5; j++)
       {
          init[i].id[j] = 0;
