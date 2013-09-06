@@ -4,11 +4,11 @@
  *
  *
  *
- *Project One: Deck Shuffling
+ *Project two
  *
  *
  *
- *Last Updated: 8/30/13
+ *Last Updated: 9/6/2013
 *****************************************/
 #include <iostream>
 #include <fstream>
@@ -18,6 +18,22 @@
 using namespace std;
 
 const int CARD_LENGTH = 25;
+
+struct card
+{
+   char color;
+   int rank;
+   char action[15];
+   char location[20];
+};
+
+
+struct player
+{
+   char name[20];
+   int id[5];
+   card hand[7];
+}
 
 /**
   *Name: PrintMenu
@@ -77,12 +93,19 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH],
 **/
 void WriteDeck(char deck[108][CARD_LENGTH], char filename[]);
 
+void InitializeDeck(card init[108]);
+
+void InitializePlayer(player init[4]);
+
 int main()
 {
    char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
    char shuffled[108][CARD_LENGTH];
    bool running = true;
+   card deck[108];
+   player players[4];
+
    
    //Load deck
    LoadDeck(unshuffled);
@@ -305,3 +328,25 @@ void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
    
 }
 
+void InitializeDeck(card init[108])
+{
+   for( int i = 0; i < 108; i++)
+   {
+      init[i].color = 'c';
+      init[i].rank = -1;
+      init[i].action = "action";
+      init[i].location = "location";
+   }
+}
+   
+void InitializePlayer(player init[4])
+{
+   for(int i = 0; i < 4; i++)
+   {
+      init[i].name = "name";
+      for(int j = 0; j < 5; j++)
+      {
+         init[i].id[j] = 0;
+      }
+   }
+}
