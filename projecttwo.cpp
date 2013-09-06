@@ -87,6 +87,8 @@ void StringCopy(char* strA, char* strB);
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], 
                  char shuff[108][CARD_LENGTH]);
 
+void ShuffleDeck(card unshuff[108], card shuff[108]);
+
 /**
   *Name:    WriteDeck
   *Purpose: Writes shuffled deck to file
@@ -103,11 +105,13 @@ int main()
 {
    //char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
-   char shuffled[108][CARD_LENGTH];
+   //char shuffled[108][CARD_LENGTH];
    bool running = true;
    card unshuffled[108];
+   card shuffled[108];
    player players[4];
    InitializeDeck(unshuffled);
+   InitializePlayer(players);
 
    
    //Load deck
@@ -128,7 +132,8 @@ int main()
             //Shuffle Deck
             case '1':
             {
-               //ShuffleDeck(unshuffled, shuffled);
+               ShuffleDeck(unshuffled, shuffled);
+               PrintDeck(shuffled);
                break;
             }
 
@@ -145,7 +150,7 @@ int main()
                char name[30];
                cout <<"What would you like to name the file?" << endl; 
                cin  >> name;
-               WriteDeck(shuffled, name);
+    //           WriteDeck(shuffled, name);
                break;
             }
             
@@ -245,7 +250,7 @@ void PrintDeck(card deck[108])
       cout << i << '\t';
       cout << deck[i].color << '\t';
       cout << deck[i].rank << '\t';
-      cout << deck[i].action << '\t';
+      cout << deck[i].action << '\t' << '\t';
       cout << deck[i].location << endl;
    }
 }
@@ -309,7 +314,30 @@ void ShuffleDeck(char unshuff[5][25][CARD_LENGTH],
          }
       }
    }
+}
 
+void ShuffleDeck(card unshuff[108], card shuff[108])
+{
+   char shuffstr[9] = "shuffled";
+   InitializeDeck(shuff);
+   srand(time(NULL));
+
+   for(int i = 0; i < 108; i++)
+   {
+      bool good = true;
+      while(good)
+      {
+         int temp = rand()%108;
+         if(shuff[temp].location[0] == 'l' )
+         {
+            shuff[temp].color = unshuff[i].color;
+            shuff[temp].rank = unshuff[i].rank;
+            StringCopy(unshuff[i].action, shuff[temp].action);
+            StringCopy(shuffstr, shuff[temp].location);
+            good = false;
+         }
+      }
+   }
 }
 
 void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
