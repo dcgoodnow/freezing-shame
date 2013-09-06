@@ -149,9 +149,13 @@ void PrintMenu()
 void LoadDeck(char unshuffledDeck[5][25][CARD_LENGTH])
 {
    char temp[10];
+   char filename[40];
+   //get file name for cards
+   cout << "What is the name of the uno cards file?";
+   cin >> filename;
    //open file 
    ifstream unoDeck;
-   unoDeck.open("cards.txt");
+   unoDeck.open(filename);
    
    //loop through first 4 rows of cards
    for(int i = 0; i < 4; i++)
