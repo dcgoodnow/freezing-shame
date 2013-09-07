@@ -76,7 +76,7 @@ void PrintDeck(card deck[108]);
   *Args:    StrA (string to be copied), StrB (location to be copied to)
   *retval:  none
 **/
-void StringCopy(char* strA, char* strB);
+void StringCopy(char strA[], char strB[]);
 
 /**
   *Name:    Shuffle Deck
@@ -255,16 +255,15 @@ void PrintDeck(card deck[108])
    }
 }
 
-void StringCopy(char* strA, char* strB) 
+void StringCopy(char strA[], char strB[]) 
 {
-   //parse string until null character
-   while(*strA != '\0')
+   int i = 0;
+   while(strA[i] != '\0')
    {
-      *strB = *strA;
-      strB++;
-      strA++;
+      strB[i] = strA[i];
+      i++;
    }
-   *strB = '\0';  //null-terminated
+   strB[i] = '\0';  //null-terminated
 }
 
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], 
