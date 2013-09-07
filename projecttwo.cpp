@@ -97,8 +97,20 @@ void ShuffleDeck(card unshuff[108], card shuff[108]);
 **/
 void WriteDeck(char deck[108][CARD_LENGTH], char filename[]);
 
-void InitializeDeck(card init[108]);
+/**
+  *Name:    Initialize Deck
+  *Purpose: initializes deck to generic values
+  *Args:    array of 108 cards
+  *Retval:  none
+**/
+void InitializeDeck(card deck[108]);
 
+/**
+  *Name:    Initialize player
+  *Purpose: initializes player to generic values
+  *Args:    array of 4 players
+  *Retval:  none
+**/
 void InitializePlayer(player init[4]);
 
 int main()
@@ -133,7 +145,6 @@ int main()
             case '1':
             {
                ShuffleDeck(unshuffled, shuffled);
-               PrintDeck(shuffled);
                break;
             }
 
@@ -356,7 +367,7 @@ void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
    
 }
 
-void InitializeDeck(card init[108])
+void InitializeDeck(card deck[108])
 {
    char action[7] = "action";
    char location[9] = "location";
