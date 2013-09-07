@@ -192,25 +192,36 @@ void LoadDeck(card load[108])
 {
    char foo[10];
    char filename[40];
+
    //get file name for cards
    cout << "What is the name of the uno cards file?";
    cin >> filename;
+
    //open file 
    ifstream unoDeck;
    unoDeck.open(filename);
    
+   //load in the first four rows (numbered cards)
    for(int i = 0; i < 76; i++)
    {
       unoDeck >> load[i].color;
+
+      //dump the remaining characters of the color
       unoDeck >> foo;
       unoDeck >> load[i].rank;
    }
+
+   //load in the fifth row (action cards)
    for(int i = 76; i < 100; i++)
    {
       unoDeck >> load[i].color;
+      
+      //dump the remaining characters of the color
       unoDeck >> foo;
       unoDeck >> load[i].action;
    }
+
+   //load in the sixth row (wild cards)
    for(int i = 100; i < 108; i++)
    {
       unoDeck >> load[i].action;
@@ -335,16 +346,19 @@ void ShuffleDeck(card unshuff[108], card shuff[108])
    for(int i = 0; i < 108; i++)
    {
       bool good = true;
+      //find an empty slot
       while(good)
       {
          int temp = rand()%108;
+
+         //if the slot is empty, transfer the current cards location to the empty slot
          if(shuff[temp].location[0] == 'l' )
          {
             shuff[temp].color = unshuff[i].color;
             shuff[temp].rank = unshuff[i].rank;
             StringCopy(unshuff[i].action, shuff[temp].action);
             StringCopy(shuffstr, shuff[temp].location);
-            good = false;
+            good = false;     //move to the next card
          }
       }
    }
@@ -363,14 +377,13 @@ void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
       shufDeck << endl;
    }
    shufDeck.close();
-
-   
 }
 
 void InitializeDeck(card deck[108])
 {
    char action[7] = "action";
    char location[9] = "location";
+   //initialize values for each card
    for( int i = 0; i < 108; i++)
    {
       init[i].color = 'c';
@@ -384,6 +397,7 @@ void InitializePlayer(player init[4])
 {
    for(int i = 0; i < 4; i++)
    {
+      //initialize player id to 00000
       for(int j = 0; j < 5; j++)
       {
          init[i].id[j] = 0;
