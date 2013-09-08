@@ -97,6 +97,8 @@ void ShuffleDeck(card unshuff[108], card shuff[108]);
 **/
 void WriteDeck(char deck[108][CARD_LENGTH], char filename[]);
 
+void WriteDeck(card deck[108], char filename[]);
+
 /**
   *Name:    Initialize Deck
   *Purpose: initializes deck to generic values
@@ -161,7 +163,7 @@ int main()
                char name[30];
                cout <<"What would you like to name the file?" << endl; 
                cin  >> name;
-    //           WriteDeck(shuffled, name);
+               WriteDeck(shuffled, name);
                break;
             }
             
@@ -379,6 +381,18 @@ void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
    shufDeck.close();
 }
 
+void WriteDeck(card deck[108], char filename[])
+{
+   ofstream shufDeck;
+   shufDeck.open(filename);
+   for(int i = 0; i < 108; i++)
+   {
+      shufDeck << deck[i].color << '\t';
+      shufDeck << deck[i].rank << '\t';
+      shufDeck << deck[i].action << '\n';
+   }
+}
+
 void InitializeDeck(card deck[108])
 {
    char action[7] = "action";
@@ -386,10 +400,10 @@ void InitializeDeck(card deck[108])
    //initialize values for each card
    for( int i = 0; i < 108; i++)
    {
-      init[i].color = 'c';
-      init[i].rank = -1;
-      StringCopy(action, init[i].action);
-      StringCopy(location, init[i].location);
+      deck[i].color = 'c';
+      deck[i].rank = -1;
+      StringCopy(action, deck[i].action);
+      StringCopy(location, deck[i].location);
    }
 }
    
