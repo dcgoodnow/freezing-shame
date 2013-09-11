@@ -118,7 +118,7 @@ void InitializePlayer(player init[4]);
 void LoadPlayers(player list[4]);
 void PrintPlayer(player toPrint);
 void CopyCard(card origin, card &dest);
-void DealCards(card deck[108], player hands[4]);
+void DealCards(card deck[108], player hands[4], card disc[108], card draw[108]);
 
 int main()
 {
@@ -128,8 +128,12 @@ int main()
    bool running = true;
    card unshuffled[108];
    card shuffled[108];
+   card discard[108];
+   card draw[108];
    player players[4];
    InitializeDeck(unshuffled);
+   InitializeDeck(discard);
+   InitializeDeck(draw);
    InitializePlayer(players);
 
    
@@ -175,11 +179,7 @@ int main()
             
             case '4':
             {
-               DealCards(shuffled, players);
-               for(int i = 0; i<4; i++)
-               {
-                  PrintPlayer(players[i]);
-               }
+               DealCards(shuffled, players, discard, draw);
                break;
             }
             
@@ -202,6 +202,7 @@ void PrintMenu()
    cout << "1. Shuffle the deck" << endl;
    cout << "2. Print unshuffled deck" << endl;
    cout << "3. Write shuffled deck to file" << endl;
+   cout << "4. Deal shuffled cards" << endl;
    cout << "Enter q to quit the program" <<endl;
         
 }
@@ -473,7 +474,7 @@ void PrintPlayer(player toPrint)
    }
 }
 
-void DealCards(card deck[108], player hands[4])
+void DealCards(card deck[108], player hands[4], card disc[108], card draw[108])
 {
    for(int i = 0; i < 7; i++)
    {
@@ -482,7 +483,11 @@ void DealCards(card deck[108], player hands[4])
          CopyCard(deck[i*4+j], hands[j].hand[i]);
       }
    }
-   
+   CopyCard(deck[28], disc[0]);
+   for( int i = 29; i < 108; i++)
+   {
+      CopyCard(deck[i], draw[i-29]);
+   }
 }
 
 void CopyCard(card origin, card &dest)
