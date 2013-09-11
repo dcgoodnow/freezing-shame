@@ -115,6 +115,9 @@ void InitializeDeck(card deck[108]);
 **/
 void InitializePlayer(player init[4]);
 
+void LoadPlayers(player list[4]);
+void PrintPlayer(player toPrint);
+
 int main()
 {
    //char unshuffled[5][25][CARD_LENGTH]; 
@@ -130,6 +133,11 @@ int main()
    
    //Load deck
    LoadDeck(unshuffled);
+   LoadPlayers( players );
+   for(int i = 0; i < 4; i++)
+   {
+      PrintPlayer(players[i]);
+   }
 
    //loop continuously until quit command ('q')
    while(running)
@@ -418,3 +426,35 @@ void InitializePlayer(player init[4])
       }
    }
 }
+
+void LoadPlayers(player list[4])
+{
+   char filename[30];
+   char idChar;
+   ifstream players;
+   cout << "What is the name of the player file? ";
+   cin >> filename;
+   players.open(filename);
+
+   for( int i = 0; i < 4; i++)
+   {
+      players >> list[i].name;
+      for( int j = 0; j < 5; j ++)
+      {
+         players >> idChar;
+         list[i].id[j]= idChar-48;
+      }
+   }
+}
+
+void PrintPlayer(player toPrint)
+{
+   cout << "Name: " << toPrint.name << endl;
+   cout << "ID:   ";
+   for(int i = 0; i < 5; i++)
+   {
+      cout << toPrint.id[i];
+   }
+   cout << endl;
+}
+
