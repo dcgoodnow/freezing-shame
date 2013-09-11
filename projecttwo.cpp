@@ -117,6 +117,8 @@ void InitializePlayer(player init[4]);
 
 void LoadPlayers(player list[4]);
 void PrintPlayer(player toPrint);
+void CopyCard(card origin, card &dest);
+void DealCards(card deck[108], player hands[4]);
 
 int main()
 {
@@ -134,10 +136,6 @@ int main()
    //Load deck
    LoadDeck(unshuffled);
    LoadPlayers( players );
-   for(int i = 0; i < 4; i++)
-   {
-      PrintPlayer(players[i]);
-   }
 
    //loop continuously until quit command ('q')
    while(running)
@@ -172,6 +170,16 @@ int main()
                cout <<"What would you like to name the file?" << endl; 
                cin  >> name;
                WriteDeck(shuffled, name);
+               break;
+            }
+            
+            case '4':
+            {
+               DealCards(shuffled, players);
+               for(int i = 0; i<4; i++)
+               {
+                  PrintPlayer(players[i]);
+               }
                break;
             }
             
@@ -297,7 +305,6 @@ void StringCopy(char strA[], char strB[])
    }
    strB[i] = '\0';  //null-terminated
 }
-
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], 
                  char shuff[108][CARD_LENGTH])
 {
@@ -456,5 +463,31 @@ void PrintPlayer(player toPrint)
       cout << toPrint.id[i];
    }
    cout << endl;
+   for(int i = 0; i < 7; i ++)
+   {
+      cout << i << '\t';
+      cout << toPrint.hand[i].color << '\t';
+      cout << toPrint.hand[i].rank << '\t';
+      cout << toPrint.hand[i].action << '\t' << '\t';
+      cout << toPrint.hand[i].location << endl;
+   }
 }
 
+void DealCards(card deck[108], player hands[4])
+{
+   for(int i = 0; i < 7; i++)
+   {
+      for(int j = 0; j<4; j++)
+      {
+         CopyCard(deck[i*4+j], hands[j].hand[i]);
+      }
+   }
+   
+}
+
+void CopyCard(card origin, card &dest)
+{
+   dest.color = origin.color;
+   dest.rank = origin.rank;
+   StringCopy(origin.action, dest.action);
+}
