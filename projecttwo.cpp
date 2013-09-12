@@ -68,6 +68,12 @@ void PrintDeck(char unshuffledDeck[5][25][CARD_LENGTH]);
 **/
 void PrintDeck(char shuffledDeck[108][CARD_LENGTH]);
 
+/**
+  *Name:    Print Deck
+  *Purpose: prints deck of cards
+  *Args:    array of 108 cards 
+  *retval:  none, prints deck to screen
+**/
 void PrintDeck(card deck[108]);
 
 /**
@@ -87,6 +93,12 @@ void StringCopy(char strA[], char strB[]);
 void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], 
                  char shuff[108][CARD_LENGTH]);
 
+/**
+  *Name:    Shuffle Deck
+  *Purpose: moves the unshuffled deck to shuffled deck in random order
+  *Args:    array of 108 unshuffled cards, array of 108 cards to store shuffled deck
+  *Retval:  moves shuffled deck into shuffled array by pointer
+**/
 void ShuffleDeck(card unshuff[108], card shuff[108]);
 
 /**
@@ -97,14 +109,19 @@ void ShuffleDeck(card unshuff[108], card shuff[108]);
 **/
 void WriteDeck(char deck[108][CARD_LENGTH], char filename[]);
 
-void WriteDeck(card deck[108], char filename[]);
-
 /**
-  *Name:    Initialize Deck
-  *Purpose: initializes deck to generic values
+  *Name:    WriteDeck
+  *Purpose: Writes shuffled deck to file
   *Args:    array of 108 cards
   *Retval:  none
 **/
+void WriteDeck(card deck[108], char filename[]);
+
+/*
+ * Name:    Initialize Deck
+ * Purpose: Initialize all cards in deck to generic values
+ * Args:    array of 108 cards
+*/
 void InitializeDeck(card deck[108]);
 
 /**
@@ -115,9 +132,33 @@ void InitializeDeck(card deck[108]);
 **/
 void InitializePlayer(player init[4]);
 
+/**
+ * Name:    Load Players
+ * Purpose: Loads player information from the specified player file
+ * Args:    array of 4 players
+*/
 void LoadPlayers(player list[4]);
+
+/*
+ * Name:    Print Player
+ * Purpose: Prints all player information to console
+ * Args:    Player struct to be printed
+*/
 void PrintPlayer(player toPrint);
+
+/*
+ * Name:    Copy Card
+ * Purpose: copies all card data from one card to another
+ * Args:    card to copy from, card to be copied (by reference)
+*/
 void CopyCard(card origin, card &dest);
+
+/*
+ * Name:    Deal Cards
+ * Purpose: moves cards to proper card arrays
+ * Args:    shuffled deck of 108 cards, array of four players, deck of 108 discard cards
+ *          deck of 108 draw cards
+*/
 void DealCards(card deck[108], player hands[4], card disc[108], card draw[108]);
 
 int main()
@@ -401,6 +442,7 @@ void WriteDeck(card deck[108], char filename[])
 {
    ofstream shufDeck;
    shufDeck.open(filename);
+   //write each card to a file
    for(int i = 0; i < 108; i++)
    {
       shufDeck << deck[i].color << '\t';
@@ -440,16 +482,21 @@ void LoadPlayers(player list[4])
    char filename[30];
    char idChar;
    ifstream players;
+   //get filename
    cout << "What is the name of the player file? ";
    cin >> filename;
+
    players.open(filename);
 
    for( int i = 0; i < 4; i++)
    {
+      //get player name
       players >> list[i].name;
       for( int j = 0; j < 5; j ++)
       {
+         //load each integer into temporary character
          players >> idChar;
+         //convert to integer, store in array
          list[i].id[j]= idChar-48;
       }
    }
@@ -459,11 +506,13 @@ void PrintPlayer(player toPrint)
 {
    cout << "Name: " << toPrint.name << endl;
    cout << "ID:   ";
+   //print ID character by character
    for(int i = 0; i < 5; i++)
    {
       cout << toPrint.id[i];
    }
    cout << endl;
+   //print each card in the hand
    for(int i = 0; i < 7; i ++)
    {
       cout << i << '\t';
@@ -476,6 +525,7 @@ void PrintPlayer(player toPrint)
 
 void DealCards(card deck[108], player hands[4], card disc[108], card draw[108])
 {
+   //deal hands
    for(int i = 0; i < 7; i++)
    {
       for(int j = 0; j<4; j++)
@@ -483,7 +533,9 @@ void DealCards(card deck[108], player hands[4], card disc[108], card draw[108])
          CopyCard(deck[i*4+j], hands[j].hand[i]);
       }
    }
+   //deal first discard card
    CopyCard(deck[28], disc[0]);
+   //move the remainder of cards to draw pile
    for( int i = 29; i < 108; i++)
    {
       CopyCard(deck[i], draw[i-29]);
@@ -492,6 +544,7 @@ void DealCards(card deck[108], player hands[4], card disc[108], card draw[108])
 
 void CopyCard(card origin, card &dest)
 {
+   //copy all aspects of the card
    dest.color = origin.color;
    dest.rank = origin.rank;
    StringCopy(origin.action, dest.action);
