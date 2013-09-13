@@ -59,40 +59,6 @@ void LoadDeck(card load[108])
    unoDeck.close();
 }
 
-void PrintDeck(char unshuffledDeck[5][25][CARD_LENGTH])
-{
-   //loop through colored cards
-   for(int i = 0;i < 4; i++)
-   {
-      for(int j=0; j< 25; j++)
-      {
-         cout << i*25 + j+1 << "   ";
-         cout << unshuffledDeck[i][j];
-         cout << endl; 
-      }
-   }
-
-   //loop through wild cards
-   for(int i = 0; i < 8; i++)
-   {
-      cout << 101 + i << "   ";
-      cout << unshuffledDeck[4][i];
-      cout << endl;
-   }
-
-}
-
-void PrintDeck(char shuffledDeck[108][CARD_LENGTH])
-{
-   //loop through all cards
-   for( int i = 0; i < 108; i++)
-   {
-      cout << i+1 << "   ";
-      cout << shuffledDeck[i];
-      cout << endl;
-   }
-}
-
 void PrintDeck(card deck[108])
 {
    for(int i = 0; i<108; i++)
@@ -114,54 +80,6 @@ void StringCopy(char strA[], char strB[])
       i++;
    }
    strB[i] = '\0';  //null-terminated
-}
-void ShuffleDeck(char unshuff[5][25][CARD_LENGTH], 
-                 char shuff[108][CARD_LENGTH])
-{
-   //initialize shuffled deck to 0
-   for(int i = 0; i < 108; i++)
-   {
-      for(int j = 0; j < CARD_LENGTH; j++)
-      {
-         shuff[i][j] = '0';
-      }
-   }
-   //seed random number generator
-   srand(time(NULL));
-
-   //shuffle colored cards
-   for(int i = 0; i < 4; i++)
-   {
-      for(int j = 0; j < 25; j++)
-      {
-         //loop until an empty slot is found
-         bool good = true;
-         while(good)
-         {
-            int temp = rand()%108;
-            if(shuff[temp][0] == '0')
-            {
-               StringCopy(unshuff[i][j], shuff[temp]); //copy to empty slot
-               good = false;
-            }
-         }
-      }
-   }
-   
-   //shuffled wild cards
-   for(int i = 0; i < 8; i++)
-   {
-      bool good = true;
-      while(good)
-      {
-         int temp = rand()%108;
-         if(shuff[temp][0] == '0')
-         {
-            StringCopy(unshuff[4][i], shuff[temp]);
-            good = false;
-         }
-      }
-   }
 }
 
 void ShuffleDeck(card unshuff[108], card shuff[108])
@@ -189,21 +107,6 @@ void ShuffleDeck(card unshuff[108], card shuff[108])
          }
       }
    }
-}
-
-void WriteDeck(char deck[108][CARD_LENGTH], char filename[])
-{
-   ofstream shufDeck;
-   shufDeck.open(filename);
-
-   //loop through all cards and print with a preceding number
-   for(int i = 0; i < 108; i++)
-   {
-      shufDeck << i+1 << "   ";
-      shufDeck << deck[i];
-      shufDeck << endl;
-   }
-   shufDeck.close();
 }
 
 void WriteDeck(card deck[108], char filename[])

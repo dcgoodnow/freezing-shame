@@ -17,9 +17,7 @@ using namespace std;
 
 int main()
 {
-   //char unshuffled[5][25][CARD_LENGTH]; 
    char userResponse;
-   //char shuffled[108][CARD_LENGTH];
    bool running = true;
    card unshuffled[108];
    card shuffled[108];
