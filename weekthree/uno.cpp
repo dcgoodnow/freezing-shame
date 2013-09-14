@@ -16,10 +16,12 @@ void PrintMenu()
         
 }
 
-void LoadDeck(card load[108])
+void LoadDeck(card* load)
 {
    char foo[10];
    char filename[40];
+   card* dptr;
+   dptr = load;
 
    //get file name for cards
    cout << "What is the name of the uno cards file?";
@@ -32,57 +34,63 @@ void LoadDeck(card load[108])
    //load in the first four rows (numbered cards)
    for(int i = 0; i < 76; i++)
    {
-      unoDeck >> load[i].color;
+      unoDeck >> (*dptr).color;
 
       //dump the remaining characters of the color
       unoDeck >> foo;
-      unoDeck >> load[i].rank;
+      unoDeck >> (*dptr).rank;
+      dptr++;
    }
 
    //load in the fifth row (action cards)
    for(int i = 76; i < 100; i++)
    {
-      unoDeck >> load[i].color;
+      unoDeck >> (*dptr).color;
       
       //dump the remaining characters of the color
       unoDeck >> foo;
-      unoDeck >> load[i].action;
+      unoDeck >> (*dptr).action;
+      dptr++;
    }
 
    //load in the sixth row (wild cards)
    for(int i = 100; i < 108; i++)
    {
-      unoDeck >> load[i].action;
+      unoDeck >> (*dptr).action;
+      dptr++;
    }
    
 
    unoDeck.close();
 }
 
-void PrintDeck(card deck[108])
+void PrintDeck(card* deck)
 {
+   card* dptr;
+   dptr = deck;
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      cout << deck[i].color << '\t';
-      cout << deck[i].rank << '\t';
-      cout << deck[i].action << '\t' << '\t';
-      cout << deck[i].location << endl;
+      cout << (*dptr).color << '\t';
+      cout << (*dptr).rank << '\t';
+      cout << (*dptr).action << '\t' << '\t';
+      cout << (*dptr).location << endl;
+      dptr++;
    }
 }
 
-void StringCopy(char strA[], char strB[]) 
+void StringCopy(char* strA, char* strB) 
 {
-   int i = 0;
-   while(strA[i] != '\0')
+   while(*strA != '\0')
    {
-      strB[i] = strA[i];
-      i++;
+      *strB = *strA;
+      strA++;
+      strB++;
    }
-   strB[i] = '\0';  //null-terminated
+   *strB = '\0';  //null-terminated
 }
 
-void ShuffleDeck(card unshuff[108], card shuff[108])
+/*void ShuffleDeck(card unshuff[108], card shuff[108])
 {
    char shuffstr[9] = "shuffled";
    InitializeDeck(shuff);
@@ -106,6 +114,40 @@ void ShuffleDeck(card unshuff[108], card shuff[108])
             good = false;     //move to the next card
          }
       }
+   }
+}*/
+
+void ShuffleDeck(card* unshuff, card* shuff)
+{
+   card* tptr;
+   card* uptr = unshuff;
+   card* sptr = shuff;
+   //copy all cards into shuffled deck
+   for(int i = 0; i < 108; i++)
+   {
+      CopyCard(*uptr, *sptr);
+      uptr++;
+      sptr++;
+   }
+   PrintDeck( shuff );
+   srand(time(NULL));
+   card temp;
+   int randtemp;
+   for(int i = 0; i < 500; i++)
+   {
+      sptr = shuff;
+      tptr = shuff;
+      for(int j = 0; j < (rand()%108); j++)
+      {
+         sptr++;   
+      }
+      for(int j = 0; j < (rand()%108); j++)
+      {
+         tptr++;   
+      }
+      CopyCard(*sptr, temp);
+      CopyCard(*tptr, *sptr);
+      CopyCard(temp, *tptr);
    }
 }
 

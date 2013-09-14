@@ -30,7 +30,7 @@ void PrintMenu();
   *Args:    array for deck to be loaded into
   *Retval:  loads array
 **/
-void LoadDeck(card[]);
+void LoadDeck(card*);
 
 /**
   *Name:    Print Deck
@@ -38,7 +38,7 @@ void LoadDeck(card[]);
   *Args:    array of 108 cards 
   *retval:  none, prints deck to screen
 **/
-void PrintDeck(card[]);
+void PrintDeck(card*);
 
 /**
   *Name:    String Copy
