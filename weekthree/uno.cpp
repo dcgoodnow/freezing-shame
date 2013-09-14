@@ -151,46 +151,51 @@ void ShuffleDeck(card* unshuff, card* shuff)
    }
 }
 
-void WriteDeck(card deck[108], char filename[])
+void WriteDeck(card* deck, char* filename)
 {
    ofstream shufDeck;
    shufDeck.open(filename);
    //write each card to a file
    for(int i = 0; i < 108; i++)
    {
-      shufDeck << deck[i].color << '\t';
-      shufDeck << deck[i].rank << '\t';
-      shufDeck << deck[i].action << '\n';
+      shufDeck << (*deck).color << '\t';
+      shufDeck << (*deck).rank << '\t';
+      shufDeck << (*deck).action << '\n';
+      deck++;
    }
 }
 
-void InitializeDeck(card deck[108])
+void InitializeDeck(card* deck)
 {
    char action[7] = "action";
    char location[9] = "location";
    //initialize values for each card
    for( int i = 0; i < 108; i++)
    {
-      deck[i].color = 'c';
-      deck[i].rank = -1;
-      StringCopy(action, deck[i].action);
-      StringCopy(location, deck[i].location);
+      (*deck).color = 'c';
+      (*deck).rank = -1;
+      StringCopy(action, (*deck).action);
+      StringCopy(location, (*deck).location);
+      deck++;
    }
 }
    
-void InitializePlayer(player init[4])
+void InitializePlayer(player* init)
 {
    for(int i = 0; i < 4; i++)
    {
       //initialize player id to 00000
+      int* iptr = (*init).id;
       for(int j = 0; j < 5; j++)
       {
-         init[i].id[j] = 0;
+         iptr = 0;
+         iptr++;
       }
+      init++;
    }
 }
 
-void LoadPlayers(player list[4])
+void LoadPlayers(player* list)
 {
    char filename[30];
    char idChar;
@@ -199,19 +204,20 @@ void LoadPlayers(player list[4])
    cout << "What is the name of the player file? ";
    cin >> filename;
 
-   players.open(filename);
-
    for( int i = 0; i < 4; i++)
    {
       //get player name
-      players >> list[i].name;
+      players >> (*list).name;
+      int* iptr = (*list).id;
       for( int j = 0; j < 5; j ++)
       {
          //load each integer into temporary character
          players >> idChar;
          //convert to integer, store in array
-         list[i].id[j]= idChar-48;
+         *iptr = idChar-48;
+         iptr++;
       }
+      list++;
    }
 }
 
@@ -220,19 +226,23 @@ void PrintPlayer(player toPrint)
    cout << "Name: " << toPrint.name << endl;
    cout << "ID:   ";
    //print ID character by character
+   int* iptr = toPrint.id;
    for(int i = 0; i < 5; i++)
    {
-      cout << toPrint.id[i];
+      cout << iptr;
+      iptr++;
    }
    cout << endl;
    //print each card in the hand
+   card* cptr = toPrint.hand;
    for(int i = 0; i < 7; i ++)
    {
       cout << i << '\t';
-      cout << toPrint.hand[i].color << '\t';
-      cout << toPrint.hand[i].rank << '\t';
-      cout << toPrint.hand[i].action << '\t' << '\t';
-      cout << toPrint.hand[i].location << endl;
+      cout << (*cptr).color << '\t';
+      cout << (*cptr).rank << '\t';
+      cout << (*cptr).action << '\t' << '\t';
+      cout << (*cptr).location << endl;
+      cptr++;
    }
 }
 
