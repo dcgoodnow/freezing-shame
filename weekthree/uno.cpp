@@ -62,6 +62,7 @@ void LoadDeck(card* load)
    
 
    unoDeck.close();
+   return;
 }
 
 void PrintDeck(card* deck)
@@ -90,33 +91,6 @@ void StringCopy(char* strA, char* strB)
    *strB = '\0';  //null-terminated
 }
 
-/*void ShuffleDeck(card unshuff[108], card shuff[108])
-{
-   char shuffstr[9] = "shuffled";
-   InitializeDeck(shuff);
-   srand(time(NULL));
-
-   for(int i = 0; i < 108; i++)
-   {
-      bool good = true;
-      //find an empty slot
-      while(good)
-      {
-         int temp = rand()%108;
-
-         //if the slot is empty, transfer the current cards location to the empty slot
-         if(shuff[temp].location[0] == 'l' )
-         {
-            shuff[temp].color = unshuff[i].color;
-            shuff[temp].rank = unshuff[i].rank;
-            StringCopy(unshuff[i].action, shuff[temp].action);
-            StringCopy(shuffstr, shuff[temp].location);
-            good = false;     //move to the next card
-         }
-      }
-   }
-}*/
-
 void ShuffleDeck(card* unshuff, card* shuff)
 {
    card* tptr;
@@ -129,7 +103,6 @@ void ShuffleDeck(card* unshuff, card* shuff)
       uptr++;
       sptr++;
    }
-   PrintDeck( shuff );
    srand(time(NULL));
    card temp;
    int randtemp;
@@ -137,11 +110,13 @@ void ShuffleDeck(card* unshuff, card* shuff)
    {
       sptr = shuff;
       tptr = shuff;
+      randtemp = rand()%108;
       for(int j = 0; j < (rand()%108); j++)
       {
          sptr++;   
       }
-      for(int j = 0; j < (rand()%108); j++)
+      randtemp = rand()%108;
+      for(int j = 0; j < randtemp; j++)
       {
          tptr++;   
       }
@@ -149,6 +124,8 @@ void ShuffleDeck(card* unshuff, card* shuff)
       CopyCard(*tptr, *sptr);
       CopyCard(temp, *tptr);
    }
+   sptr = shuff;
+   PrintDeck(sptr);
 }
 
 void WriteDeck(card* deck, char* filename)
@@ -246,22 +223,36 @@ void PrintPlayer(player toPrint)
    }
 }
 
-void DealCards(card deck[108], player hands[4], card disc[108], card draw[108])
+void DealCards(card* deck, player* hands, card* disc, card* draw)
 {
+   card* cptr = deck;
+   card* drptr = draw;
    //deal hands
    for(int i = 0; i < 7; i++)
    {
+   player* hptr = hands;
       for(int j = 0; j<4; j++)
       {
-         CopyCard(deck[i*4+j], hands[j].hand[i]);
+         card* inhand = (*hptr).hand;
+         for(int k = 0; k < i; k++)
+         {
+            inhand++;
+         }
+         CopyCard(*cptr, *inhand); 
+         cptr++;
+         hptr++;
       }
    }
    //deal first discard card
-   CopyCard(deck[28], disc[0]);
+   CopyCard(*cptr, *disc);
+   cptr++;
    //move the remainder of cards to draw pile
+   
    for( int i = 29; i < 108; i++)
    {
-      CopyCard(deck[i], draw[i-29]);
+      CopyCard(*cptr, *drptr);
+      cptr++;
+      drptr++;
    }
 }
 
@@ -272,3 +263,4 @@ void CopyCard(card origin, card &dest)
    dest.rank = origin.rank;
    StringCopy(origin.action, dest.action);
 }
+
