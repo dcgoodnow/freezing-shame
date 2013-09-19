@@ -10,8 +10,10 @@ void PrintMenu()
    cout << "What would you like to do?" << endl;
    cout << "1. Shuffle the deck" << endl;
    cout << "2. Print unshuffled deck" << endl;
-   cout << "3. Write shuffled deck to file" << endl;
-   cout << "4. Deal shuffled cards" << endl;
+   cout << "3. Print shuffled deck" << endl;
+   cout << "4. Write shuffled deck to file" << endl;
+   cout << "5. Print players to screen" << endl;
+   cout << "6. Deal shuffled cards" << endl;
    cout << "Enter q to quit the program" <<endl;
         
 }
@@ -93,6 +95,7 @@ void StringCopy(char* strA, char* strB)
 
 void ShuffleDeck(card* unshuff, card* shuff)
 {
+   char shufname[10] = "shuffled";
    card* tptr;
    card* uptr = unshuff;
    card* sptr = shuff;
@@ -106,7 +109,7 @@ void ShuffleDeck(card* unshuff, card* shuff)
    srand(time(NULL));
    card temp;
    int randtemp;
-   for(int i = 0; i < 500; i++)
+   for(int i = 0; i < 1000; i++)
    {
       sptr = shuff;
       tptr = shuff;
@@ -123,9 +126,9 @@ void ShuffleDeck(card* unshuff, card* shuff)
       CopyCard(*sptr, temp);
       CopyCard(*tptr, *sptr);
       CopyCard(temp, *tptr);
+      StringCopy(shufname, (*sptr).location);
+      StringCopy(shufname, (*tptr).location);
    }
-   sptr = shuff;
-   PrintDeck(sptr);
 }
 
 void WriteDeck(card* deck, char* filename)
@@ -180,6 +183,7 @@ void LoadPlayers(player* list)
    //get filename
    cout << "What is the name of the player file? ";
    cin >> filename;
+   players.open(filename);
 
    for( int i = 0; i < 4; i++)
    {
@@ -206,51 +210,32 @@ void PrintPlayer(player toPrint)
    int* iptr = toPrint.id;
    for(int i = 0; i < 5; i++)
    {
-      cout << iptr;
+      cout << *iptr;
       iptr++;
    }
    cout << endl;
-   //print each card in the hand
-   card* cptr = toPrint.hand;
-   for(int i = 0; i < 7; i ++)
-   {
-      cout << i << '\t';
-      cout << (*cptr).color << '\t';
-      cout << (*cptr).rank << '\t';
-      cout << (*cptr).action << '\t' << '\t';
-      cout << (*cptr).location << endl;
-      cptr++;
-   }
 }
 
-void DealCards(card* deck, player* hands, card* disc, card* draw)
+void DealCards(card* deck, card* disc, card* draw)
 {
+   char discName[10] = "discard";
+   char drawName[5] = "draw";
    card* cptr = deck;
    card* drptr = draw;
-   //deal hands
-   for(int i = 0; i < 7; i++)
+   for(int i = 0; i < 28; i++)
    {
-   player* hptr = hands;
-      for(int j = 0; j<4; j++)
-      {
-         card* inhand = (*hptr).hand;
-         for(int k = 0; k < i; k++)
-         {
-            inhand++;
-         }
-         CopyCard(*cptr, *inhand); 
-         cptr++;
-         hptr++;
-      }
+      cptr++;  
    }
    //deal first discard card
    CopyCard(*cptr, *disc);
+   StringCopy(discName, (*disc).location);
    cptr++;
    //move the remainder of cards to draw pile
    
    for( int i = 29; i < 108; i++)
    {
       CopyCard(*cptr, *drptr);
+      StringCopy(drawName, (*drptr).location);
       cptr++;
       drptr++;
    }
