@@ -34,6 +34,8 @@ void LoadDeck(card* load)
    //open file 
    ifstream unoDeck;
    unoDeck.open(fileName);
+   delete [] fileName;
+   fileName = NULL;
    
    //load in the first four rows (numbered cards)
    for(int i = 0; i < 76; i++)
@@ -42,6 +44,10 @@ void LoadDeck(card* load)
       (*dptr).color = *temp;
 
       unoDeck >> (*dptr).rank;
+
+      delete[] (*dptr).location;
+      (*dptr).location = new char[11];
+      StringCopy("Unshuffled", (*dptr).location);
       dptr++;
    }
 
@@ -54,6 +60,9 @@ void LoadDeck(card* load)
       unoDeck >> temp;
       (*dptr).action = new char[length(temp)];
       StringCopy(temp, (*dptr).action);
+      delete[] (*dptr).location;
+      (*dptr).location = new char[11];
+      StringCopy("Unshuffled", (*dptr).location);
       dptr++;
    }
 
@@ -63,6 +72,9 @@ void LoadDeck(card* load)
       unoDeck >> temp;
       (*dptr).action = new char[length(temp)];
       StringCopy(temp, (*dptr).action);
+      delete[] (*dptr).location;
+      (*dptr).location = new char[11];
+      StringCopy("Unshuffled", (*dptr).location);
       dptr++;
    }
    
@@ -86,7 +98,7 @@ void PrintDeck(card* deck)
    }
 }
 
-void StringCopy(char* strA, char* strB) 
+void StringCopy(const char* strA, char* strB) 
 {
    while(*strA != '\0')
    {
@@ -99,7 +111,6 @@ void StringCopy(char* strA, char* strB)
 
 void ShuffleDeck(card* unshuff, card* shuff)
 {
-   char shufname[10] = "shuffled";
    card* tptr;
    card* uptr = unshuff;
    card* sptr = shuff;
@@ -107,6 +118,10 @@ void ShuffleDeck(card* unshuff, card* shuff)
    for(int i = 0; i < 108; i++)
    {
       CopyCard(*uptr, *sptr);
+      cout << "gothere";
+      delete[] (*sptr).location;
+      (*sptr).location = new char[9];
+      StringCopy("Shuffled", (*sptr).location);
       uptr++;
       sptr++;
    }
@@ -130,8 +145,6 @@ void ShuffleDeck(card* unshuff, card* shuff)
       CopyCard(*sptr, temp);
       CopyCard(*tptr, *sptr);
       CopyCard(temp, *tptr);
-      StringCopy(shufname, (*sptr).location);
-      StringCopy(shufname, (*tptr).location);
    }
 }
 
@@ -151,15 +164,15 @@ void WriteDeck(card* deck, char* filename)
 
 void InitializeDeck(card* deck)
 {
-   char action[7] = "action";
-   char location[9] = "location";
    //initialize values for each card
    for( int i = 0; i < 108; i++)
    {
       (*deck).color = 'c';
       (*deck).rank = -1;
-      StringCopy(action, (*deck).action);
-      StringCopy(location, (*deck).location);
+      (*deck).action = new char[6];
+      (*deck).location = new char[9];
+      StringCopy("Action", (*deck).action);
+      StringCopy("Location", (*deck).location);
       deck++;
    }
 }
@@ -168,11 +181,13 @@ void InitializePlayer(player* init)
 {
    for(int i = 0; i < 4; i++)
    {
+      (*init).name = NULL;
       //initialize player id to 00000
-      int* iptr = (*init).id;
+      (*init).id = new int[5];
+      int * iptr = (*init).id;
       for(int j = 0; j < 5; j++)
       {
-         iptr = 0;
+         *iptr = 0;
          iptr++;
       }
       init++;
@@ -181,18 +196,26 @@ void InitializePlayer(player* init)
 
 void LoadPlayers(player* list)
 {
-   char filename[30];
+   char * temp;
+   temp = new char[30];
    char idChar;
    ifstream players;
    //get filename
    cout << "What is the name of the player file? ";
-   cin >> filename;
+   cin >> temp;
+   char * filename;
+   filename = new char[length(temp)];
+   StringCopy(temp, filename);
    players.open(filename);
+   delete[] filename;
+   filename = NULL;
 
    for( int i = 0; i < 4; i++)
    {
       //get player name
-      players >> (*list).name;
+      players >> temp;
+      (*list).name = new char[length(temp)];
+      StringCopy(temp, (*list).name);
       int* iptr = (*list).id;
       for( int j = 0; j < 5; j ++)
       {
@@ -222,8 +245,6 @@ void PrintPlayer(player toPrint)
 
 void DealCards(card* deck, card* disc, card* draw)
 {
-   char discName[10] = "discard";
-   char drawName[5] = "draw";
    card* cptr = deck;
    card* drptr = draw;
    for(int i = 0; i < 28; i++)
@@ -232,14 +253,18 @@ void DealCards(card* deck, card* disc, card* draw)
    }
    //deal first discard card
    CopyCard(*cptr, *disc);
-   StringCopy(discName, (*disc).location);
+   delete[] (*disc).location;
+   (*disc).location = new char[8];
+   StringCopy("Discard", (*disc).location);
    cptr++;
    //move the remainder of cards to draw pile
    
    for( int i = 29; i < 108; i++)
    {
       CopyCard(*cptr, *drptr);
-      StringCopy(drawName, (*drptr).location);
+      delete[] (*drptr).location;
+      (*drptr).location = new char[5];
+      StringCopy("Draw", (*drptr).location);
       cptr++;
       drptr++;
    }
@@ -250,6 +275,8 @@ void CopyCard(card origin, card &dest)
    //copy all aspects of the card
    dest.color = origin.color;
    dest.rank = origin.rank;
+   delete[] dest.action;
+   dest.action = new char[20];
    StringCopy(origin.action, dest.action);
 }
 

@@ -12,8 +12,8 @@ struct card
 
 struct player
 {
-   char name[20];
-   int id[5];
+   char * name;
+   int * id;
 };
 /**
   *Name: PrintMenu
@@ -45,7 +45,7 @@ void PrintDeck(card*);
   *Args:    StrA (string to be copied), StrB (location to be copied to)
   *retval:  none
 **/
-void StringCopy(char*, char*);
+void StringCopy(const char*, char*);
 
 /**
   *Name:    Shuffle Deck
@@ -107,4 +107,4 @@ void DealCards(card*, card*, card*);
 */
 void CopyCard(card, card&);
 
-void length(char*);
+int length(char*);
