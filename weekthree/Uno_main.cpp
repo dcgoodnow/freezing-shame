@@ -59,9 +59,15 @@ int main()
                PrintDeck(unshuffled);
                break;
             }
+            
+            case '3':
+            {
+               PrintDeck(shuffled);
+               break;
+            }
 
             //Write shuffled deck to file
-            case '3':
+            case '4':
             {
                char name[30];
                cout <<"What would you like to name the file?" << endl; 
@@ -70,9 +76,20 @@ int main()
                break;
             }
             
-            case '4':
+            case '5':
             {
-               DealCards(shuffled, players, discard, draw);
+               player *pptr = players;
+               for(int i = 0; i < 4; i ++)
+               {
+                  PrintPlayer(*pptr);
+                  pptr++;
+               }
+               break;
+            }
+            
+            case '6':
+            {
+               DealCards(shuffled, discard, draw);
                break;
             }
             

@@ -14,7 +14,6 @@ struct player
 {
    char name[20];
    int id[5];
-   card hand[7];
 };
 /**
   *Name: PrintMenu
@@ -99,7 +98,7 @@ void PrintPlayer(player);
  * Args:    shuffled deck of 108 cards, array of four players, deck of 108 discard cards
  *          deck of 108 draw cards
 */
-void DealCards(card*, player*, card*, card*);
+void DealCards(card*, card*, card*);
 
 /*
  * Name:    Copy Card
