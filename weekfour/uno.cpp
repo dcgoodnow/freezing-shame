@@ -20,26 +20,27 @@ void PrintMenu()
 
 void LoadDeck(card* load)
 {
-   char foo[10];
-   char filename[40];
+   char * temp;
+   temp = new char[30];
    card* dptr;
    dptr = load;
 
    //get file name for cards
    cout << "What is the name of the uno cards file?";
-   cin >> filename;
-
+   cin >> temp;
+   char * fileName;
+   fileName = new char[length(temp)];
+   StringCopy(temp, fileName);
    //open file 
    ifstream unoDeck;
-   unoDeck.open(filename);
+   unoDeck.open(fileName);
    
    //load in the first four rows (numbered cards)
    for(int i = 0; i < 76; i++)
    {
-      unoDeck >> (*dptr).color;
+      unoDeck >> temp;
+      (*dptr).color = *temp;
 
-      //dump the remaining characters of the color
-      unoDeck >> foo;
       unoDeck >> (*dptr).rank;
       dptr++;
    }
@@ -47,18 +48,21 @@ void LoadDeck(card* load)
    //load in the fifth row (action cards)
    for(int i = 76; i < 100; i++)
    {
-      unoDeck >> (*dptr).color;
-      
-      //dump the remaining characters of the color
-      unoDeck >> foo;
-      unoDeck >> (*dptr).action;
+      unoDeck >> temp;
+      (*dptr).color = *temp;
+
+      unoDeck >> temp;
+      (*dptr).action = new char[length(temp)];
+      StringCopy(temp, (*dptr).action);
       dptr++;
    }
 
    //load in the sixth row (wild cards)
    for(int i = 100; i < 108; i++)
    {
-      unoDeck >> (*dptr).action;
+      unoDeck >> temp;
+      (*dptr).action = new char[length(temp)];
+      StringCopy(temp, (*dptr).action);
       dptr++;
    }
    

@@ -5,8 +5,8 @@ struct card
 {
    char color;
    int rank;
-   char action[15];
-   char location[20];
+   char * action; 
+   char * location;
 };
 
 
