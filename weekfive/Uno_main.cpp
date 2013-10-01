@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include "uno.h"
+#include "string.h"
 
 using namespace std;
 
