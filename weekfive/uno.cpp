@@ -2,6 +2,7 @@
 #include <iostream>
 #include "stdlib.h"
 #include "time.h"
+#include "string.h"
 #include <fstream>
 using namespace std;
 void PrintMenu()
@@ -96,17 +97,6 @@ void PrintDeck(card* deck)
       cout << (*dptr).location << endl;
       dptr++;
    }
-}
-
-void StringCopy(const char* strA, char* strB) 
-{
-   while(*strA != '\0')
-   {
-      *strB = *strA;
-      strA++;
-      strB++;
-   }
-   *strB = '\0';  //null-terminated
 }
 
 void ShuffleDeck(card* unshuff, card* shuff)
@@ -272,16 +262,6 @@ void CopyCard(card origin, card &dest)
    StringCopy(origin.action, dest.action);
 }
 
-int length(char* string)
-{
-   int i = 0;
-   while(*string != '\0')
-   {
-      string++;
-    	i++;
-   }
-   return i+1;
-}
 
 void DeleteDeck(card* deck)
 {

@@ -37,7 +37,7 @@ void StringConcat(char* a, char* b)
 {
    while(*a != '\0')
       a++;
-   for(int i = 0; i < length(b), i++)
+   for(int i = 0; i < length(b); i++)
    {
       *a = *b;
       a++;

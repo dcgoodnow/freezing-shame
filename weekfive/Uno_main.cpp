@@ -51,7 +51,13 @@ int main()
    delete[] filename;
    filename = NULL;
    int numpl;
-   pfile >> numpl;
+   do
+   {
+      cout << "How many players are there? ";
+      cin >> numpl;
+      if(numpl >= 10 || numpl <= 2)
+         cout << endl << "Number out of range, please try again" << endl;
+   }while(numpl >= 10 && numpl <= 2);
    player * players;
    players = new player[numpl];
    InitializePlayer(players, numpl);
