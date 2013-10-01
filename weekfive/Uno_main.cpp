@@ -121,7 +121,7 @@ int main()
             
             case '6':
             {
-               DealCards(shuffled, discard, draw);
+               DealCards(shuffled, discard, draw, players, numpl);
                break;
             }
             
@@ -132,7 +132,6 @@ int main()
                break;
             }
          }
-
    }
    DeleteDeck(unshuffled);
    DeleteDeck(shuffled);

@@ -17,6 +17,7 @@ struct player
 {
    char * name;
    int * id;
+   card * hand;
 };
 /**
   *Name: PrintMenu
@@ -42,13 +43,6 @@ void LoadDeck(card*);
 **/
 void PrintDeck(card*);
 
-/**
-  *Name:    String Copy
-  *Purpose: Copies one c-style string to another location
-  *Args:    StrA (string to be copied), StrB (location to be copied to)
-  *retval:  none
-**/
-void StringCopy(const char*, char*);
 
 /**
   *Name:    Shuffle Deck
@@ -81,6 +75,8 @@ void InitializeDeck(card*);
 **/
 void InitializePlayer(player*, int);
 
+void InitializeHand(card*);
+
 /**
  * Name:    Load Players
  * Purpose: Loads player information from the specified player file
@@ -101,7 +97,7 @@ void PrintPlayer(player);
  * Args:    shuffled deck of 108 cards, array of four players, deck of 108 discard cards
  *          deck of 108 draw cards
 */
-void DealCards(card*, card*, card*);
+void DealCards(card*, card*, card*, player*, int);
 
 /*
  * Name:    Copy Card
@@ -109,8 +105,6 @@ void DealCards(card*, card*, card*);
  * Args:    card to copy from, card to be copied (by reference)
 */
 void CopyCard(card, card&);
-
-int length(char*);
 
 void DeleteDeck(card*);
 

@@ -4,6 +4,7 @@
 #include "time.h"
 #include "string.h"
 #include <fstream>
+#define debug cerr<<"got here"
 using namespace std;
 void PrintMenu()
 {
@@ -167,6 +168,21 @@ void InitializeDeck(card* deck)
       deck++;
    }
 }
+
+void InitializeHand(card* hand)
+{
+   //initialize values for each card
+   for( int i = 0; i < 7; i++)
+   {
+      (*hand).color = 'c';
+      (*hand).rank = -1;
+      (*hand).action = new char[6];
+      (*hand).location = new char[9];
+      StringCopy("Action", (*hand).action);
+      StringCopy("Location", (*hand).location);
+      hand++;
+   }
+}
    
 void InitializePlayer(player* init, int num)
 {
@@ -181,6 +197,8 @@ void InitializePlayer(player* init, int num)
          *iptr = 0;
          iptr++;
       }
+      (*init).hand = new card[7];
+
       init++;
    }
 }
@@ -225,14 +243,26 @@ void PrintPlayer(player toPrint)
    cout << endl;
 }
 
-void DealCards(card* deck, card* disc, card* draw)
+void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
 {
    card* cptr = deck;
    card* drptr = draw;
-   for(int i = 0; i < 28; i++)
+   player* pptr = players;
+   card* hptr;
+   for(int i = 0; i < 7; i++)
    {
-      cptr++;  
+      pptr = players;
+      for(int j = 0; j < numpl; j++)
+      {
+         hptr = (*pptr).hand;
+         for(int k = 0; k < i; k++)
+            hptr++;
+         CopyCard(*cptr, *hptr);
+         pptr++;
+         cptr++;
+      }
    }
+   debug;
    //deal first discard card
    CopyCard(*cptr, *disc);
    delete[] (*disc).location;
@@ -241,7 +271,7 @@ void DealCards(card* deck, card* disc, card* draw)
    cptr++;
    //move the remainder of cards to draw pile
    
-   for( int i = 29; i < 108; i++)
+   for( int i = numpl*7+1; i < 108; i++)
    {
       CopyCard(*cptr, *drptr);
       delete[] (*drptr).location;
