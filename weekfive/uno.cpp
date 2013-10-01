@@ -198,6 +198,7 @@ void InitializePlayer(player* init, int num)
          iptr++;
       }
       (*init).hand = new card[7];
+      InitializeHand((*init).hand);
 
       init++;
    }
