@@ -109,3 +109,5 @@ void CopyCard(card, card&);
 void DeleteDeck(card*);
 
 void DeletePlayers(player*, int);
+
+void PrintCard(card);
