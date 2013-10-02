@@ -10,15 +10,18 @@
  *
  *Last Updated: 9/11/2013
 *****************************************/
-#include <iostream>
-#include <fstream>
 #include "uno.h"
+#include <iostream>
 #include "string.h"
 
 using namespace std;
 
 int main()
 {
+   char a[6]= "hello";
+   char b[6]= "hello";
+   if(StringCompare(a,b))
+      cout << "IT WORKS";
    char userResponse;
    bool running = true;
    card * unshuffled;
@@ -51,6 +54,8 @@ int main()
    delete[] filename;
    filename = NULL;
    int numpl;
+   
+   //get amount of players
    do
    {
       cout << "How many players are there? ";
@@ -58,9 +63,13 @@ int main()
       if(numpl >= 10 || numpl <= 2)
          cout << endl << "Number out of range, please try again" << endl;
    }while(numpl >= 10 && numpl <= 2);
+
+   //declare player array
    player * players;
    players = new player[numpl];
    InitializePlayer(players, numpl);
+
+   //load players
    LoadPlayers( players, pfile, numpl);
    pfile.close();
 
@@ -90,6 +99,7 @@ int main()
                break;
             }
             
+            //print deck
             case '3':
             {
                PrintDeck(shuffled);
@@ -143,6 +153,7 @@ int main()
    delete[] draw;
    DeletePlayers(players, numpl);
    delete[] players;
+   delete[] mainTemp;
    return 0;
 }
 

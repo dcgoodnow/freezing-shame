@@ -1,5 +1,4 @@
 #include <fstream>
-
 using namespace std;
 
 const int CARD_LENGTH = 25;
@@ -75,6 +74,11 @@ void InitializeDeck(card*);
 **/
 void InitializePlayer(player*, int);
 
+/*
+ * Name:    Initialize hand 
+ * Purpose: intializes hand for player
+ * Args:    card pointer to hand 
+*/
 void InitializeHand(card*);
 
 /**
@@ -106,8 +110,23 @@ void DealCards(card*, card*, card*, player*, int);
 */
 void CopyCard(card, card&);
 
+/*
+ * Name:    Delete deck
+ * Purpose: deletes dynamically allocated memory of the cards
+ * Args:    pointer to deck to delete
+*/
 void DeleteDeck(card*);
 
+/*
+ * Name:    Delete players
+ * Purpose: deletes dynamically allocated memory of players
+ * Args:    pointer to player array
+*/
 void DeletePlayers(player*, int);
 
+/*
+ * Name:    Print card
+ * Purpose: prints all aspects of specified card
+ * Args:    card to print
+*/
 void PrintCard(card);

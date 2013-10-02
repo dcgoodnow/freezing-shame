@@ -4,7 +4,6 @@
 #include "time.h"
 #include "string.h"
 #include <fstream>
-#define debug cerr<<"got here"
 using namespace std;
 void PrintMenu()
 {
@@ -28,7 +27,7 @@ void LoadDeck(card* load)
    dptr = load;
 
    //get file name for cards
-   cout << "What is the name of the uno cards file?";
+   cout << "What is the name of the uno cards file? ";
    cin >> temp;
    char * fileName;
    fileName = new char[length(temp)];
@@ -42,26 +41,34 @@ void LoadDeck(card* load)
    //load in the first four rows (numbered cards)
    for(int i = 0; i < 76; i++)
    {
+      //load color
       unoDeck >> temp;
       (*dptr).color = *temp;
 
+      //load rank
       unoDeck >> (*dptr).rank;
 
+      //delete previous location array and create new properly sized array
       delete[] (*dptr).location;
       (*dptr).location = new char[11];
       StringCopy("Unshuffled", (*dptr).location);
+      //move to next card
       dptr++;
    }
 
    //load in the fifth row (action cards)
    for(int i = 76; i < 100; i++)
    {
+      //load color
       unoDeck >> temp;
       (*dptr).color = *temp;
 
+      //load action
       unoDeck >> temp;
       (*dptr).action = new char[length(temp)];
       StringCopy(temp, (*dptr).action);
+
+      //delete old location and load new location
       delete[] (*dptr).location;
       (*dptr).location = new char[11];
       StringCopy("Unshuffled", (*dptr).location);
@@ -71,9 +78,11 @@ void LoadDeck(card* load)
    //load in the sixth row (wild cards)
    for(int i = 100; i < 108; i++)
    {
+      //load action
       unoDeck >> temp;
       (*dptr).action = new char[length(temp)];
       StringCopy(temp, (*dptr).action);
+      //load new location
       delete[] (*dptr).location;
       (*dptr).location = new char[11];
       StringCopy("Unshuffled", (*dptr).location);
@@ -92,10 +101,7 @@ void PrintDeck(card* deck)
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      cout << (*dptr).color << '\t';
-      cout << (*dptr).rank << '\t';
-      cout << (*dptr).action << '\t' << '\t';
-      cout << (*dptr).location << endl;
+      PrintCard(*dptr);
       dptr++;
    }
 }
@@ -142,6 +148,7 @@ void ShuffleDeck(card* unshuff, card* shuff)
 
 void WriteDeck(card* deck, char* filename)
 {
+   //open file
    ofstream shufDeck;
    shufDeck.open(filename);
    //write each card to a file
@@ -197,6 +204,7 @@ void InitializePlayer(player* init, int num)
          *iptr = 0;
          iptr++;
       }
+      //initialize hand
       (*init).hand = new card[7];
       InitializeHand((*init).hand);
 
@@ -215,7 +223,6 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
       //get player name
       players >> temp;
       (*list).name = new char[length(temp)];
-      cerr << i;
       StringCopy(temp, (*list).name);
       int* iptr = (*list).id;
       for( int j = 0; j < 5; j ++)
@@ -241,14 +248,17 @@ void PrintPlayer(player toPrint)
       cout << *iptr;
       iptr++;
    }
-   cout << endl;
-   cout << "Hand" << endl << "=============" << endl;
+   cout << endl << endl;
+
+   //Print hand
+   cout << "Hand" << endl << "==========================================" << endl;
    card* temp = toPrint.hand;
    for(int i = 0; i < 7; i++)
    {
       PrintCard(*temp);
       temp++;
    }
+   cout << endl << endl;
 }
 
 void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
@@ -266,26 +276,33 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
          for(int k = 0; k < i; k++)
             hptr++;
          CopyCard(*cptr, *hptr);
+         delete[] (*hptr).location;
+
+         //change location to players name
+         (*hptr).location = new char[length((*pptr).name)];
          StringCopy((*pptr).name, (*hptr).location);
+
          pptr++;
          cptr++;
       }
    }
-   debug;
    //deal first discard card
    CopyCard(*cptr, *disc);
    delete[] (*disc).location;
    (*disc).location = new char[8];
    StringCopy("Discard", (*disc).location);
    cptr++;
+
    //move the remainder of cards to draw pile
-   
    for( int i = numpl*7+1; i < 108; i++)
    {
       CopyCard(*cptr, *drptr);
+
+      //set new location
       delete[] (*drptr).location;
       (*drptr).location = new char[5];
       StringCopy("Draw", (*drptr).location);
+
       cptr++;
       drptr++;
    }
@@ -325,9 +342,10 @@ void DeletePlayers(player* list, int num)
       delete[] (*pptr).id;
       (*pptr).id = NULL;
       card *dptr = (*pptr).hand;
+
+      //delete hand
       for(int j = 0; j < 7; j++)
       {
-
          delete[] (*dptr).action;
          (*dptr).action = NULL;
          delete[] (*dptr).location;
