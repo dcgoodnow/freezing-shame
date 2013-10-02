@@ -230,7 +230,6 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
    }
 }
 
-//FINISH PRINTING HAND HERE VVVVVV
 void PrintPlayer(player toPrint)
 {
    cout << "Name: " << toPrint.name << endl;
@@ -244,8 +243,11 @@ void PrintPlayer(player toPrint)
    }
    cout << endl;
    cout << "Hand" << endl << "=============" << endl;
+   card* temp = toPrint.hand;
    for(int i = 0; i < 7; i++)
    {
+      PrintCard(*temp);
+      temp++;
    }
 }
 
@@ -264,6 +266,7 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
          for(int k = 0; k < i; k++)
             hptr++;
          CopyCard(*cptr, *hptr);
+         StringCopy((*pptr).name, (*hptr).location);
          pptr++;
          cptr++;
       }
@@ -321,7 +324,20 @@ void DeletePlayers(player* list, int num)
       (*pptr).name = NULL;
       delete[] (*pptr).id;
       (*pptr).id = NULL;
+      card *dptr = (*pptr).hand;
+      for(int j = 0; j < 7; j++)
+      {
+
+         delete[] (*dptr).action;
+         (*dptr).action = NULL;
+         delete[] (*dptr).location;
+         (*dptr).location = NULL;
+         dptr++;
+      }
+      delete[] (*pptr).hand;
+      pptr++;
    }
+   
 }
 
 void PrintCard(card c)
