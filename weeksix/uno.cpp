@@ -114,17 +114,14 @@ void ShuffleDeck(card* unshuff, card* shuff)
    //copy all cards into shuffled deck
    for(int i = 0; i < 108; i++)
    {
-      CopyCard(*uptr, *sptr);
-      delete[] (*sptr).location;
-      (*sptr).location = new char[9];
-      StringCopy("Shuffled", (*sptr).location);
+      (*uptr).CopyCard(*sptr);
+      (*sptr).SetLocation("Shuffled");
       uptr++;
       sptr++;
    }
    srand(time(NULL));
    card temp;
-   temp.action = new char[6];
-   StringCopy("action", temp.action);
+   temp.init();
    int randtemp;
    for(int i = 0; i < 1000; i++)
    {
@@ -140,9 +137,9 @@ void ShuffleDeck(card* unshuff, card* shuff)
       {
          tptr++;   
       }
-      CopyCard(*sptr, temp);
-      CopyCard(*tptr, *sptr);
-      CopyCard(temp, *tptr);
+      (*sptr).CopyCard(temp);
+      (*tptr).CopyCard(*sptr);
+      temp.CopyCard(*tptr);
    }
 }
 
@@ -166,28 +163,8 @@ void InitializeDeck(card* deck)
    //initialize values for each card
    for( int i = 0; i < 108; i++)
    {
-      (*deck).color = 'c';
-      (*deck).rank = -1;
-      (*deck).action = new char[6];
-      (*deck).location = new char[9];
-      StringCopy("Action", (*deck).action);
-      StringCopy("Location", (*deck).location);
+      (*deck).init();
       deck++;
-   }
-}
-
-void InitializeHand(card* hand)
-{
-   //initialize values for each card
-   for( int i = 0; i < 7; i++)
-   {
-      (*hand).color = 'c';
-      (*hand).rank = -1;
-      (*hand).action = new char[6];
-      (*hand).location = new char[9];
-      StringCopy("Action", (*hand).action);
-      StringCopy("Location", (*hand).location);
-      hand++;
    }
 }
    
@@ -195,19 +172,7 @@ void InitializePlayer(player* init, int num)
 {
    for(int i = 0; i < num; i++)
    {
-      (*init).name = NULL;
-      //initialize player id to 00000
-      (*init).id = new int[5];
-      int * iptr = (*init).id;
-      for(int j = 0; j < 5; j++)
-      {
-         *iptr = 0;
-         iptr++;
-      }
-      //initialize hand
-      (*init).hand = new card[7];
-      InitializeHand((*init).hand);
-
+      (*init).init();
       init++;
    }
 }
@@ -222,9 +187,9 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
    {
       //get player name
       players >> temp;
-      (*list).name = new char[length(temp)];
-      StringCopy(temp, (*list).name);
-      int* iptr = (*list).id;
+      (*list).SetName(temp);
+      int* iptr;
+      iptr = new int[5];
       for( int j = 0; j < 5; j ++)
       {
          //load each integer into temporary character
@@ -233,32 +198,9 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
          *iptr = idChar-48;
          iptr++;
       }
+      (*list).SetID(iptr);
       list++;
    }
-}
-
-void PrintPlayer(player toPrint)
-{
-   cout << "Name: " << toPrint.name << endl;
-   cout << "ID:   ";
-   //print ID character by character
-   int* iptr = toPrint.id;
-   for(int i = 0; i < 5; i++)
-   {
-      cout << *iptr;
-      iptr++;
-   }
-   cout << endl << endl;
-
-   //Print hand
-   cout << "Hand" << endl << "==========================================" << endl;
-   card* temp = toPrint.hand;
-   for(int i = 0; i < 7; i++)
-   {
-      PrintCard(*temp);
-      temp++;
-   }
-   cout << endl << endl;
 }
 
 void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
@@ -308,17 +250,6 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    }
 }
 
-void CopyCard(card origin, card &dest)
-{
-   //copy all aspects of the card
-   dest.color = origin.color;
-   dest.rank = origin.rank;
-   delete[] dest.action;
-   dest.action = new char[20];
-   StringCopy(origin.action, dest.action);
-}
-
-
 void DeleteDeck(card* deck)
 {
    card *dptr = deck;
@@ -355,15 +286,4 @@ void DeletePlayers(player* list, int num)
       delete[] (*pptr).hand;
       pptr++;
    }
-   
 }
-
-void PrintCard(card c)
-{
-      cout << c.color << '\t';
-      cout << c.rank << '\t';
-      cout << c.action << '\t' << '\t';
-      cout << c.location << endl;
-}
-
-

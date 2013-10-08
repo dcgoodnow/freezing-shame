@@ -10,22 +10,20 @@
  *
  *Last Updated: 9/11/2013
 *****************************************/
+#include "unoclass.h"
 #include "uno.h"
 #include <iostream>
 #include "string.h"
+
 
 using namespace std;
 
 int main()
 {
-   char a[6]= "hello";
-   char b[6]= "hello";
-   if(StringCompare(a,b))
-      cout << "IT WORKS";
    char userResponse;
    bool running = true;
    card * unshuffled;
-   unshuffled = new card [108];
+   unshuffled = new card[108];
    card * shuffled;
    shuffled = new card[108];
    card * discard;
