@@ -4,6 +4,16 @@
 
 using namespace std;
 
+void card::init()
+{
+   color = 'c';
+   rank = -1;
+   action = new char[6];
+   location = new char[9];
+   StringCopy("Action", action);
+   StringCopy("Location", location);
+}
+
 void card::SetColor(char c)
 {
    if(c == 'c' ||
@@ -68,6 +78,95 @@ void card::print()
    cout << rank << '\t';
    cout << action << '\t';
    cout << location <<  endl;
+}
+
+void card::CopyCard(card &dest)
+{
+   //copy all aspects of the card
+   dest.SetColor(color);
+   dest.SetRank(rank);
+   dest.SetAction(action);
+}
+
+void player::init()
+{
+   name = new char[5];
+   StringCopy("Name", name);
+   id =  new int[5];
+   int* iptr = id;
+   for(int i = 0; i < 5; i++)
+   {
+      iptr = 0;
+      iptr++;
+   }
+   hand = new card[7];
+   card* cptr = hand;
+   for(int i = 0; i < 7; i++)
+   {
+      (*cptr).init();
+      cptr++;
+   }
+}
+void player::SetName(char* n)
+{
+   delete[] name;
+   name = new char[length(n)];
+   StringCopy(n, name);
+}
+
+char* player::GetName()
+{
+   return name;
+}
+
+void player::SetID(int* n)
+{
+   int* iptr = id;
+   for(int i = 0; i < 5; i++)
+   {
+      *iptr = *n;
+      n++;
+      iptr++;
+   }
+}
+
+int* player::GetID()
+{
+   return id;
+}
+
+void player::SetHand(card* h)
+{
+   card* cptr = hand;
+   for( int i = 0; i < 7; i++)
+   {
+      (*h).CopyCard(*cptr);
+      cptr++;
+      h++;
+   }
+}
+
+card* player::GetHand()
+{
+   return hand;
+}
+
+void player::print()
+{
+   cout << name << endl;
+   int* iptr = id;
+   for(int i = 0; i < 5; i++)
+   {
+      cout << *iptr;
+      iptr++;
+   }
+   cout << endl;
+   card* cptr = hand;
+   for(int i = 0; i < 7; i++)
+   {
+      (*cptr).print(); 
+      cptr++;
+   }
 }
 
 
