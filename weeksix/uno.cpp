@@ -1,4 +1,5 @@
 #include "uno.h"
+#include "unoclass.h"
 #include <iostream>
 #include "stdlib.h"
 #include "time.h"
@@ -43,15 +44,13 @@ void LoadDeck(card* load)
    {
       //load color
       unoDeck >> temp;
-      (*dptr).color = *temp;
+      (*dptr).SetColor(*temp);
 
       //load rank
-      unoDeck >> (*dptr).rank;
+      (*dptr).SetRank(unoDeck.get());
 
       //delete previous location array and create new properly sized array
-      delete[] (*dptr).location;
-      (*dptr).location = new char[11];
-      StringCopy("Unshuffled", (*dptr).location);
+      (*dptr).SetLocation("Unshuffled");
       //move to next card
       dptr++;
    }
@@ -61,17 +60,14 @@ void LoadDeck(card* load)
    {
       //load color
       unoDeck >> temp;
-      (*dptr).color = *temp;
+      (*dptr).SetColor(*temp);
 
       //load action
       unoDeck >> temp;
-      (*dptr).action = new char[length(temp)];
-      StringCopy(temp, (*dptr).action);
+      (*dptr).SetAction(temp);
 
       //delete old location and load new location
-      delete[] (*dptr).location;
-      (*dptr).location = new char[11];
-      StringCopy("Unshuffled", (*dptr).location);
+      (*dptr).SetLocation("Unshuffled");
       dptr++;
    }
 
@@ -80,12 +76,9 @@ void LoadDeck(card* load)
    {
       //load action
       unoDeck >> temp;
-      (*dptr).action = new char[length(temp)];
-      StringCopy(temp, (*dptr).action);
+      (*dptr).SetAction(temp);
       //load new location
-      delete[] (*dptr).location;
-      (*dptr).location = new char[11];
-      StringCopy("Unshuffled", (*dptr).location);
+      (*dptr).SetLocation("Unshuffled");
       dptr++;
    }
    
@@ -101,7 +94,7 @@ void PrintDeck(card* deck)
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      PrintCard(*dptr);
+      (*dptr).print();
       dptr++;
    }
 }
@@ -151,9 +144,9 @@ void WriteDeck(card* deck, char* filename)
    //write each card to a file
    for(int i = 0; i < 108; i++)
    {
-      shufDeck << (*deck).color << '\t';
-      shufDeck << (*deck).rank << '\t';
-      shufDeck << (*deck).action << '\n';
+      shufDeck << (*deck).GetColor() << '\t';
+      shufDeck << (*deck).GetRank()<< '\t';
+      shufDeck << (*deck).GetAction() << '\n';
       deck++;
    }
 }
@@ -255,10 +248,7 @@ void DeleteDeck(card* deck)
    card *dptr = deck;
    for(int i = 0; i < 108; i++)
    {
-      delete[] (*deck).action;
-      (*deck).action = NULL;
-      delete[] (*deck).location;
-      (*deck).location = NULL;
+      (*dptr).del();
       dptr++;
    }
 }
@@ -268,22 +258,7 @@ void DeletePlayers(player* list, int num)
    player *pptr = list;
    for(int i = 0; i < num; i++)
    {
-      delete[] (*pptr).name;
-      (*pptr).name = NULL;
-      delete[] (*pptr).id;
-      (*pptr).id = NULL;
-      card *dptr = (*pptr).hand;
-
-      //delete hand
-      for(int j = 0; j < 7; j++)
-      {
-         delete[] (*dptr).action;
-         (*dptr).action = NULL;
-         delete[] (*dptr).location;
-         (*dptr).location = NULL;
-         dptr++;
-      }
-      delete[] (*pptr).hand;
+      (*pptr).del();
       pptr++;
    }
 }
