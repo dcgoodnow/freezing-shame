@@ -88,6 +88,14 @@ void card::CopyCard(card &dest)
    dest.SetAction(action);
 }
 
+void card::del()
+{
+   delete[] action;
+   action = NULL;
+   delete[] location;
+   location = NULL;
+}
+
 void player::init()
 {
    name = new char[5];
@@ -106,6 +114,22 @@ void player::init()
       (*cptr).init();
       cptr++;
    }
+}
+
+void player::del()
+{
+   delete[] name;
+   name = NULL;
+   delete[] id;
+   id = NULL;
+   card* cptr = hand;
+   for(int i = 0; i <7; i++)
+   {
+      (*cptr).del();
+      cptr++;
+   }
+   delete[] hand;
+   hand = NULL;
 }
 void player::SetName(char* n)
 {

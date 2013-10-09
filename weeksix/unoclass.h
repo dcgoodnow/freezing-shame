@@ -11,6 +11,7 @@ class card {
       char* GetLocation();
       void print();
       void CopyCard(card&);
+      void del();
    private:
       char color;
       int rank;
@@ -21,6 +22,7 @@ class card {
 class player {
    public:
       void init();
+      void del();
       void SetName(char*);
       char* GetName();
       void SetID(int*);
