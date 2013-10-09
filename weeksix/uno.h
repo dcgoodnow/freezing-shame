@@ -3,21 +3,8 @@ using namespace std;
 
 const int CARD_LENGTH = 25;
 
-struct card
-{
-   char color;
-   int rank;
-   char * action; 
-   char * location;
-};
 
 
-struct player
-{
-   char * name;
-   int * id;
-   card * hand;
-};
 /**
   *Name: PrintMenu
   *Purpose: Prints user menu
