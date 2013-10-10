@@ -166,6 +166,7 @@ void player::SetHand(card* h)
    {
       (*cptr).init();
       (*h).CopyCard(*cptr);
+      (*cptr).SetLocation(name);
       cptr++;
       h++;
    }
