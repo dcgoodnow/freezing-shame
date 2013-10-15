@@ -56,41 +56,41 @@ void card::SetRank(int r)
       rank = -1;
 }
 
-void card::SetAction(char* a)
+void card::SetAction(const char* a)
 {
    delete[] action;
    action = new char[length(a)];
    StringCopy(a, action);
 }
 
-void card::SetLocation(char* a)
+void card::SetLocation(const char* a)
 {
    delete[] location;
    location = new char[length(a)];
    StringCopy(a, location);
 }
 
-char card::GetColor()
+char card::GetColor()const 
 {
    return color;
 }
 
-int card::GetRank()
+int card::GetRank() const 
 {
    return rank;
 }
 
-char* card::GetAction()
+char* card::GetAction() const 
 {
    return action;
 }
 
-char* card::GetLocation()
+char* card::GetLocation() const 
 {
    return location;
 }
 
-void card::print()
+void card::print() const 
 {
    cout << color << '\t';
    cout << rank << '\t';
@@ -150,7 +150,7 @@ void player::SetName(char* n)
    StringCopy(n, name);
 }
 
-char* player::GetName()
+char* player::GetName() const 
 {
    return name;
 }
@@ -166,7 +166,7 @@ void player::SetID(int* n)
    }
 }
 
-int* player::GetID()
+int* player::GetID() const 
 {
    return id;
 }
@@ -184,12 +184,12 @@ void player::SetHand(card* h)
    }
 }
 
-card* player::GetHand()
+card* player::GetHand() const 
 {
    return hand;
 }
 
-void player::print()
+void player::print() const
 {
    cout << name << endl;
    int* iptr = id;
