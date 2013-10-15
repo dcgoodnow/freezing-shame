@@ -1,6 +1,8 @@
 class card {
    public:
-      void init();
+      card();
+      card(const card&);
+      ~card();
       void SetColor(char);
       void SetRank(int);
       void SetAction(char*);
@@ -21,8 +23,9 @@ class card {
 
 class player {
    public:
-      void init();
-      void del();
+      card();
+      card(const card&);
+      ~card();
       void SetName(char*);
       char* GetName();
       void SetID(int*);
