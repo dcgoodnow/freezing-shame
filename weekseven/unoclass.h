@@ -5,15 +5,14 @@ class card {
       ~card();
       void SetColor(char);
       void SetRank(int);
-      void SetAction(char*);
-      void SetLocation(char*);
-      char GetColor();
-      int GetRank();
-      char* GetAction();
-      char* GetLocation();
-      void print();
+      void SetAction(const char*);
+      void SetLocation(const char*);
+      char GetColor() const;
+      int GetRank() const;
+      char* GetAction() const;
+      char* GetLocation() const;
+      void print() const;
       void CopyCard(card&);
-      void del();
    private:
       char color;
       int rank;
@@ -27,12 +26,12 @@ class player {
       card(const card&);
       ~card();
       void SetName(char*);
-      char* GetName();
+      char* GetName() const;
       void SetID(int*);
-      int* GetID();
+      int* GetID() const;
       void SetHand(card*);
-      card* GetHand();
-      void print();
+      card* GetHand() const;
+      void print() const;
 
    private:
       char* name;
