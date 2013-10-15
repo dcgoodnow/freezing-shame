@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void card::init()
+card::card()
 {
    color = 'c';
    rank = -1;
@@ -12,6 +12,24 @@ void card::init()
    location = new char[9];
    StringCopy("Action", action);
    StringCopy("Location", location);
+}
+
+card::card(const card& c)
+{
+   color = c.color;
+   rank = c.rank;
+   SetAction(c.action);
+   SetLocation(c.location);
+}
+
+card::~card()
+{
+   color = 'c';
+   rank = -1;
+   delete[] action;
+   action = NULL;
+   delete[] location;
+   location = NULL;
 }
 
 void card::SetColor(char c)
@@ -88,15 +106,7 @@ void card::CopyCard(card &dest)
    dest.SetAction(action);
 }
 
-void card::del()
-{
-   delete[] action;
-   action = NULL;
-   delete[] location;
-   location = NULL;
-}
-
-void player::init()
+player::player()
 {
    name = new char[5];
    StringCopy("Name", name);
@@ -108,15 +118,16 @@ void player::init()
       iptr++;
    }
    hand = new card[7];
-   card* cptr = hand;
-   for(int i = 0; i < 7; i++)
-   {
-      (*cptr).init();
-      cptr++;
-   }
 }
 
-void player::del()
+//FIX SETHAND FN TO WORK HERE VVV
+player::player(const player& p)
+{
+   SetName(p.name);
+   SetID(p.id);
+}
+
+player::~player()
 {
    delete[] name;
    name = NULL;
@@ -131,6 +142,7 @@ void player::del()
    delete[] hand;
    hand = NULL;
 }
+
 void player::SetName(char* n)
 {
    delete[] name;
