@@ -8,8 +8,8 @@ card::card()
 {
    color = 'c';
    rank = -1;
-   action = new char[6];
-   location = new char[9];
+   action = new char[20];
+   location = new char[20];
    StringCopy("Action", action);
    StringCopy("Location", location);
 }
@@ -58,15 +58,11 @@ void card::SetRank(int r)
 
 void card::SetAction(const char* a)
 {
-   delete[] action;
-   action = new char[length(a)];
    StringCopy(a, action);
 }
 
 void card::SetLocation(const char* a)
 {
-   delete[] location;
-   location = new char[length(a)];
    StringCopy(a, location);
 }
 
@@ -108,7 +104,7 @@ void card::CopyCard(card &dest)
 
 player::player()
 {
-   name = new char[5];
+   name = new char[25];
    StringCopy("Name", name);
    id =  new int[5];
    int* iptr = id;
@@ -120,11 +116,13 @@ player::player()
    hand = new card[7];
 }
 
-//FIX SETHAND FN TO WORK HERE VVV
 player::player(const player& p)
 {
+   name = new char[25];
    SetName(p.name);
    SetID(p.id);
+   hand = NULL;
+   SetHand(p.hand);
 }
 
 player::~player()
@@ -145,8 +143,6 @@ player::~player()
 
 void player::SetName(char* n)
 {
-   delete[] name;
-   name = new char[length(n)];
    StringCopy(n, name);
 }
 
@@ -173,10 +169,14 @@ int* player::GetID() const
 
 void player::SetHand(card* h)
 {
+   if(hand == NULL)
+   {
+      hand = new card[7];
+   }
    card* cptr = hand;
+   
    for( int i = 0; i < 7; i++)
    {
-      (*cptr).init();
       (*h).CopyCard(*cptr);
       (*cptr).SetLocation(name);
       cptr++;
