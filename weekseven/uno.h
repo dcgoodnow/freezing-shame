@@ -45,7 +45,7 @@ void ShuffleDeck(card*, card*);
   *Args:    array of 108 cards
   *Retval:  none
 **/
-void WriteDeck(card*, char*);
+void WriteDeck(const card*, const char*);
 
 /*
  * Name:    Initialize Deck
