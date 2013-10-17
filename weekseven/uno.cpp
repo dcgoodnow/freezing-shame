@@ -90,54 +90,37 @@ void LoadDeck(card* load)
 
 void PrintDeck(card* deck)
 {
-   card* dptr;
-   dptr = deck;
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      (*dptr).print();
-      dptr++;
+      deck[i].print();
    }
 }
 
 void ShuffleDeck(card* unshuff, card* shuff)
 {
    card* tptr;
-   card* uptr = unshuff;
-   card* sptr = shuff;
    //copy all cards into shuffled deck
    for(int i = 0; i < 108; i++)
    {
-      (*uptr).CopyCard(*sptr);
-      (*sptr).SetLocation("Shuffled");
-      uptr++;
-      sptr++;
+      unshuff[i].CopyCard(*sptr);
+      shuff[i].SetLocation("Shuffled");
    }
    srand(time(NULL));
    card temp;
-   temp.init();
-   int randtemp;
+   int randA, randB;
    for(int i = 0; i < 1000; i++)
    {
-      sptr = shuff;
-      tptr = shuff;
-      randtemp = rand()%108;
-      for(int j = 0; j < (rand()%108); j++)
-      {
-         sptr++;   
-      }
-      randtemp = rand()%108;
-      for(int j = 0; j < randtemp; j++)
-      {
-         tptr++;   
-      }
-      (*sptr).CopyCard(temp);
-      (*tptr).CopyCard(*sptr);
-      temp.CopyCard(*tptr);
+      
+      randA = rand()%108;
+      randB = rand()%108;
+      shuff[randA].CopyCard(temp);
+      shuff[randB].CopyCard(shuff[randA]);
+      temp.CopyCard(shuff[randB]);
    }
 }
 
-void WriteDeck(card* deck, char* filename)
+void WriteDeck(const card* deck, const char* filename)
 {
    //open file
    ofstream shufDeck;
@@ -145,30 +128,9 @@ void WriteDeck(card* deck, char* filename)
    //write each card to a file
    for(int i = 0; i < 108; i++)
    {
-      shufDeck << (*deck).GetColor() << '\t';
-      shufDeck << (*deck).GetRank()<< '\t';
-      shufDeck << (*deck).GetAction() << '\n';
-      deck++;
-   }
-}
-
-void InitializeDeck(card* deck)
-{
-   //initialize values for each card
-   for( int i = 0; i < 108; i++)
-   {
-      (*deck).init();
-      deck++;
-   }
-}
-   
-void InitializePlayer(player* init, int num)
-{
-   player* pptr = init;
-   for(int i = 0; i < num; i++)
-   {
-      (*pptr).init();
-      pptr++;
+      shufDeck << deck[i].GetColor() << '\t';
+      shufDeck << deck[i].GetRank()<< '\t';
+      shufDeck << deck[i].GetAction() << '\n';
    }
 }
 
@@ -208,12 +170,6 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    pptr = players;
    card* tempc = new card[7];
    card* home = tempc;
-   for(int i = 0; i < 7; i++)
-   {
-      (*tempc).init();
-      tempc++;
-   }
-   tempc = home;
    for(int i = 0; i < numpl; i++)
    {
       for(int j = 0; j < 7; j++)
