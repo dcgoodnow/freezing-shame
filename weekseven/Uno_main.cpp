@@ -10,7 +10,6 @@
  *
  *Last Updated: 9/11/2013
 *****************************************/
-//#include "unoclass.h"
 #include "uno.h"
 #include <iostream>
 #include "string.h"
@@ -32,10 +31,6 @@ int main()
    draw = new card[108];
    char * mainTemp;
    mainTemp = new char[30];
-   InitializeDeck(unshuffled);
-   InitializeDeck(shuffled);
-   InitializeDeck(discard);
-   InitializeDeck(draw);
 
    
    //Load deck
@@ -43,14 +38,9 @@ int main()
    //get filename
    cout << "What is the name of the player file? ";
    cin >> mainTemp;
-   char * filename;
-   filename = new char[length(mainTemp)];
-   StringCopy(mainTemp, filename);
    //Load players
    ifstream pfile;
-   pfile.open(filename);
-   delete[] filename;
-   filename = NULL;
+   pfile.open(mainTemp);
    int numpl;
    
    //get amount of players
@@ -65,8 +55,6 @@ int main()
    //declare player array
    player * players;
    players = new player[numpl];
-   InitializePlayer(players, numpl);
-   cout << (*players).GetName();
 
    //load players
    LoadPlayers( players, pfile, numpl);
@@ -108,22 +96,17 @@ int main()
             //Write shuffled deck to file
             case '4':
             {
-               char * name;
                cout <<"What would you like to name the file?" << endl; 
                cin  >> mainTemp;
-               name = new char[length(mainTemp)];
-               StringCopy(mainTemp, name);
-               WriteDeck(shuffled, name);
+               WriteDeck(shuffled, mainTemp);
                break;
             }
             
             case '5':
             {
-               player *pptr = players;
                for(int i = 0; i < numpl; i ++)
                {
-                  (*pptr).print();
-                  pptr++;
+                  players[i].print();
                }
                break;
             }
@@ -142,15 +125,10 @@ int main()
             }
          }
    }
-   DeleteDeck(unshuffled);
-   DeleteDeck(shuffled);
-   DeleteDeck(discard);
-   DeleteDeck(draw);
    delete[] unshuffled;
    delete[] shuffled;
    delete[] discard;
    delete[] draw;
-   DeletePlayers(players, numpl);
    delete[] players;
    delete[] mainTemp;
    return 0;
