@@ -227,3 +227,19 @@ void DeletePlayers(player* list, int num)
       pptr++;
    }
 }
+
+//WRITE SWAP FUNCTION
+card* SortCardsColor(card* toSort, int num)
+{
+   bool inOrder = false;
+   while(!inOrder)
+   {
+      for(int i = 0; i < num; i++)
+      {
+         if(toSort[i].color < toSort[i+1])
+         {
+            Swap(toSort[i], toSort[i+1]);
+         }
+      }
+   }
+}

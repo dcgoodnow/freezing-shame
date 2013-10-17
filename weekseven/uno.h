@@ -118,3 +118,5 @@ void DeletePlayers(player*, int);
  * Args:    card to print
 */
 void PrintCard(card);
+
+card* SortCardsColor(card*, int);
