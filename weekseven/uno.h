@@ -2,7 +2,6 @@
 #include "unoclass.h"
 using namespace std;
 
-const int CARD_LENGTH = 25;
 
 
 
@@ -67,3 +66,5 @@ void DealCards(card*, card*, card*, player*, int);
 
 
 card* SortCardsColor(card*, int);
+
+card* SortCardsRank(card*, int);

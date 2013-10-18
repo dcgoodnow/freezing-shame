@@ -211,3 +211,21 @@ card* SortCardsColor(card* toSort, int num)
    }
    return toSort;
 }
+
+card* SortCardsRank(card* toSort, int num)
+{
+   bool swapped = true;
+   while(swapped)
+   {
+      swapped = false;
+      for(int i = 0; i < num-1; i++)
+      {
+         if((toSort[i].GetRank()) > (toSort[i+1].GetRank()))
+         {
+            toSort[i].Swap(toSort[i+1]);
+            swapped = true;
+         }
+      }
+   }
+   return toSort;
+}
