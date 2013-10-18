@@ -162,46 +162,36 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
 
 void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
 {
-   card* cptr = deck;
-   card* drptr = draw;
-   player* pptr = players;
-   pptr = players;
    card* tempc = new card[7];
    card* home = tempc;
    for(int i = 0; i < numpl; i++)
    {
       for(int j = 0; j < 7; j++)
       {
-         (*cptr).CopyCard(*tempc);
-         (*tempc).SetLocation((*cptr).GetLocation());
+         deck[i*7+j].CopyCard(*tempc);
+         (*tempc).SetLocation(deck[i*7+j].GetLocation());
          tempc++;
-         cptr++;
       }
       tempc = home;
-      (*pptr).SetHand(tempc);
-      pptr++;
+      players[i].SetHand(tempc);
    }
    tempc = home;
    delete[] tempc;
+   tempc = NULL;
+
    //deal first discard card
-   (*disc).CopyCard(*cptr);
-   (*disc).SetLocation("Discard");
-   cptr++;
+   disc[0].CopyCard(deck[numpl*7]);
+   disc[0].SetLocation("Discard");
 
    //move the remainder of cards to draw pile
    for( int i = numpl*7+1; i < 108; i++)
    {
-      (*drptr).CopyCard(*cptr);
+      draw[i-(numpl*7+1)].CopyCard(deck[i]);
 
       //set new location
-      (*drptr).SetLocation("Draw");
-      
-      cptr++;
-      drptr++;
+      draw[i-(numpl*7+1)].SetLocation("Draw");
    }
 }
-
-
 
 //determine how to stop sorting
 card* SortCardsColor(card* toSort, int num)
