@@ -116,6 +116,37 @@ int main()
                DealCards(shuffled, discard, draw, players, numpl);
                break;
             }
+
+            case '7':
+            {
+               for(int i = 0; i < numpl; i++)
+               {
+                  SortCardsColor(players[i].GetHand(), 7);
+               }
+               break;
+            }
+
+            case '8':
+            {
+               for(int i = 0; i < numpl; i++)
+               {
+                  SortCardsRank(players[i].GetHand(), 7);
+               }
+               break;
+            }
+
+            case '9':
+            {
+               for(int i = 0; i < numpl; i++)
+               {
+                  SortCardsRank(players[i].GetHand(), 7);
+               }
+               for(int i = 0; i < numpl; i++)
+               {
+                  SortCardsColor(players[i].GetHand(), 7);
+               }
+               break;
+            }
             
             //quit
             case 'q':

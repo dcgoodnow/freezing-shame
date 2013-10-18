@@ -15,6 +15,9 @@ void PrintMenu()
    cout << "4. Write shuffled deck to file" << endl;
    cout << "5. Print players to screen" << endl;
    cout << "6. Deal shuffled cards" << endl;
+   cout << "7. Sort players hands by color" << endl;
+   cout << "8. Sort players hands by rank" << endl;
+   cout << "9. Sort players hands by color and rank" << endl;
    cout << "Enter q to quit the program" <<endl;
         
 }
