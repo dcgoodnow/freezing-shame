@@ -13,6 +13,7 @@ class card {
       char* GetLocation() const;
       void print() const;
       void CopyCard(card&);
+      void Swap(card&);
    private:
       char color;
       int rank;
@@ -22,9 +23,9 @@ class card {
 
 class player {
    public:
-      card();
-      card(const card&);
-      ~card();
+      player();
+      player(const player&);
+      ~player();
       void SetName(char*);
       char* GetName() const;
       void SetID(int*);

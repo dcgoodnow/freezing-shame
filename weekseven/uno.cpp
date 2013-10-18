@@ -99,11 +99,10 @@ void PrintDeck(card* deck)
 
 void ShuffleDeck(card* unshuff, card* shuff)
 {
-   card* tptr;
    //copy all cards into shuffled deck
    for(int i = 0; i < 108; i++)
    {
-      unshuff[i].CopyCard(*sptr);
+      unshuff[i].CopyCard(shuff[i]);
       shuff[i].SetLocation("Shuffled");
    }
    srand(time(NULL));
@@ -166,7 +165,6 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    card* cptr = deck;
    card* drptr = draw;
    player* pptr = players;
-   card* hptr;
    pptr = players;
    card* tempc = new card[7];
    card* home = tempc;
@@ -182,11 +180,6 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
       tempc = home;
       (*pptr).SetHand(tempc);
       pptr++;
-   }
-   for(int i = 0; i < 7; i++)
-   {
-      (*tempc).del();
-      tempc++;
    }
    tempc = home;
    delete[] tempc;
@@ -208,37 +201,19 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    }
 }
 
-void DeleteDeck(card* deck)
-{
-   card *dptr = deck;
-   for(int i = 0; i < 108; i++)
-   {
-      (*dptr).del();
-      dptr++;
-   }
-}
 
-void DeletePlayers(player* list, int num)
-{
-   player *pptr = list;
-   for(int i = 0; i < num; i++)
-   {
-      (*pptr).del();
-      pptr++;
-   }
-}
 
-//WRITE SWAP FUNCTION
+//determine how to stop sorting
 card* SortCardsColor(card* toSort, int num)
 {
    bool inOrder = false;
    while(!inOrder)
    {
-      for(int i = 0; i < num; i++)
+      for(int i = 0; i < num-1; i++)
       {
-         if(toSort[i].color < toSort[i+1])
+         if((toSort[i].GetColor()) > (toSort[i+1].GetColor()))
          {
-            Swap(toSort[i], toSort[i+1]);
+            toSort[i].Swap(toSort[i+1]);
          }
       }
    }

@@ -101,7 +101,21 @@ void card::CopyCard(card &dest)
    dest.SetRank(rank);
    dest.SetAction(action);
 }
+void card::Swap(card& c)
+{
+  card temp;
+  c.CopyCard(temp);
+  CopyCard(c);
+  temp.CopyCard(*this);
+}
 
+
+/***********************
+  *
+  *Player Functions
+  *
+  *
+***********************/
 player::player()
 {
    name = new char[25];
@@ -131,12 +145,6 @@ player::~player()
    name = NULL;
    delete[] id;
    id = NULL;
-   card* cptr = hand;
-   for(int i = 0; i <7; i++)
-   {
-      (*cptr).del();
-      cptr++;
-   }
    delete[] hand;
    hand = NULL;
 }
@@ -206,5 +214,4 @@ void player::print() const
       cptr++;
    }
 }
-
 
