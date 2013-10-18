@@ -196,15 +196,18 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
 //determine how to stop sorting
 card* SortCardsColor(card* toSort, int num)
 {
-   bool inOrder = false;
-   while(!inOrder)
+   bool swapped = true;
+   while(swapped)
    {
+      swapped = false;
       for(int i = 0; i < num-1; i++)
       {
          if((toSort[i].GetColor()) > (toSort[i+1].GetColor()))
          {
             toSort[i].Swap(toSort[i+1]);
+            swapped = true;
          }
       }
    }
+   return toSort;
 }

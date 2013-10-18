@@ -1,6 +1,7 @@
 class card {
    public:
       card();
+      card(char, int, const char*, const char*);
       card(const card&);
       ~card();
       void SetColor(char);
@@ -24,6 +25,7 @@ class card {
 class player {
    public:
       player();
+      player(const char*, const int*, card*);
       player(const player&);
       ~player();
       void SetName(char*);

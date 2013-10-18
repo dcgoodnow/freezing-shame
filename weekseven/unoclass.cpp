@@ -14,6 +14,16 @@ card::card()
    StringCopy("Location", location);
 }
 
+card::card(char c, int r, const char* a, const char* l)
+{
+   SetColor(c);
+   SetRank(r);
+   action = new char[20];
+   StringCopy(a, action);
+   location = new char[20];
+   StringCopy(l, location);
+}
+
 card::card(const card& c)
 {
    color = c.color;
@@ -128,6 +138,19 @@ player::player()
       iptr++;
    }
    hand = new card[7];
+}
+
+player::player(const char* n, const int* i, card* h)
+{
+   name = new char[30];
+   StringCopy(n, name);
+   id = new int[5];
+   for(int j = 0; j < 5; j++)
+   {
+      id[j] = i[j];
+   }
+   hand = NULL;
+   SetHand(h);
 }
 
 player::player(const player& p)
