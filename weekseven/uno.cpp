@@ -7,6 +7,7 @@
 using namespace std;
 void PrintMenu()
 {
+   cout << "======================================" << endl;
    cout << "Welcome to Uno Shuffler!" << endl;
    cout << "What would you like to do?" << endl;
    cout << "1. Shuffle the deck" << endl;
@@ -19,7 +20,6 @@ void PrintMenu()
    cout << "8. Sort players hands by rank" << endl;
    cout << "9. Sort players hands by color and rank" << endl;
    cout << "Enter q to quit the program" <<endl;
-        
 }
 
 void LoadDeck(card* load)

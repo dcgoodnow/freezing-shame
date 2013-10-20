@@ -41,8 +41,7 @@ void ShuffleDeck(card*, card*);
 /**
   *Name:    WriteDeck
   *Purpose: Writes shuffled deck to file
-  *Args:    array of 108 cards
-  *Retval:  none
+  *Args:    array of 108 cards *Retval:  none
 **/
 void WriteDeck(const card*, const char*);
 
@@ -64,7 +63,16 @@ void LoadPlayers(player* list, ifstream& players, int numplayers);
 */
 void DealCards(card*, card*, card*, player*, int);
 
-
+/*
+ * Name:    SortCardsColor
+ * Purpose: sorts cards by color
+ * Args:    card pointer, number of cards
+*/
 card* SortCardsColor(card*, int);
 
+/*
+ * Name:    SortCardsRank
+ * Purpose: sorts cards by rank
+ * Args:    card pointer, number of cards
+*/
 card* SortCardsRank(card*, int);

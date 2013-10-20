@@ -19,6 +19,7 @@ using namespace std;
 
 int main()
 {
+   //initialize objects and vars
    char userResponse;
    bool running = true;
    card * unshuffled;
@@ -48,11 +49,13 @@ int main()
    {
       cout << "How many players are there? ";
       cin >> numpl;
+
+      //check for within normal range
       if(numpl >= 10 || numpl <= 2)
          cout << endl << "Number out of range, please try again" << endl;
    }while(numpl >= 10 && numpl <= 2);
 
-   //declare player array
+   //initialize player objects
    player * players;
    players = new player[numpl];
 

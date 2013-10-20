@@ -104,7 +104,7 @@ void card::print() const
    cout << location <<  endl;
 }
 
-void card::CopyCard(card &dest)
+void card::CopyCard(card &dest) 
 {
    //copy all aspects of the card
    dest.SetColor(color);
