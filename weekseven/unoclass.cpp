@@ -4,17 +4,18 @@
 
 using namespace std;
 
-card::card()
+card::card(char c, int r, const char* a, 
+           const char* l )
 {
-   color = 'c';
-   rank = -1;
+   color = c;
+   rank = r;
    action = new char[20];
    location = new char[20];
-   StringCopy("Action", action);
-   StringCopy("Location", location);
+   StringCopy(a,action);
+   StringCopy(l, location);
 }
 
-card::card(char c, int r, const char* a, const char* l)
+/*card::card(char c, int r, const char* a, const char* l)
 {
    SetColor(c);
    SetRank(r);
@@ -22,13 +23,15 @@ card::card(char c, int r, const char* a, const char* l)
    StringCopy(a, action);
    location = new char[20];
    StringCopy(l, location);
-}
+}*/
 
 card::card(const card& c)
 {
    color = c.color;
    rank = c.rank;
+   action = new char[20];
    SetAction(c.action);
+   location = new char[20];
    SetLocation(c.location);
 }
 
@@ -104,12 +107,14 @@ void card::print() const
    cout << location <<  endl;
 }
 
-void card::CopyCard(card &dest)
+void card::CopyCard(card orig)
 {
    //copy all aspects of the card
-   dest.SetColor(color);
-   dest.SetRank(rank);
-   dest.SetAction(action);
+   color = orig.color;
+   rank = orig.rank;
+   cerr << orig.action;
+   SetAction(orig.action);
+   
 }
 void card::Swap(card& c)
 {

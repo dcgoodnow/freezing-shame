@@ -105,7 +105,7 @@ void ShuffleDeck(card* unshuff, card* shuff)
    //copy all cards into shuffled deck
    for(int i = 0; i < 108; i++)
    {
-      unshuff[i].CopyCard(shuff[i]);
+      shuff[i].CopyCard(unshuff[i]);
       shuff[i].SetLocation("Shuffled");
    }
    srand(time(NULL));
@@ -116,9 +116,9 @@ void ShuffleDeck(card* unshuff, card* shuff)
       
       randA = rand()%108;
       randB = rand()%108;
-      shuff[randA].CopyCard(temp);
-      shuff[randB].CopyCard(shuff[randA]);
-      temp.CopyCard(shuff[randB]);
+      temp.CopyCard(shuff[randA]);
+      shuff[randA].CopyCard(shuff[randB]);
+      shuff[randB].CopyCard(temp);
    }
 }
 
@@ -166,13 +166,14 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
 void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
 {
    card* tempc = new card[7];
+   tempc[0].print();
    card* home = tempc;
    for(int i = 0; i < numpl; i++)
    {
       for(int j = 0; j < 7; j++)
       {
-         deck[i*7+j].CopyCard(*tempc);
-         (*tempc).SetLocation(deck[i*7+j].GetLocation());
+         tempc[j].CopyCard(deck[i*7+j]);
+         tempc[j].SetLocation(deck[i*7+j].GetLocation());
          tempc++;
       }
       tempc = home;
@@ -181,22 +182,22 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    tempc = home;
    delete[] tempc;
    tempc = NULL;
+   home = NULL;
 
    //deal first discard card
-   disc[0].CopyCard(deck[numpl*7]);
+   deck[numpl*7].CopyCard(disc[0]);
    disc[0].SetLocation("Discard");
 
    //move the remainder of cards to draw pile
    for( int i = numpl*7+1; i < 108; i++)
    {
-      draw[i-(numpl*7+1)].CopyCard(deck[i]);
+      deck[i].CopyCard(draw[i-(numpl*7+1)]);
 
       //set new location
       draw[i-(numpl*7+1)].SetLocation("Draw");
    }
 }
 
-//determine how to stop sorting
 card* SortCardsColor(card* toSort, int num)
 {
    bool swapped = true;

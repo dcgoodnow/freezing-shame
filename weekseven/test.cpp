@@ -12,7 +12,9 @@ int main()
    {
       loadc[i].print();
    }
-   sorted = SortCardsColor(loadc, 108);
+   sorted = SortCardsRank(loadc, 108);
+   
+   sorted = SortCardsColor(sorted, 108);
    for(int i = 0; i < 108; i++)
    {
       sorted[i].print();

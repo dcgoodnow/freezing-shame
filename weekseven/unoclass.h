@@ -1,7 +1,7 @@
 class card {
    public:
-      card();
-      card(char, int, const char*, const char*);
+      card(char c = 'c', int r = -1, const char* a = "Action", const char* l = "Location");
+//      card(char, int, const char*, const char*);
       card(const card&);
       ~card();
       void SetColor(char);
@@ -13,7 +13,7 @@ class card {
       char* GetAction() const;
       char* GetLocation() const;
       void print() const;
-      void CopyCard(card&);
+      void CopyCard(card);
       void Swap(card&);
    private:
       char color;
