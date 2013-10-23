@@ -107,11 +107,7 @@ void card::print() const
    cout << location <<  endl;
 }
 
-<<<<<<< HEAD
-void card::CopyCard(card &dest) 
-=======
 void card::CopyCard(card orig)
->>>>>>> weirdissues
 {
    //copy all aspects of the card
    color = orig.color;
