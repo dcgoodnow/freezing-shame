@@ -4,7 +4,7 @@ class card {
 //      card(char, int, const char*, const char*);
       card(const card&);
       ~card();
-      operator=(const card&);
+      card operator=(const card&);
       void SetColor(char);
       void SetRank(int);
       void SetAction(const char*);
@@ -29,6 +29,7 @@ class player {
       player(const char*, const int*, card*);
       player(const player&);
       ~player();
+      player operator=(const player&);
       void SetName(char*);
       char* GetName() const;
       void SetID(int*);
