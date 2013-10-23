@@ -112,16 +112,15 @@ void card::CopyCard(card orig)
    //copy all aspects of the card
    color = orig.color;
    rank = orig.rank;
-   cerr << orig.action;
    SetAction(orig.action);
    
 }
 void card::Swap(card& c)
 {
   card temp;
-  c.CopyCard(temp);
-  CopyCard(c);
-  temp.CopyCard(*this);
+  temp.CopyCard(c);
+  c.CopyCard(*this);
+  CopyCard(temp);
 }
 
 
@@ -213,7 +212,7 @@ void player::SetHand(card* h)
    
    for( int i = 0; i < 7; i++)
    {
-      (*h).CopyCard(*cptr);
+      (*cptr).CopyCard(*h);
       (*cptr).SetLocation(name);
       cptr++;
       h++;

@@ -166,23 +166,17 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
 void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
 {
    card* tempc = new card[7];
-   tempc[0].print();
-   card* home = tempc;
    for(int i = 0; i < numpl; i++)
    {
       for(int j = 0; j < 7; j++)
       {
          tempc[j].CopyCard(deck[i*7+j]);
          tempc[j].SetLocation(deck[i*7+j].GetLocation());
-         tempc++;
       }
-      tempc = home;
       players[i].SetHand(tempc);
    }
-   tempc = home;
    delete[] tempc;
    tempc = NULL;
-   home = NULL;
 
    //deal first discard card
    deck[numpl*7].CopyCard(disc[0]);
