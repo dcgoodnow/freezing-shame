@@ -45,6 +45,17 @@ card::~card()
    location = NULL;
 }
 
+card::operator=(const card& orig);
+{
+    if(this != &card)	
+    {
+        color = orig.color;
+        rank = orig.rank;
+        SetAction(orig.action);
+        SetLocation(orig.location);
+    }
+}
+
 void card::SetColor(char c)
 {
    if(c == 'c' ||
