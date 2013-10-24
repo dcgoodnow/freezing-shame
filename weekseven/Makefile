@@ -13,5 +13,5 @@ clean:
 test: test.o uno.o string.o unoclass.o
 	g++ -o test test.o uno.o string.o unoclass.o
 
-tester: tester.o uno.o string.o unoclass.o
-	g++ -o tester tester.o uno.o string.o unoclass.o
+tester: tester2.o uno.o string.o unoclass.o
+	g++ -o tester tester2.o uno.o string.o unoclass.o

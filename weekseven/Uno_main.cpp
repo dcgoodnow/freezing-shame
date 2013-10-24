@@ -124,7 +124,7 @@ int main()
             {
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsColor(players[i].GetHand(), 7);
+                  SortCardsColor(players[i].getHand(), 7);
                }
                break;
             }
@@ -133,7 +133,7 @@ int main()
             {
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsRank(players[i].GetHand(), 7);
+                  SortCardsRank(players[i].getHand(), 7);
                }
                break;
             }
@@ -142,11 +142,11 @@ int main()
             {
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsRank(players[i].GetHand(), 7);
+                  SortCardsRank(players[i].getHand(), 7);
                }
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsColor(players[i].GetHand(), 7);
+                  SortCardsColor(players[i].getHand(), 7);
                }
                break;
             }

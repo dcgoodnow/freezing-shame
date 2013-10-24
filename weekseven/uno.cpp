@@ -47,14 +47,14 @@ void LoadDeck(card* load)
    {
       //load color
       unoDeck >> temp;
-      (*dptr).SetColor(*temp);
+      (*dptr).setColor(*temp);
 
       //load rank
       unoDeck >> tempint;
-      (*dptr).SetRank(tempint);
+      (*dptr).setRank(tempint);
 
       //delete previous location array and create new properly sized array
-      (*dptr).SetLocation("Unshuffled");
+      (*dptr).setLocation("Unshuffled");
       //move to next card
       dptr++;
    }
@@ -64,14 +64,14 @@ void LoadDeck(card* load)
    {
       //load color
       unoDeck >> temp;
-      (*dptr).SetColor(*temp);
+      (*dptr).setColor(*temp);
 
       //load action
       unoDeck >> temp;
-      (*dptr).SetAction(temp);
+      (*dptr).setAction(temp);
 
       //delete old location and load new location
-      (*dptr).SetLocation("Unshuffled");
+      (*dptr).setLocation("Unshuffled");
       dptr++;
    }
 
@@ -80,9 +80,9 @@ void LoadDeck(card* load)
    {
       //load action
       unoDeck >> temp;
-      (*dptr).SetAction(temp);
+      (*dptr).setAction(temp);
       //load new location
-      (*dptr).SetLocation("Unshuffled");
+      (*dptr).setLocation("Unshuffled");
       dptr++;
    }
    
@@ -105,8 +105,8 @@ void ShuffleDeck(card* unshuff, card* shuff)
    //copy all cards into shuffled deck
    for(int i = 0; i < 108; i++)
    {
-      shuff[i].CopyCard(unshuff[i]);
-      shuff[i].SetLocation("Shuffled");
+      shuff[i].copyCard(unshuff[i]);
+      shuff[i].setLocation("Shuffled");
    }
    srand(time(NULL));
    card temp;
@@ -116,9 +116,9 @@ void ShuffleDeck(card* unshuff, card* shuff)
       
       randA = rand()%108;
       randB = rand()%108;
-      temp.CopyCard(shuff[randA]);
-      shuff[randA].CopyCard(shuff[randB]);
-      shuff[randB].CopyCard(temp);
+      temp.copyCard(shuff[randA]);
+      shuff[randA].copyCard(shuff[randB]);
+      shuff[randB].copyCard(temp);
    }
 }
 
@@ -130,9 +130,9 @@ void WriteDeck(const card* deck, const char* filename)
    //write each card to a file
    for(int i = 0; i < 108; i++)
    {
-      shufDeck << deck[i].GetColor() << '\t';
-      shufDeck << deck[i].GetRank()<< '\t';
-      shufDeck << deck[i].GetAction() << '\n';
+      shufDeck << deck[i].getColor() << '\t';
+      shufDeck << deck[i].getRank()<< '\t';
+      shufDeck << deck[i].getAction() << '\n';
    }
 }
 
@@ -148,7 +148,7 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
    {
       //get player name
       players >> temp;
-      (*list).SetName(temp);
+      (*list).setName(temp);
       for( int j = 0; j < 5; j ++)
       {
          //load each integer into temporary character
@@ -158,7 +158,7 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
          iptr++;
       }
       iptr = home;
-      (*list).SetID(iptr);
+      (*list).setID(iptr);
       list++;
    }
 }
@@ -170,25 +170,25 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    {
       for(int j = 0; j < 7; j++)
       {
-         tempc[j].CopyCard(deck[i*7+j]);
-         tempc[j].SetLocation(deck[i*7+j].GetLocation());
+         tempc[j].copyCard(deck[i*7+j]);
+         tempc[j].setLocation(deck[i*7+j].getLocation());
       }
-      players[i].SetHand(tempc);
+      players[i].setHand(tempc);
    }
    delete[] tempc;
    tempc = NULL;
 
    //deal first discard card
-   deck[numpl*7].CopyCard(disc[0]);
-   disc[0].SetLocation("Discard");
+   disc[0].copyCard(deck[numpl*7]);
+   disc[0].setLocation("Discard");
 
    //move the remainder of cards to draw pile
    for( int i = numpl*7+1; i < 108; i++)
    {
-      deck[i].CopyCard(draw[i-(numpl*7+1)]);
+      draw[i-(numpl*7+1)].copyCard(deck[i]);
 
       //set new location
-      draw[i-(numpl*7+1)].SetLocation("Draw");
+      draw[i-(numpl*7+1)].setLocation("Draw");
    }
 }
 
@@ -200,7 +200,7 @@ card* SortCardsColor(card* toSort, int num)
       swapped = false;
       for(int i = 0; i < num-1; i++)
       {
-         if((toSort[i].GetColor()) > (toSort[i+1].GetColor()))
+         if((toSort[i].getColor()) > (toSort[i+1].getColor()))
          {
             toSort[i].Swap(toSort[i+1]);
             swapped = true;
@@ -218,7 +218,7 @@ card* SortCardsRank(card* toSort, int num)
       swapped = false;
       for(int i = 0; i < num-1; i++)
       {
-         if((toSort[i].GetRank()) > (toSort[i+1].GetRank()))
+         if((toSort[i].getRank()) > (toSort[i+1].getRank()))
          {
             toSort[i].Swap(toSort[i+1]);
             swapped = true;
