@@ -1,20 +1,20 @@
 class card {
    public:
-      card(char c = 'c', int r = -1, const char* a = "Action", const char* l = "Location");
-//      card(char, int, const char*, const char*);
+      card(int r = -1, const char* l = "Location");
+      card(int, char, const char*, const char*);
       card(const card&);
       ~card();
       card operator=(const card&);
-      void SetColor(char);
-      void SetRank(int);
-      void SetAction(const char*);
-      void SetLocation(const char*);
-      char GetColor() const;
-      int GetRank() const;
-      char* GetAction() const;
-      char* GetLocation() const;
+      void setColor(char);
+      void setRank(int);
+      void setAction(const char*);
+      void setLocation(const char*);
+      char getColor() const;
+      int getRank() const;
+      char* getAction() const;
+      char* getLocation() const;
       void print() const;
-      void CopyCard(card);
+      void copyCard(card);
       void Swap(card&);
    private:
       char color;
@@ -30,12 +30,12 @@ class player {
       player(const player&);
       ~player();
       player operator=(const player&);
-      void SetName(char*);
-      char* GetName() const;
-      void SetID(int*);
-      int* GetID() const;
-      void SetHand(card*);
-      card* GetHand() const;
+      void setName(const char*);
+      char* getName() const;
+      void setID(int*);
+      int* getID() const;
+      void setHand(card*);
+      card* getHand() const;
       void print() const;
 
    private:
