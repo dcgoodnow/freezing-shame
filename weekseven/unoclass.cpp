@@ -44,18 +44,6 @@ card::~card()
    location = NULL;
 }
 
-card card::operator=(const card& orig)
-{
-    if(this != &orig)	
-    {
-        color = orig.color;
-        rank = orig.rank;
-        setAction(orig.action);
-        setLocation(orig.location);
-    }
-    return *this;
-}
-
 void card::setColor(char c)
 {
    if(c == 'c' || c == 'C' ||
@@ -186,17 +174,6 @@ player::~player()
    id = NULL;
    delete[] hand;
    hand = NULL;
-}
-
-player player::operator=(const player& orig)
-{
-   if(this != &orig)
-   {
-      StringCopy(name, orig.name);
-      setID(orig.id);
-      setHand(orig.hand);
-   }
-   return *this;
 }
 
 void player::setName(const char* n)
