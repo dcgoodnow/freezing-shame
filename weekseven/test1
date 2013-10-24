@@ -1,0 +1,232 @@
+Script started on Thu 24 Oct 2013 02:49:48 AM UTC
+dgoodnow@vm-0:~/CS/weekseven$ s[K./Uno_main 
+What is the name of the uno cards file? cards.txt
+What is the name of the player file? players.txt
+How many players are there? 5
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+1
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+3
+0	g	7	action	Shuffled
+1	r	5	action	Shuffled
+2	b	7	action	Shuffled
+3	c	-1	wild	Shuffled
+4	y	4	action	Shuffled
+5	c	-1	wild	Shuffled
+6	g	8	action	Shuffled
+7	y	5	action	Shuffled
+8	b	-1	draw2	Shuffled
+9	g	9	action	Shuffled
+10	r	6	action	Shuffled
+11	b	8	action	Shuffled
+12	g	5	action	Shuffled
+13	b	-1	reverse	Shuffled
+14	y	-1	skip	Shuffled
+15	y	6	action	Shuffled
+16	g	1	action	Shuffled
+17	r	1	action	Shuffled
+18	y	0	action	Shuffled
+19	g	4	action	Shuffled
+20	b	8	action	Shuffled
+21	r	7	action	Shuffled
+22	y	6	action	Shuffled
+23	g	-1	skip	Shuffled
+24	y	-1	skip	Shuffled
+25	b	6	action	Shuffled
+26	r	-1	draw2	Shuffled
+27	y	9	action	Shuffled
+28	r	4	action	Shuffled
+29	y	2	action	Shuffled
+30	r	4	action	Shuffled
+31	c	-1	wild	Shuffled
+32	r	9	action	Shuffled
+33	b	3	action	Shuffled
+34	g	-1	reverse	Shuffled
+35	g	6	action	Shuffled
+36	y	1	action	Shuffled
+37	r	8	action	Shuffled
+38	c	-1	wilddraw4	Shuffled
+39	b	9	action	Shuffled
+40	y	3	action	Shuffled
+41	y	7	action	Shuffled
+42	b	-1	reverse	Shuffled
+43	r	2	action	Shuffled
+44	g	7	action	Shuffled
+45	r	6	action	Shuffled
+46	b	2	action	Shuffled
+47	b	1	action	Shuffled
+48	g	8	action	Shuffled
+49	r	3	action	Shuffled
+50	c	-1	wilddraw4	Shuffled
+51	y	-1	draw2	Shuffled
+52	r	-1	skip	Shuffled
+53	y	2	action	Shuffled
+54	b	5	action	Shuffled
+55	y	3	action	Shuffled
+56	b	7	action	Shuffled
+57	b	-1	skip	Shuffled
+58	y	7	action	Shuffled
+59	g	4	action	Shuffled
+60	c	-1	wilddraw4	Shuffled
+61	g	-1	draw2	Shuffled
+62	b	4	action	Shuffled
+63	r	5	action	Shuffled
+64	b	5	action	Shuffled
+65	c	-1	wild	Shuffled
+66	b	1	action	Shuffled
+67	g	1	action	Shuffled
+68	b	3	action	Shuffled
+69	r	8	action	Shuffled
+70	g	-1	reverse	Shuffled
+71	y	5	action	Shuffled
+72	r	-1	reverse	Shuffled
+73	b	6	action	Shuffled
+74	g	2	action	Shuffled
+75	b	9	action	Shuffled
+76	b	-1	draw2	Shuffled
+77	g	2	action	Shuffled
+78	g	-1	skip	Shuffled
+79	g	5	action	Shuffled
+80	g	9	action	Shuffled
+81	y	8	action	Shuffled
+82	r	-1	draw2	Shuffled
+83	r	-1	reverse	Shuffled
+84	y	-1	reverse	Shuffled
+85	g	3	action	Shuffled
+86	y	-1	draw2	Shuffled
+87	y	4	action	Shuffled
+88	r	9	action	Shuffled
+89	g	-1	draw2	Shuffled
+90	r	1	action	Shuffled
+91	r	0	action	Shuffled
+92	g	6	action	Shuffled
+93	y	9	action	Shuffled
+94	g	0	action	Shuffled
+95	r	3	action	Shuffled
+96	g	3	action	Shuffled
+97	r	2	action	Shuffled
+98	b	0	action	Shuffled
+99	y	-1	reverse	Shuffled
+100	b	2	action	Shuffled
+101	y	1	action	Shuffled
+102	c	-1	wilddraw4	Shuffled
+103	b	-1	skip	Shuffled
+104	b	4	action	Shuffled
+105	r	7	action	Shuffled
+106	y	8	action	Shuffled
+107	r	-1	skip	Shuffled
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+5 6
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+5
+Joe
+00001
+g	7	action	Joe
+r	5	action	Joe
+b	7	action	Joe
+c	-1	wild	Joe
+y	4	action	Joe
+c	-1	wild	Joe
+g	8	action	Joe
+Sarah
+00002
+y	5	action	Sarah
+b	-1	draw2	Sarah
+g	9	action	Sarah
+r	6	action	Sarah
+b	8	action	Sarah
+g	5	action	Sarah
+b	-1	reverse	Sarah
+Bob
+00003
+y	-1	skip	Bob
+y	6	action	Bob
+g	1	action	Bob
+r	1	action	Bob
+y	0	action	Bob
+g	4	action	Bob
+b	8	action	Bob
+Sue
+00004
+r	7	action	Sue
+y	6	action	Sue
+g	-1	skip	Sue
+y	-1	skip	Sue
+b	6	action	Sue
+r	-1	draw2	Sue
+y	9	action	Sue
+Luke
+12058
+r	4	action	Luke
+y	2	action	Luke
+r	4	action	Luke
+c	-1	wild	Luke
+r	9	action	Luke
+b	3	action	Luke
+g	-1	reverse	Luke
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+q
+dgoodnow@vm-0:~/CS/weekseven$ exit
+exit
+
+Script done on Thu 24 Oct 2013 02:50:40 AM UTC

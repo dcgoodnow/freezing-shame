@@ -1,0 +1,100 @@
+Script started on Thu 24 Oct 2013 02:55:09 AM UTC
+dgoodnow@vm-0:~/CS/weekseven$ make -f test.mk
+g++ -o tester tester2.o uno.o string.o unoclass.o
+dgoodnow@vm-0:~/CS/weekseven$ ./tester
+c	-1	action	Location
+c	1	action	Unshuffled
+G	2	Action	Location
+c	1	action	Unshuffled
+
+2
+G
+Location
+Action
+c	1	action	Unshuffled
+c	1	action	Unshuffled
+c	1	action	Unshuffled
+c	1	action	Unshuffled
+G	5	Bob	Action
+5
+G
+Action
+Bob
+Bob
+01234
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+12345
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+23456
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+34567
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+45678
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+56789
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+678910
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+7891011
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+c	-1	action	Location
+Bob
+0x205e1e0
+01234dgoodnow@vm-0:~/CS/weekseven$ exit
+exit
+
+Script done on Thu 24 Oct 2013 02:55:22 AM UTC
