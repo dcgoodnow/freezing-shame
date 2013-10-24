@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 class card {
    public:
       card(int r = -1, const char* l = "Location");
@@ -5,6 +7,7 @@ class card {
       card(const card&);
       ~card();
       card operator=(const card&);
+      friend ostream& operator<<(ostream&, const card&);
       void setColor(char);
       void setRank(int);
       void setAction(const char*);
@@ -30,6 +33,7 @@ class player {
       player(const player&);
       ~player();
       player operator=(const player&);
+      friend ostream& operator<<(ostream&, const player&);
       void setName(const char*);
       char* getName() const;
       void setID(int*);

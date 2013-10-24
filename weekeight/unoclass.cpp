@@ -56,6 +56,15 @@ card card::operator=(const card& orig)
     return *this;
 }
 
+ostream& operator<<(ostream& os, const card& c)
+{
+   os << c.getColor() << '\t';
+   os << c.getRank() << '\t';
+   os << c.getAction() << '\t';
+   os << c.getLocation() <<  endl;
+   return os;
+}
+
 void card::setColor(char c)
 {
    if(c == 'c' || c == 'C' ||
@@ -197,6 +206,25 @@ player player::operator=(const player& orig)
       setHand(orig.hand);
    }
    return *this;
+}
+
+ostream& operator<<(ostream& os, const player& p)
+{
+   os << p.getName() << endl;
+   int* iptr = p.getID();
+   for(int i = 0; i < 5; i++)
+   {
+      os << *iptr;
+      iptr++;
+   }
+   os << endl;
+   card* cptr = p.getHand();
+   for(int i = 0; i < 7; i++)
+   {
+      os << *cptr;
+      cptr++;
+   }
+   return os;
 }
 
 void player::setName(const char* n)
