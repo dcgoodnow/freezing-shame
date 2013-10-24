@@ -4,35 +4,34 @@
 
 using namespace std;
 
-card::card(char c, int r, const char* a, 
-           const char* l )
+card::card(int r, const char* l )
 {
-   color = c;
+   color = 'c';
    rank = r;
    action = new char[20];
    location = new char[20];
-   StringCopy(a,action);
+   StringCopy("action", action);
    StringCopy(l, location);
 }
 
-/*card::card(char c, int r, const char* a, const char* l)
+card::card(int r, char c, const char* a, const char* l)
 {
-   SetColor(c);
-   SetRank(r);
+   setColor(c);
+   setRank(r);
    action = new char[20];
    StringCopy(a, action);
    location = new char[20];
    StringCopy(l, location);
-}*/
+}
 
 card::card(const card& c)
 {
    color = c.color;
    rank = c.rank;
    action = new char[20];
-   SetAction(c.action);
+   setAction(c.action);
    location = new char[20];
-   SetLocation(c.location);
+   setLocation(c.location);
 }
 
 card::~card()
@@ -45,13 +44,25 @@ card::~card()
    location = NULL;
 }
 
-void card::SetColor(char c)
+card card::operator=(const card& orig)
 {
-   if(c == 'c' ||
-      c == 'r' ||
-      c == 'g' ||
-      c == 'b' ||
-      c == 'y')
+    if(this != &orig)	
+    {
+        color = orig.color;
+        rank = orig.rank;
+        setAction(orig.action);
+        setLocation(orig.location);
+    }
+    return *this;
+}
+
+void card::setColor(char c)
+{
+   if(c == 'c' || c == 'C' ||
+      c == 'r' || c == 'R' ||
+      c == 'g' || c == 'G' ||
+      c == 'b' || c == 'B' ||
+      c == 'y' || c == 'Y')
    {
       color = c;
    }
@@ -59,7 +70,7 @@ void card::SetColor(char c)
       color = 'c';
 }
 
-void card::SetRank(int r)
+void card::setRank(int r)
 {
    if( r >= 1 || r <= 9)
    {
@@ -69,32 +80,32 @@ void card::SetRank(int r)
       rank = -1;
 }
 
-void card::SetAction(const char* a)
+void card::setAction(const char* a)
 {
    StringCopy(a, action);
 }
 
-void card::SetLocation(const char* a)
+void card::setLocation(const char* a)
 {
    StringCopy(a, location);
 }
 
-char card::GetColor()const 
+char card::getColor()const 
 {
    return color;
 }
 
-int card::GetRank() const 
+int card::getRank() const 
 {
    return rank;
 }
 
-char* card::GetAction() const 
+char* card::getAction() const 
 {
    return action;
 }
 
-char* card::GetLocation() const 
+char* card::getLocation() const 
 {
    return location;
 }
@@ -107,20 +118,21 @@ void card::print() const
    cout << location <<  endl;
 }
 
-void card::CopyCard(card orig)
+void card::copyCard(card orig)
 {
    //copy all aspects of the card
    color = orig.color;
    rank = orig.rank;
-   SetAction(orig.action);
+   setAction(orig.action);
+   setLocation(orig.location);
    
 }
 void card::Swap(card& c)
 {
   card temp;
-  temp.CopyCard(c);
-  c.CopyCard(*this);
-  CopyCard(temp);
+  temp.copyCard(c);
+  c.copyCard(*this);
+  copyCard(temp);
 }
 
 
@@ -154,16 +166,16 @@ player::player(const char* n, const int* i, card* h)
       id[j] = i[j];
    }
    hand = NULL;
-   SetHand(h);
+   setHand(h);
 }
 
 player::player(const player& p)
 {
    name = new char[25];
-   SetName(p.name);
-   SetID(p.id);
+   setName(p.name);
+   setID(p.id);
    hand = NULL;
-   SetHand(p.hand);
+   setHand(p.hand);
 }
 
 player::~player()
@@ -176,17 +188,28 @@ player::~player()
    hand = NULL;
 }
 
-void player::SetName(char* n)
+player player::operator=(const player& orig)
+{
+   if(this != &orig)
+   {
+      StringCopy(name, orig.name);
+      setID(orig.id);
+      setHand(orig.hand);
+   }
+   return *this;
+}
+
+void player::setName(const char* n)
 {
    StringCopy(n, name);
 }
 
-char* player::GetName() const 
+char* player::getName() const 
 {
    return name;
 }
 
-void player::SetID(int* n)
+void player::setID(int* n)
 {
    int* iptr = id;
    for(int i = 0; i < 5; i++)
@@ -197,12 +220,12 @@ void player::SetID(int* n)
    }
 }
 
-int* player::GetID() const 
+int* player::getID() const 
 {
    return id;
 }
 
-void player::SetHand(card* h)
+void player::setHand(card* h)
 {
    if(hand == NULL)
    {
@@ -212,14 +235,14 @@ void player::SetHand(card* h)
    
    for( int i = 0; i < 7; i++)
    {
-      (*cptr).CopyCard(*h);
-      (*cptr).SetLocation(name);
+      (*cptr).copyCard(*h);
+      (*cptr).setLocation(name);
       cptr++;
       h++;
    }
 }
 
-card* player::GetHand() const 
+card* player::getHand() const 
 {
    return hand;
 }
