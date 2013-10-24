@@ -96,7 +96,7 @@ void PrintDeck(card* deck)
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      deck[i].print();
+      cout << deck[i];
    }
 }
 

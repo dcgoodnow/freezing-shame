@@ -109,7 +109,7 @@ int main()
             {
                for(int i = 0; i < numpl; i ++)
                {
-                  players[i].print();
+                  cout << players[i];
                }
                break;
             }

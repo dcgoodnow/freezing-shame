@@ -288,7 +288,7 @@ void player::print() const
    card* cptr = hand;
    for(int i = 0; i < 7; i++)
    {
-      (*cptr).print(); 
+      cout << *cptr;
       cptr++;
    }
 }
