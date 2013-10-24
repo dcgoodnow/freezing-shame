@@ -58,11 +58,11 @@ card card::operator=(const card& orig)
 
 void card::setColor(char c)
 {
-   if(c == 'c' ||
-      c == 'r' ||
-      c == 'g' ||
-      c == 'b' ||
-      c == 'y')
+   if(c == 'c' || c == 'C' ||
+      c == 'r' || c == 'R' ||
+      c == 'g' || c == 'G' ||
+      c == 'b' || c == 'B' ||
+      c == 'y' || c == 'Y')
    {
       color = c;
    }
