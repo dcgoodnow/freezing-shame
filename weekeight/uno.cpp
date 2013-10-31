@@ -26,9 +26,6 @@ void LoadDeck(card* load)
 {
    char * temp;
    temp = new char[30];
-   card* dptr;
-   dptr = load;
-   int tempint;
 
    //get file name for cards
    cout << "What is the name of the uno cards file? ";
@@ -41,52 +38,12 @@ void LoadDeck(card* load)
    unoDeck.open(fileName);
    delete [] fileName;
    fileName = NULL;
-   
-   //load in the first four rows (numbered cards)
-   for(int i = 0; i < 76; i++)
+   card test;
+
+   for(int i = 0; i < 108; i++)
    {
-      //load color
-      unoDeck >> temp;
-      (*dptr).setColor(*temp);
-
-      //load rank
-      unoDeck >> tempint;
-      (*dptr).setRank(tempint);
-
-      //delete previous location array and create new properly sized array
-      (*dptr).setLocation("Unshuffled");
-      //move to next card
-      dptr++;
+      unoDeck >> load[i];
    }
-
-   //load in the fifth row (action cards)
-   for(int i = 76; i < 100; i++)
-   {
-      //load color
-      unoDeck >> temp;
-      (*dptr).setColor(*temp);
-
-      //load action
-      unoDeck >> temp;
-      (*dptr).setAction(temp);
-
-      //delete old location and load new location
-      (*dptr).setLocation("Unshuffled");
-      dptr++;
-   }
-
-   //load in the sixth row (wild cards)
-   for(int i = 100; i < 108; i++)
-   {
-      //load action
-      unoDeck >> temp;
-      (*dptr).setAction(temp);
-      //load new location
-      (*dptr).setLocation("Unshuffled");
-      dptr++;
-   }
-   
-
    unoDeck.close();
    return;
 }
@@ -200,7 +157,7 @@ card* SortCardsColor(card* toSort, int num)
       swapped = false;
       for(int i = 0; i < num-1; i++)
       {
-         if((toSort[i].getColor()) > (toSort[i+1].getColor()))
+         if(toSort[i] > toSort[i+1])
          {
             toSort[i].Swap(toSort[i+1]);
             swapped = true;

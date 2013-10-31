@@ -56,6 +56,20 @@ card card::operator=(const card& orig)
     return *this;
 }
 
+bool card::operator<(const card& c)
+{
+   if((*this).color < c.color)
+      return true;
+   return false;
+}
+
+bool operator>(const card& a, const card& b)
+{
+   if(a.color > b.color)
+      return true;
+   return false;
+}
+
 ostream& operator<<(ostream& os, const card& c)
 {
    os << c.getColor() << '\t';
@@ -63,6 +77,37 @@ ostream& operator<<(ostream& os, const card& c)
    os << c.getAction() << '\t';
    os << c.getLocation() <<  endl;
    return os;
+}
+
+istream& operator>>(istream& is, card& c)
+{
+   char *tempArr;
+   tempArr = new char[30];
+   StringCopy("basic", tempArr);
+   char temp;
+   is >> tempArr;
+   if(tempArr[0] == 'r' || tempArr[0] == 'R' ||
+      tempArr[0] == 'b' || tempArr[0] == 'B' ||
+      tempArr[0] == 'y' || tempArr[0] == 'Y' ||
+      tempArr[0] == 'g' || tempArr[0] == 'G')
+   {
+      c.color = tempArr[0];
+      is >> tempArr;
+      if(tempArr[0] >= '0' && tempArr[0] <= '9')
+      {
+         c.rank = tempArr[0]-48;
+      }
+      else
+      {
+         c.action = tempArr;
+      }
+   }
+   else
+   {
+      c.action = tempArr;
+   }
+   return is;
+   delete[] tempArr;
 }
 
 void card::setColor(char c)
@@ -208,23 +253,45 @@ player player::operator=(const player& orig)
    return *this;
 }
 
+
 ostream& operator<<(ostream& os, const player& p)
 {
    os << p.getName() << endl;
    int* iptr = p.getID();
    for(int i = 0; i < 5; i++)
    {
-      os << *iptr;
-      iptr++;
+      os << iptr[i];
    }
    os << endl;
    card* cptr = p.getHand();
    for(int i = 0; i < 7; i++)
    {
-      os << *cptr;
-      cptr++;
+      os << cptr[i];
    }
    return os;
+}
+
+istream& operator>>(istream& is, player& p)
+{
+   char * temp;
+   temp = new char[30];
+   char idChar;
+   int* iptr;
+   iptr = new int[5];
+   is >> p.name;
+   for( int j = 0; j < 5; j ++)
+   {
+      //load each integer into temporary character
+      is >> idChar;
+      //convert to integer, store in array
+      p.id[j] = idChar-48;
+   }
+   
+   delete[] temp;
+   temp = NULL;
+   delete[] iptr;
+   iptr = NULL;
+   return is;
 }
 
 void player::setName(const char* n)

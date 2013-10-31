@@ -8,6 +8,9 @@ class card {
       ~card();
       card operator=(const card&);
       friend ostream& operator<<(ostream&, const card&);
+      friend istream& operator>>(istream&, card&);
+      bool operator<(const card&);
+      friend bool operator>(const card&, const card&);
       void setColor(char);
       void setRank(int);
       void setAction(const char*);
@@ -34,6 +37,7 @@ class player {
       ~player();
       player operator=(const player&);
       friend ostream& operator<<(ostream&, const player&);
+      friend istream& operator>>(istream&, player&);
       void setName(const char*);
       char* getName() const;
       void setID(int*);
