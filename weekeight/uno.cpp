@@ -62,7 +62,7 @@ void ShuffleDeck(card* unshuff, card* shuff)
    //copy all cards into shuffled deck
    for(int i = 0; i < 108; i++)
    {
-      shuff[i].copyCard(unshuff[i]);
+      shuff[i]=unshuff[i];
       shuff[i].setLocation("Shuffled");
    }
    srand(time(NULL));
@@ -73,9 +73,9 @@ void ShuffleDeck(card* unshuff, card* shuff)
       
       randA = rand()%108;
       randB = rand()%108;
-      temp.copyCard(shuff[randA]);
-      shuff[randA].copyCard(shuff[randB]);
-      shuff[randB].copyCard(temp);
+      temp=shuff[randA];
+      shuff[randA]=shuff[randB];
+      shuff[randB]=temp;
    }
 }
 
@@ -127,7 +127,7 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    {
       for(int j = 0; j < 7; j++)
       {
-         tempc[j].copyCard(deck[i*7+j]);
+         tempc[j]=deck[i*7+j];
          tempc[j].setLocation(deck[i*7+j].getLocation());
       }
       players[i].setHand(tempc);
@@ -136,13 +136,13 @@ void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
    tempc = NULL;
 
    //deal first discard card
-   disc[0].copyCard(deck[numpl*7]);
+   disc[0]=deck[numpl*7];
    disc[0].setLocation("Discard");
 
    //move the remainder of cards to draw pile
    for( int i = numpl*7+1; i < 108; i++)
    {
-      draw[i-(numpl*7+1)].copyCard(deck[i]);
+      draw[i-(numpl*7+1)]=deck[i];
 
       //set new location
       draw[i-(numpl*7+1)].setLocation("Draw");

@@ -84,7 +84,6 @@ istream& operator>>(istream& is, card& c)
    char *tempArr;
    tempArr = new char[30];
    StringCopy("basic", tempArr);
-   char temp;
    is >> tempArr;
    if(tempArr[0] == 'r' || tempArr[0] == 'R' ||
       tempArr[0] == 'b' || tempArr[0] == 'B' ||
