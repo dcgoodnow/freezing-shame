@@ -1,4 +1,5 @@
 #include "Queue.h"
+#include <iostream>
 
 Queue::Queue(int size)
 {
@@ -64,7 +65,37 @@ bool Queue::empty() const
       return true;
    return false;
 }
-bool full() const;
-bool clear();
-bool operator==(const Queue&) const;
-friend ostream& operator<<(ostream&, const Queue&);
+bool Queue::full() const
+{
+   if(rear == maxSize -1)
+      return true;
+   return false;
+}
+bool Queue::clear()
+{
+   front = -1;
+   rear = -1;
+}
+bool Queue::operator==(const Queue& q) const
+{
+   if(front != q.front)
+   {
+      return false;
+   }
+   for(int i = 0; i <= front; i++)
+   {
+      if(data[i] != q.data[i])
+         return false;
+   }
+   return true;
+}
+ostream& operator<<(ostream& os, const Queue& q)
+{
+   os << '[' << q.data[q.front] << "] ";
+   for(int i = q.front - 1; i >= 0; i --)
+   {
+      os << q.data[i] << ' ';
+   }
+   os << endl;
+   return os;
+}

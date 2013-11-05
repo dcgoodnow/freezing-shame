@@ -98,8 +98,15 @@ bool Stack<T>::clear()
 template <typename T>
 void Stack<T>::print() const
 {
-   for(int i = 0; i < actual; i++)
+   if(empty())
    {
-      cout << data[i] << endl;
+      cout << "EMPTY" << endl;
+      return;
    }
+   cout << '[' << data[0] << "] ";
+   for(int i = 1; i < actual; i++)
+   {
+      cout << data[i] << ' ';
+   }
+   cout << endl;
 }

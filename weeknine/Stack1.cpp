@@ -92,8 +92,10 @@ bool Stack<T>::clear()
 template <typename T>
 void Stack<T>::print() const
 {
-   for(int i = 0; i < maxSize; i++)
+   cout << '[' << data[top] << "] ";
+   for(int i = top-1; i >= 0; i--)
    {
-      cout << data[i] << endl;
+      cout << data[i] << " ";
    }
+   cout << endl;
 }
