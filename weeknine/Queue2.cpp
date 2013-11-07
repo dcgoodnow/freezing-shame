@@ -1,5 +1,5 @@
 #include "Queue.h"
-#include <iostream>
+
 
 Queue::Queue(int size)
 {
@@ -9,22 +9,25 @@ Queue::Queue(int size)
    rear = -1;
 }
 
-Queue::Queue(const Queue& q)
+/*Queue::Queue(const Queue& q)
 {
    maxSize = q.maxSize;
    data = new int[maxSize];
    front = q.front;
    rear = q.rear;
-   for(int i = front; i >= 0; i--)
+   for(int i = front; i <= rear; i++)
    {
       data[i] = q.data[i];
+      i %= maxSize;
    }
-}
+}*/
+
 Queue::~Queue()
 {
    delete[] data;
 }
-Queue& Queue::operator=(const Queue& q)
+
+/*Queue& Queue::operator=(const Queue& q)
 {
    
    maxSize = q.maxSize;
@@ -32,31 +35,41 @@ Queue& Queue::operator=(const Queue& q)
    data = new int[maxSize];
    front = q.front;
    rear = q.rear;
-   for(int i = 0; i < rear; i++)
+   for(int i = front; i < rear; i++)
    {
       data[i] = q.data[i];
    }
-}
+}*/
+
 bool Queue::enqueue(int toQueue)
 {
    if(!full())
    {
-      for(int i = front; i >= 0; i--)
+      if(front != -1)
       {
-         data[i+1] = data[i];
+         rear = (rear+maxSize+1);
+         rear %= maxSize;
+         data[rear] = toQueue;
+         for(int i = 0; i < rear; i++)
+         {
+            cout <<data[i];
+         }
+         return true;
       }
       front++;
-      data[0] = toQueue;
+      rear++;
+      data[front] = toQueue;
       return true;
    }
    return false;
 }
-bool Queue::dequeue(int& popper)
+bool Queue::dequeue(int& d)
 {
    if(!empty())
    {
-      popper = data[front];
-      front--;
+      d = data[front];
+      front = (front+maxSize-1);
+      front %= maxSize;
    }
 }
 bool Queue::empty() const
@@ -67,23 +80,26 @@ bool Queue::empty() const
 }
 bool Queue::full() const
 {
-   if(rear == maxSize -1)
+   if(front == ((rear+maxSize-1)%maxSize))
+      return true;
+   if(front == ((rear+maxSize+1)%maxSize))
       return true;
    return false;
 }
 bool Queue::clear()
 {
-   front = -1;
-   rear = -1;
+   front = rear = -1;
 }
 bool Queue::operator==(const Queue& q) const
 {
-   if(front != q.front)
+   if(maxSize != q.maxSize || 
+      (rear+maxSize)%maxSize - front != (q.rear+q.maxSize)%q.maxSize - q.front)
    {
       return false;
    }
-   for(int i = 0; i <= front; i++)
+   for(int i = rear; i < front; i++)
    {
+      i = (i+maxSize)%maxSize;
       if(data[i] != q.data[i])
          return false;
    }
@@ -91,23 +107,10 @@ bool Queue::operator==(const Queue& q) const
 }
 ostream& operator<<(ostream& os, const Queue& q)
 {
-   if(q.empty())
+   os << "[" << q.data[q.front] << "] ";
+   for(int i = (q.front+1)%q.maxSize; i <= q.rear+q.maxSize; i++)
    {
-      os << "EMPTY" << endl;
-      return os;
+      os << q.data[i%q.maxSize] << ' ';
    }
-   
-   if(q.full())
-   {
-      os << "FULL" << endl;
-      return os;
-   }
-
-   os << '[' << q.data[q.front] << "] ";
-   for(int i = q.front - 1; i >= 0; i --)
-   {
-      os << q.data[i] << ' ';
-   }
-   os << endl;
    return os;
 }
