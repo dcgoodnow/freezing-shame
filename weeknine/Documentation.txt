@@ -1,0 +1,30 @@
+Daniel Goodnow
+November 6, 2013
+CS202
+
+STACKS AND QUEUES
+=================
+
+Stack Design Concepts:
+The key design concepts involved were fairly simple. Two types of stacks were
+implemented. The first method moves increments the top pointer of the stack as
+data is pushed onto the stack. This way, data is never moved within the stack,
+it is only added or removed. This method is simpler and less resource intensive. 
+The second method keeps the top of the stack at the 0 index and moves existing
+data in the stack up and down the array when data is pushed onto or popped from
+the stack. This method is more easily visualized, however it is not as efficient
+at runtime. 
+
+Queue Design Concepts:
+Two methods were implemented for queues. The first was rather simple, while the
+second method is more difficult to conceptualize and program. The first method
+keeps the front of the queue at the same position for the life of the queue. As
+data is enqueued and dequeued, the existing data in the queue is shuffled up and
+down the array. This method is easy to visualize, yet it is more inefficient
+than the second method. The second method is called a 'wrap' style queue. Both
+the front and the rear of the stack can be moved as data is added and removed.
+This means that a queue can start near the end of an array and wrap around to
+the beginning of the array. This makes working with the queue notably more
+difficult because of the different possible configurations. The main advantage
+to using a wrap-style queue is the more efficient use of computer resources
+during runtime. 
