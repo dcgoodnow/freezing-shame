@@ -58,6 +58,7 @@ Queue& Queue::operator=(const Queue& q)
          data[i] = q.data[i];
       }
    }
+   return *this;
 }
 
 bool Queue::enqueue(int toQueue)
