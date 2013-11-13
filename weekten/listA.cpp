@@ -168,4 +168,43 @@ List& List::operator=(const List& l)
    return *this;
 }
 
+ostream& operator<<(ostream& os, const List& l)
+{
+   if(l.empty())
+   {
+      os << "EMPTY";
+      return os;
+   }
+   for(int i = 0; i < l.cursor -1; i++)
+   {
+      os << l.data[i] << ' ';
+   }
+   os << '[' << l.data[l.cursor] << "] ";
+   for(int i = l.cursor+1; i < l.actual; i++)
+   {
+      os << l.data[i] << ' ';
+   }
+   return os;
+}
+
+
+bool List::operator==(const List& l) const
+{
+   if(empty() ^ l.empty())
+      return false;
+   if(empty() && l.empty())
+      return true;
+   if(actual != l.actual ||
+      size != l.size     ||
+      cursor != l.cursor   )
+      return false;
+   for(int i = 0; i < actual; i++)
+   {
+      if(data[i] != l.data[i])
+      {
+         return false;
+      }
+   }
+   return true;
+}
 //NEED TO TEST, DETERMINE ANY OTHER SPECIAL CASES
