@@ -14,6 +14,8 @@ List::List(const List& l)
    data = new char[size];
    actual = l.actual;
    cursor = l.cursor;
+   
+   //copy all elements
    for(int i = 0; i < actual; i++)
    {
       data[i] = l.data[i];
@@ -45,6 +47,7 @@ bool List::gotoEnd()
 
 bool List::gotoNext()
 {
+   //can't go to next if at maxsize or empty
    if(cursor == actual-1 || empty())
       return false;
    cursor++;
@@ -53,6 +56,7 @@ bool List::gotoNext()
 
 bool List::gotoPrior()
 {
+   //can't go backwards if at beginning or empty
    if(cursor == 0 || empty())
       return false;
    cursor--;
@@ -61,6 +65,7 @@ bool List::gotoPrior()
 
 bool List::insertAfter(char c)
 {
+   //don't implement the cursor if starting from empty list
    if(empty())
    {
       data[cursor] = c;
@@ -71,7 +76,7 @@ bool List::insertAfter(char c)
    {
       if(cursor != size -1)
       {
-         char tmp;
+         //shift all succeeding elements down by 1
          for( int i = actual; i > cursor+1; i--)
          {
             data[i] = data[i-1];
@@ -82,7 +87,6 @@ bool List::insertAfter(char c)
          return true;
       }
    }
-   
    return false;
 }
 
@@ -96,6 +100,7 @@ bool List::insertBefore(char c)
    }
    else if(!full())
    {
+      //shuffle all elements including cursor down
       for( int i = actual; i > cursor; i--)
       {
          data[i] = data[i-1];
@@ -113,6 +118,7 @@ bool List::remove(char& c)
    if(empty())
       return false;
    c = data[cursor];
+   //shift elements up, overwriting old data at the cursor
    for(int i = cursor; i < actual-1; i++)
    {
       data[i] = data[i+1];
@@ -169,11 +175,14 @@ List& List::operator=(const List& l)
 {
    if(this != &l)
    {
+      //remove old array
       delete[] data;
       size = l.size;
       data = new char[size];
       actual = l.actual;
       cursor = l.cursor;
+
+      //copy all elements
       for(int i = 0; i < actual; i++)
       {
          data[i] = l.data[i];
@@ -189,11 +198,16 @@ ostream& operator<<(ostream& os, const List& l)
       os << "EMPTY";
       return os;
    }
+   //print data up to cursor
    for(int i = 0; i <= l.cursor -1; i++)
    {
       os << l.data[i] << ' ';
    }
+
+   //print cursor
    os << '[' << l.data[l.cursor] << "] ";
+
+   //print data after cursor
    for(int i = l.cursor+1; i < l.actual; i++)
    {
       os << l.data[i] << ' ';
@@ -204,6 +218,7 @@ ostream& operator<<(ostream& os, const List& l)
 
 bool List::operator==(const List& l) const
 {
+   //check simple conditions that give immediate solution
    if(empty() ^ l.empty())
       return false;
    if(empty() && l.empty())
@@ -212,6 +227,8 @@ bool List::operator==(const List& l) const
       size != l.size     ||
       cursor != l.cursor   )
       return false;
+   
+   //check individual data elements for equivalence
    for(int i = 0; i < actual; i++)
    {
       if(data[i] != l.data[i])
@@ -219,6 +236,7 @@ bool List::operator==(const List& l) const
          return false;
       }
    }
+
+   //if got this far, they are the same
    return true;
 }
-//NEED TO TEST, DETERMINE ANY OTHER SPECIAL CASES
