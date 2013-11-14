@@ -175,7 +175,7 @@ ostream& operator<<(ostream& os, const List& l)
       os << "EMPTY";
       return os;
    }
-   for(int i = 0; i < l.cursor -1; i++)
+   for(int i = 0; i <= l.cursor -1; i++)
    {
       os << l.data[i] << ' ';
    }
