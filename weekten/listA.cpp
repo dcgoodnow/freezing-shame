@@ -2,9 +2,22 @@
 
 List::List(int s)
 {
-   data = new char[s];
+   size = s;
+   data = new char[size];
    cursor = 0;
    actual = 0;
+}
+
+List::List(const List& l)
+{
+   size = l.size;
+   data = new char[size];
+   actual = l.actual;
+   cursor = l.cursor;
+   for(int i = 0; i < actual; i++)
+   {
+      data[i] = l.data[i];
+   }
 }
 
 List::~List()
@@ -139,7 +152,8 @@ bool List::full() const
 {
    if(actual == size)
       return true;
-   return false;
+   else
+      return false;
 }
 
 bool List::clear()
