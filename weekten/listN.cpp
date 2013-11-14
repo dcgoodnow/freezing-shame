@@ -12,6 +12,24 @@ List::List(int s)
    cursor = NULL;
 }
 
+List::List(const List& l)
+{
+   Node* stmp = l.head;
+   Node* dtmp = new Node(stmp->data, stmp->next);
+   head = dtmp;
+   if(l.cursor == stmp)
+      cursor = dtmp;
+   while(stmp->next != NULL)
+   {
+      stmp = stmp->next;
+      dtmp->next = new Node(stmp->data, stmp->next);
+      dtmp = dtmp->next;
+      if(l.cursor == stmp)
+         cursor = dtmp;
+   }
+
+}
+
 List::~List()
 {
    Node* tmp;
@@ -62,6 +80,8 @@ bool List::gotoNext()
 
 bool List::gotoPrior()
 {
+   if(cursor == head)
+      return true;
    if(!empty())
    {
       Node* tmp = head;
@@ -81,6 +101,7 @@ bool List::insertAfter(char c)
    {
       Node* tmp = new Node(c, cursor->next);
       cursor->next = tmp;
+      cursor = tmp;
       return true;
    }
    if(empty())
@@ -98,6 +119,7 @@ bool List::insertBefore(char c)
    {
       Node* tmp = new Node(cursor->data, cursor->next);
       cursor->data = c;
+      cursor->next = tmp;
       return true;
    }
    if(empty())
@@ -165,7 +187,7 @@ bool List::empty() const
 
 bool List::full() const
 {
-   return true;
+   return false;
 }
 
 bool List::clear()
@@ -230,3 +252,24 @@ ostream& operator<<(ostream& os, const List& l)
    return os;
 }
 
+bool List::operator==(const List& l) const
+{
+   if(empty() ^ l.empty())
+      return false;
+   if(empty() && l.empty())
+      return true;
+   Node* tmp1 = head;
+   Node* tmp2 = l.head;
+   while(tmp1 != NULL && tmp2 != NULL)
+   {
+      if(tmp1->data != tmp2->data)
+         return false;
+      if(cursor == tmp1 && l.cursor != tmp2)
+         return false;
+      if(tmp1->next == NULL && tmp2->next == NULL)
+         return true;
+      tmp1 = tmp1->next;
+      tmp2 = tmp2->next;
+   }
+   return false;
+}
