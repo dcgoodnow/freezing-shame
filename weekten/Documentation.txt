@@ -1,0 +1,59 @@
+Daniel Goodnow
+September 13, 2013
+CS202
+
+LISTS
+=====
+
+Lists are very useful data structures, particularly node-based linked lists.
+Lists allows the user to easily insert and remove data at any point in the list,
+which can be very useful for precisely ordered data sets. Also, in the case of
+node-based lists, they can be dynamically sized. This is obviously useful in
+situations in which the user does not know how large the list needs to be prior
+to its creation. 
+
+Array-Based Lists
+-----------------
+
+Array-Based lists, as their name suggests, is a list contained in an array. The
+array is sized when the constructor for the list is called, and cannot be
+changed for the life of the object. They require 4 private data members: maximum
+size, actual size, cursor, and the array itself. All operations on the list rely
+on the cursor. The cursor dictates where a certain action will be executed. The
+actual size is used to determine whether the list is full or empty. If a list is
+full, data cannot be inserted into the list and any requests to do so will be
+ignored. Also, nearly all operations on the list are conditional based on
+whether or not the list is empty. This prevents unexpected events from occuring
+when performing actions on an empty list. Lastly, the assignment(=)
+comparison(==) and insertion(<<) operators have been overloaded to work with the
+Array-based lists.
+
+Nodes
+-----
+
+Nodes are simple objects with only two data members. They consist of a data
+value (in this case char) and a pointer. They can only be created by a list
+object, thus protecting the user from creating nodes that are not linked inside
+of a list. 
+
+Node-Based Lists
+----------------
+
+Node-based lists consist of a series of objects, or nodes, located randomly in 
+memory. Node-based lists are significantly more difficult to implement than
+array-based lists. Each object points to the next object in the list. For this 
+reason, only data members are needed: a node pointer to the front, or head, of
+the list, and a node pointer for the cursor. The cursor is still the focus of
+all actions performed on the list, however they are not as simple to implement
+because the list can only be moved through in a forward direction. For example,
+to get to a previous node, a pointer is looped through the list until the next
+element is the current location of the cursor. Other than the private data
+members, they contain the same functionality of array-based lists. Data can be
+inserted, removed, replaced, and cleared, and the cursor can be moved around the
+list. While these lists are morei difficult to implement and can require more
+processor cycles to perform actions on, they have many advantages over
+array-based lists. The most important is that they are dynamically sized, which
+means that the user does not need to know the maximum size required for the list
+(The list will still technically have a maximum size dictated by the amount of
+available memory in the system). Also, node-based lists can be used in place of
+arrays to create other data structures such as stacks or queues. 
