@@ -1,5 +1,6 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
+#include "person.h"
 
 class employee : public person 
 {
@@ -7,17 +8,18 @@ class employee : public person
       employee();
       employee(const employee&);
       ~employee();
-      void setID(int*);
+      bool setID(int*);
       void setTitle(char*);
-      void setSalary(int);
+      bool setSalary(int);
       int* getID() const;
-      char* getTitle(char*) const;
+      char* getTitle() const;
       int getSalary() const;
+      void print() const;
 
    private:
       int* id;
       char* title;
       int salary;
-}
+};
 
 #endif
