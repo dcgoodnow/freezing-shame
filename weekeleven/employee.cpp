@@ -12,12 +12,30 @@ employee::employee()
 
 employee::employee(const employee& e)
 {
+   first = new char[30];
+   int i = 0;
+   while(e.first[i] != '\0')
+   {
+      first[i] = e.first[i];
+      i++;
+   }
+   first[i] = '\0';
+   last = new char[30];
+   i = 0;
+   while(e.last[i] != '\0')
+   {
+      last[i] = e.last[i];
+      i++;
+   }
+   last[i] = '\0';
+   age = e.age;
+   setSSN(e.getSSN());
    id = new int[5];
    for(int i=0; i < 5; i++)
       id[i] = e.id[i];
    title = new char[30];
    int j = 0;
-   while(e.title != '\0')
+   while(e.title[j] != '\0')
    {
       title[j] = e.title[j];
       j++;
@@ -50,7 +68,7 @@ bool employee::setID(int* t)
    return true;
 }
 
-void employee::setTitle(char* t)
+void employee::setTitle(const char* t)
 {
    int i = 0;
    while(t[i] != '\0')

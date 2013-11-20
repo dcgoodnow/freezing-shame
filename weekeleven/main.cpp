@@ -1,10 +1,10 @@
-#include "person.h"
 #include "person.cpp"
+#include "employee.cpp"
 #include <iostream>
 
 int main()
 {
-   person me;
+   employee me;
    me.setFirst("danny");
    me.setLast("goodnow");
    me.setAge(20);
@@ -14,7 +14,19 @@ int main()
       a[i] = i;
    }
    me.setSSN(a);
-
-   me.print();
+   me.setTitle("Badass");
+   me.setSalary(1000000000);
+   for(int i = 0; i < 5; i++)
+   {
+      a[i] = i;
+   }
+   me.setID(a);
+   person p1;
+   p1.setFirst("blah");
+   p1.setLast("foo");
+   person p2(p1);
+   p2.print();
+   employee you(me);
+   you.print();
    return 0;
 }

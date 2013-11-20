@@ -9,7 +9,7 @@ class employee : public person
       employee(const employee&);
       ~employee();
       bool setID(int*);
-      void setTitle(char*);
+      void setTitle(const char*);
       bool setSalary(int);
       int* getID() const;
       char* getTitle() const;
