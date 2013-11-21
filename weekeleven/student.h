@@ -1,6 +1,7 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 #include "person.h"
+#include <fstream>
 
 class student : public person 
 {
@@ -15,6 +16,7 @@ class student : public person
       char* getMajor() const;
       double getGPA() const;
       void print() const;
+      void read(std::ifstream&);
 
    private:
       int* nshe;

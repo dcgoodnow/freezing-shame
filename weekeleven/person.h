@@ -1,5 +1,6 @@
 #ifndef PERSON_H
 #define PERSON_H
+#include <fstream>
 
 class person
 {
@@ -16,6 +17,7 @@ class person
       int getAge() const;
       int* getSSN() const;
       void print() const;
+      void read(std::ifstream&);
 
    protected:
       char* first;

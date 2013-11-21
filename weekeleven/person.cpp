@@ -1,5 +1,8 @@
 #include "person.h"
 #include <iostream>
+#include <fstream>
+#include "string.h"
+
 using namespace std;
 
 person::person()
@@ -8,6 +11,7 @@ person::person()
    last = new char [30];
    age = 0;
    ssn = new int[9];
+   cout << "Person Constructing..." << endl;
 }
 
 person::person(const person& p)
@@ -34,6 +38,7 @@ person::person(const person& p)
    {
       ssn[i] = p.ssn[i];
    }
+   cout << "Person Constructing..." << endl;
 }
 
 person::~person()
@@ -127,4 +132,26 @@ void person::print() const
       cout << ssn[i];
    }
    cout << endl;
+}
+
+void person::read(ifstream& file)
+{
+   char temp;
+   char* tempStr = new char[30];
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, first);
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, last);
+   file >> temp;
+   file >> age;
+   file >> temp;
+   int* tempSSN = new int[10];
+   file.get(tempStr, 30, ':');
+   for(int i = 0; i < 9; i++)
+   {
+      tempSSN[i] = tempStr[i] - 48;
+   }
+   setSSN(tempSSN);
 }

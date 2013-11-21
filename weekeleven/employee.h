@@ -1,6 +1,7 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 #include "person.h"
+#include <fstream>
 
 class employee : public person 
 {
@@ -15,6 +16,7 @@ class employee : public person
       char* getTitle() const;
       int getSalary() const;
       void print() const;
+      void read(std::ifstream&);
 
    private:
       int* id;

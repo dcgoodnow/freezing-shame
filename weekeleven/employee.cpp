@@ -1,5 +1,6 @@
 #include "employee.h"
 #include <iostream>
+#include "string.h"
 
 using namespace std;
 
@@ -8,6 +9,7 @@ employee::employee()
    id = new int[5];
    title = new char[30];
    salary = 0;
+   cout << "Employee Constructing..." << endl;
 }
 
 employee::employee(const employee& e)
@@ -42,6 +44,7 @@ employee::employee(const employee& e)
    }
    title[j] = '\0';
    salary = e.salary;
+   cout << "Employee Constructing..." << endl;
 }
 
 employee::~employee()
@@ -133,4 +136,37 @@ void employee::print() const
    }
    cout << endl;
    cout << "Salary: " << salary << endl;
+}
+
+void employee::read(ifstream& file)
+{
+   char temp;
+   char* tempStr = new char[30];
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, first);
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, last);
+   file >> temp;
+   file >> age;
+   file >> temp;
+   int* tempSSN = new int[9];
+   file.get(tempStr, 30, ':');
+   for(int i = 0; i < 9; i++)
+   {
+      tempSSN[i] = tempStr[i] - 48;
+   }
+   setSSN(tempSSN);
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   for(int i = 0; i < 5; i++)
+   {
+      id[i] = tempStr[i] - 48;
+   }
+   file >>temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, title);
+   file >> temp;
+   file >> salary;
 }

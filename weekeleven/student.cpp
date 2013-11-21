@@ -1,5 +1,7 @@
 #include "student.h"
+#include <fstream>
 #include <iostream>
+#include "string.h"
 using namespace std;
 
 student::student()
@@ -7,6 +9,7 @@ student::student()
    nshe = new int[10];
    major = new char[30];
    gpa = 0.0;
+   cout << "Student Constructing..." << endl;
 }
 
 student::student(const student& s)
@@ -42,6 +45,7 @@ student::student(const student& s)
       j++;
    }
    gpa = s.gpa;
+   cout << "Student Constructing..." << endl;
 }
 
 student::~student()
@@ -132,4 +136,37 @@ void student::print() const
    cout << endl;
    cout << "Major: " << major << endl;
    cout << "GPA: " << gpa << endl;
+}
+
+void student::read(ifstream& file)
+{
+   char temp;
+   char* tempStr = new char[30];
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, first);
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, last);
+   file >> temp;
+   file >> age;
+   file >> temp;
+   int* tempSSN = new int[10];
+   file.get(tempStr, 30, ':');
+   for(int i = 0; i < 9; i++)
+   {
+      tempSSN[i] = tempStr[i] - 48;
+   }
+   setSSN(tempSSN);
+   file >> temp;
+   file.get(tempStr, 30, ':');
+   for(int i = 0; i < 10; i++)
+   {
+      nshe[i] = tempStr[i] - 48;
+   }
+   file >>temp;
+   file.get(tempStr, 30, ':');
+   StringCopy(tempStr, major);
+   file >> temp;
+   file >> gpa;
 }
