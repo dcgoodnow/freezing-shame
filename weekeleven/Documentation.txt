@@ -1,0 +1,45 @@
+Daniel Goodnow
+November 20, 2013
+CS202
+Project 11: Inheritance
+
+Objective: 
+==========
+
+The objective of this project was to introduce inheritance using two classes
+which are derived from a base class. Also, the runtime process of inheritance
+was analyzed.
+
+Inheritance:
+============
+
+Inheritance is the process of deriving more specific classes from a generic base
+class. In this project, the base class is a person class. It includes the data
+members first name, last name, age, and social security number. The first
+derived class is an employee class which adds ID, title, and salary. The second
+derived class is a student class which adds NSHE number, major, and gpa in
+addition to the data present in the person class. 
+
+Specifics:
+==========
+
+Each class contains several functions that are present in each of the class but
+have different implementations. They all have different constructors and
+destructors (although student and employee classes implicitly call the person
+constructors and destructors). They also have different print and read functions
+because of the different data members in the input file and to be printed. 
+
+Observations:
+=============
+
+During testing of the project, several observations were made. First, by using
+console output statements in the constructors, it is clear that the base
+(person) constructor is implicitly called before the derived (student or
+employee) constructor is called. Also, while experimenting with pointers and
+arrays of these objects, it was determined that a person pointer can point to an
+employee/student object, but it cannot be used to navigate through arrays of
+employees/students, and it cannot access the members specific to the employee.
+The former is most likely due to that a person pointer increments by the size
+allocated for a person. Therefore, incrementing a pointer by the size of a
+person through an array of employees would result with the pointer pointing to
+erroneous locations in the array. 
