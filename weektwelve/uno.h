@@ -1,5 +1,6 @@
 #include <fstream>
 #include "unoclass.h"
+#include "list.h"
 using namespace std;
 
 
@@ -19,7 +20,7 @@ void PrintMenu();
   *Args:    array for deck to be loaded into
   *Retval:  true if no errors, false if errors occur, loads array
 **/
-void LoadDeck(card*);
+void LoadDeck(list);
 
 /**
   *Name:    Print Deck

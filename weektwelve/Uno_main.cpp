@@ -13,6 +13,9 @@
 #include "uno.h"
 #include <iostream>
 #include "string.h"
+#include "list.h"
+#include "stack.h"
+#include "queue.h"
 
 
 using namespace std;
@@ -22,14 +25,10 @@ int main()
    //initialize objects and vars
    char userResponse;
    bool running = true;
-   card * unshuffled;
-   unshuffled = new card[108];
-   card * shuffled;
-   shuffled = new card[108];
-   card * discard;
-   discard = new card[108];
-   card * draw;
-   draw = new card[108];
+   list<card> unshuffled;
+   queue<card> shuffled;
+   queue<card> draw;
+   stack<card> discard;
    char * mainTemp;
    mainTemp = new char[30];
 

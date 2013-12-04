@@ -22,7 +22,7 @@ void PrintMenu()
    cout << "Enter q to quit the program" <<endl;
 }
 
-void LoadDeck(card* load)
+void LoadDeck(list load)
 {
    char * temp;
    temp = new char[30];
@@ -38,22 +38,26 @@ void LoadDeck(card* load)
    unoDeck.open(fileName);
    delete [] fileName;
    fileName = NULL;
-   card test;
+   card temp;
 
    for(int i = 0; i < 108; i++)
    {
-      unoDeck >> load[i];
+      unoDeck >> temp;
+      load.insertAfter(temp);
    }
    unoDeck.close();
    return;
 }
 
-void PrintDeck(card* deck)
+void PrintDeck(list deck)
 {
+   deck.gotoBeginning();
+   card temp;
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      cout << deck[i];
+      deck.getCursor(temp)
+      cout << temp;
    }
 }
 
