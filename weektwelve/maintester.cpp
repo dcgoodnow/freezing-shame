@@ -82,11 +82,9 @@ void ShuffleDeck(list<card>& unshuff, queue<card>& shuff)
          }
       }
       unshuff.remove(temp);
-      cout << randA << endl;
       shuff.enqueue(temp);
    }
    unshuff.remove(temp);
-   cout << temp;
    shuff.enqueue(temp);
 }
 
@@ -136,6 +134,18 @@ void LoadPlayers(queue<player>& list, ifstream& players, int numplayers)
    }
 }
 
+const void PrintPlayers(queue<player> roster )
+{
+   queue<player> tempP = roster;
+   player temp;
+   int i = 0;
+   while(!tempP.empty())
+   {
+      tempP.dequeue(temp);
+      cout << temp;
+   }
+}
+
 int main()
 {
    list<card> unshuffled;
@@ -151,8 +161,7 @@ int main()
    queue<player> players;
    ifstream inPlayers;
    inPlayers.open("players.txt");
-   //LoadPlayers(players, inPlayers, 6);
-   player test;
-   players.enqueue(test);  
+   LoadPlayers(players, inPlayers, 6);
+   PrintPlayers(players);
    return 0;
 }

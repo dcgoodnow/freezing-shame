@@ -200,11 +200,9 @@ player::player()
    name = new char[25];
    StringCopy("Name", name);
    id =  new int[5];
-   int* iptr = id;
    for(int i = 0; i < 5; i++)
    {
-      iptr = 0;
-      iptr++;
+      id[i] = 0;
    }
    hand = new card[7];
 }
@@ -225,13 +223,12 @@ player::player(const char* n, const int* i, card* h)
 player::player(const player& p)
 {
    name = new char[25];
-   setName(p.name);
+   StringCopy(p.name, name);
+   id = new int[5];
   
-   int* iptr = id;
    for(int i = 0; i < 5; i++)
    {
-      *iptr = p.id[i];
-      iptr++;
+      id[i] = p.id[i];
    }
  
    hand = NULL;
@@ -252,7 +249,7 @@ player player::operator=(const player& orig)
 {
    if(this != &orig)
    {
-      StringCopy(name, orig.name);
+      StringCopy(orig.name, name);
       setID(orig.id);
       setHand(orig.hand);
    }
