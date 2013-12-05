@@ -1,4 +1,3 @@
-#include "list.h"
 
 template <typename T>
 node<T>::node(T c, node<T>* n)

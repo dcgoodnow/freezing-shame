@@ -1,0 +1,13 @@
+CC=g++
+CFLAGS= -c
+SOURCES=maintester.cpp string.cpp list.cpp uno.cpp unoclass.cpp stack.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=maintester
+
+all: $(SOURCES) $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) -g $(OBJECTS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@

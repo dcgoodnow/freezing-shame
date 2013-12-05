@@ -1,5 +1,6 @@
 #include "unoclass.h"
 #include "string.h"
+#include "list.h"
 #include <iostream>
 
 using namespace std;
@@ -329,4 +330,53 @@ bool player::removeCard(card& toRemove)
    return false;
 }
 
+void player::SortCardsColor()
+{
+   bool swapped = true;
+   card temp;
+   card temp2;
+   while(swapped)
+   {
+      swapped = false;
+      hand.gotoBeginning();
+      for(int i = 0; i < 7-1; i++)
+      {
+         hand.getCursor(temp);
+         hand.gotoNext();
+         hand.getCursor(temp2);
+         if(temp > temp2)
+         {
+            hand.replace(temp);
+            hand.gotoPrior();
+            hand.replace(temp2);
+            swapped = true;
+         }
+      }
+   }
+}
 
+
+void player::SortCardsRank()
+{
+   bool swapped = true;
+   card temp;
+   card temp2;
+   while(swapped)
+   {
+      swapped = false;
+      hand.gotoBeginning();
+      for(int i = 0; i < 6; i++)
+      {
+         hand.getCursor(temp);
+         hand.gotoNext();
+         hand.getCursor(temp2);
+         if(temp.getRank() > temp2.getRank())
+         {
+            hand.replace(temp);
+            hand.gotoPrior();
+            hand.replace(temp2);
+            swapped = true;
+         }
+      }
+   }
+}

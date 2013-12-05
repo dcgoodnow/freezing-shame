@@ -1,6 +1,6 @@
 CC=g++
-CFLAGS= -Wall -g
-DEPS= string.h uno.h unoclass.h list.h stack.h
+CFLAGS= -g
+DEPS=string.h uno.h unoclass.h 
 Uno_main: Uno_main.o uno.o string.o unoclass.o
 	g++ -o Uno_main Uno_main.o uno.o string.o unoclass.o
 

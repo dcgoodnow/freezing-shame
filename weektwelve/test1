@@ -1,0 +1,297 @@
+Script started on Thu 31 Oct 2013 02:55:56 PM PDT
+dgoodnow@ecc-d-05l:~/CS202/freezing-shame/weekeight$ ./Uno_main 
+What is the name of the uno cards file? cards.txt
+What is the name of the player file? players.txt
+How many players are there? 5
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+1
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+3
+0	y	-1	draw2	Shuffled
+1	r	7	action	Shuffled
+2	y	5	action	Shuffled
+3	g	-1	skip	Shuffled
+4	b	4	action	Shuffled
+5	g	3	action	Shuffled
+6	g	5	action	Shuffled
+7	r	-1	draw2	Shuffled
+8	g	6	action	Shuffled
+9	c	-1	wilddraw4	Shuffled
+10	y	6	action	Shuffled
+11	y	7	action	Shuffled
+12	b	-1	skip	Shuffled
+13	r	9	action	Shuffled
+14	b	1	action	Shuffled
+15	r	-1	skip	Shuffled
+16	y	-1	skip	Shuffled
+17	c	-1	wild	Shuffled
+18	b	2	action	Shuffled
+19	b	-1	skip	Shuffled
+20	g	-1	draw2	Shuffled
+21	r	4	action	Shuffled
+22	b	4	action	Shuffled
+23	r	3	action	Shuffled
+24	r	1	action	Shuffled
+25	g	9	action	Shuffled
+26	r	9	action	Shuffled
+27	y	1	action	Shuffled
+28	b	3	action	Shuffled
+29	g	4	action	Shuffled
+30	g	2	action	Shuffled
+31	r	2	action	Shuffled
+32	c	-1	wild	Shuffled
+33	g	-1	reverse	Shuffled
+34	g	1	action	Shuffled
+35	b	0	action	Shuffled
+36	y	0	action	Shuffled
+37	g	3	action	Shuffled
+38	r	0	action	Shuffled
+39	r	8	action	Shuffled
+40	g	2	action	Shuffled
+41	b	6	action	Shuffled
+42	c	-1	wilddraw4	Shuffled
+43	y	-1	reverse	Shuffled
+44	g	5	action	Shuffled
+45	r	1	action	Shuffled
+46	b	8	action	Shuffled
+47	y	-1	draw2	Shuffled
+48	g	0	action	Shuffled
+49	b	1	action	Shuffled
+50	b	-1	reverse	Shuffled
+51	r	6	action	Shuffled
+52	b	8	action	Shuffled
+53	y	5	action	Shuffled
+54	g	1	action	Shuffled
+55	y	-1	skip	Shuffled
+56	r	2	action	Shuffled
+57	b	6	action	Shuffled
+58	y	7	action	Shuffled
+59	g	6	action	Shuffled
+60	b	-1	draw2	Shuffled
+61	y	-1	reverse	Shuffled
+62	c	-1	wild	Shuffled
+63	y	9	action	Shuffled
+64	b	9	action	Shuffled
+65	g	7	action	Shuffled
+66	g	7	action	Shuffled
+67	b	3	action	Shuffled
+68	r	-1	skip	Shuffled
+69	b	7	action	Shuffled
+70	c	-1	wild	Shuffled
+71	g	-1	skip	Shuffled
+72	r	3	action	Shuffled
+73	r	-1	reverse	Shuffled
+74	b	9	action	Shuffled
+75	r	-1	draw2	Shuffled
+76	g	-1	reverse	Shuffled
+77	b	2	action	Shuffled
+78	b	5	action	Shuffled
+79	g	8	action	Shuffled
+80	r	5	action	Shuffled
+81	y	8	action	Shuffled
+82	r	7	action	Shuffled
+83	y	4	action	Shuffled
+84	b	-1	reverse	Shuffled
+85	g	4	action	Shuffled
+86	r	4	action	Shuffled
+87	g	-1	draw2	Shuffled
+88	b	5	action	Shuffled
+89	y	8	action	Shuffled
+90	r	8	action	Shuffled
+91	b	7	action	Shuffled
+92	y	2	action	Shuffled
+93	y	1	action	Shuffled
+94	y	3	action	Shuffled
+95	r	-1	reverse	Shuffled
+96	r	5	action	Shuffled
+97	g	9	action	Shuffled
+98	y	2	action	Shuffled
+99	y	6	action	Shuffled
+100	y	4	action	Shuffled
+101	b	-1	draw2	Shuffled
+102	c	-1	wilddraw4	Shuffled
+103	y	3	action	Shuffled
+104	g	8	action	Shuffled
+105	c	-1	wilddraw4	Shuffled
+106	y	9	action	Shuffled
+107	r	6	action	Shuffled
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+2
+0	r	0	action	Location
+1	r	1	action	Location
+2	r	1	action	Location
+3	r	2	action	Location
+4	r	2	action	Location
+5	r	3	action	Location
+6	r	3	action	Location
+7	r	4	action	Location
+8	r	4	action	Location
+9	r	5	action	Location
+10	r	5	action	Location
+11	r	6	action	Location
+12	r	6	action	Location
+13	r	7	action	Location
+14	r	7	action	Location
+15	r	8	action	Location
+16	r	8	action	Location
+17	r	9	action	Location
+18	r	9	action	Location
+19	b	0	action	Location
+20	b	1	action	Location
+21	b	1	action	Location
+22	b	2	action	Location
+23	b	2	action	Location
+24	b	3	action	Location
+25	b	3	action	Location
+26	b	4	action	Location
+27	b	4	action	Location
+28	b	5	action	Location
+29	b	5	action	Location
+30	b	6	action	Location
+31	b	6	action	Location
+32	b	7	action	Location
+33	b	7	action	Location
+34	b	8	action	Location
+35	b	8	action	Location
+36	b	9	action	Location
+37	b	9	action	Location
+38	g	0	action	Location
+39	g	1	action	Location
+40	g	1	action	Location
+41	g	2	action	Location
+42	g	2	action	Location
+43	g	3	action	Location
+44	g	3	action	Location
+45	g	4	action	Location
+46	g	4	action	Location
+47	g	5	action	Location
+48	g	5	action	Location
+49	g	6	action	Location
+50	g	6	action	Location
+51	g	7	action	Location
+52	g	7	action	Location
+53	g	8	action	Location
+54	g	8	action	Location
+55	g	9	action	Location
+56	g	9	action	Location
+57	y	0	action	Location
+58	y	1	action	Location
+59	y	1	action	Location
+60	y	2	action	Location
+61	y	2	action	Location
+62	y	3	action	Location
+63	y	3	action	Location
+64	y	4	action	Location
+65	y	4	action	Location
+66	y	5	action	Location
+67	y	5	action	Location
+68	y	6	action	Location
+69	y	6	action	Location
+70	y	7	action	Location
+71	y	7	action	Location
+72	y	8	action	Location
+73	y	8	action	Location
+74	y	9	action	Location
+75	y	9	action	Location
+76	r	-1	draw2	Location
+77	r	-1	draw2	Location
+78	r	-1	skip	Location
+79	r	-1	skip	Location
+80	r	-1	reverse	Location
+81	r	-1	reverse	Location
+82	b	-1	draw2	Location
+83	b	-1	draw2	Location
+84	b	-1	skip	Location
+85	b	-1	skip	Location
+86	b	-1	reverse	Location
+87	b	-1	reverse	Location
+88	g	-1	draw2	Location
+89	g	-1	draw2	Location
+90	g	-1	skip	Location
+91	g	-1	skip	Location
+92	g	-1	reverse	Location
+93	g	-1	reverse	Location
+94	y	-1	draw2	Location
+95	y	-1	draw2	Location
+96	y	-1	skip	Location
+97	y	-1	skip	Location
+98	y	-1	reverse	Location
+99	y	-1	reverse	Location
+100	c	-1	wild	Location
+101	c	-1	wild	Location
+102	c	-1	wild	Location
+103	c	-1	wild	Location
+104	c	-1	wilddraw4	Location
+105	c	-1	wilddraw4	Location
+106	c	-1	wilddraw4	Location
+107	c	-1	wilddraw4	Location
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+6 4
+What would you like to name the file?
+blah.tx   
+======================================
+Welcome to Uno Shuffler!
+What would you like to do?
+1. Shuffle the deck
+2. Print unshuffled deck
+3. Print shuffled deck
+4. Write shuffled deck to file
+5. Print players to screen
+6. Deal shuffled cards
+7. Sort players hands by color
+8. Sort players hands by rank
+9. Sort players hands by color and rank
+Enter q to quit the program
+q
+dgoodnow@ecc-d-05l:~/CS202/freezing-shame/weekeight$ exit
+exit
+
+Script done on Thu 31 Oct 2013 02:56:24 PM PDT

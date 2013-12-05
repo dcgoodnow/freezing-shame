@@ -1,6 +1,7 @@
 #include <fstream>
 #include "unoclass.h"
 #include "list.h"
+#include "stack.h"
 using namespace std;
 
 
@@ -29,7 +30,10 @@ void LoadDeck(list<card>&);
   *retval:  none, prints deck to screen
 **/
 void PrintDeck(list<card>);
+void PrintDeck(queue<card>);
 
+
+const void PrintPlayers(list<player>);
 
 /**
   *Name:    Shuffle Deck
@@ -44,16 +48,14 @@ void ShuffleDeck(list<card>&, queue<card>&);
   *Purpose: Writes shuffled deck to file
   *Args:    array of 108 cards *Retval:  none
 **/
-void WriteDeck(const card*, const char*);
-
-
+void WriteDeck(const queue<card>&, const char* filename);
 
 /**
  * Name:    Load Players
  * Purpose: Loads player information from the specified player file
  * Args:    array of  players, fstream object, number of players to load
 */
-void LoadPlayers(player* list, ifstream& players, int numplayers);
+void LoadPlayers(list<player>, ifstream&, int);
 
 
 /*
@@ -62,18 +64,5 @@ void LoadPlayers(player* list, ifstream& players, int numplayers);
  * Args:    shuffled deck of 108 cards, array of four players, deck of 108 discard cards
  *          deck of 108 draw cards
 */
-void DealCards(card*, card*, card*, player*, int);
+void DealCards(queue<card> deck, stack<card>&, queue<card>&, list<player>&, int);
 
-/*
- * Name:    SortCardsColor
- * Purpose: sorts cards by color
- * Args:    card pointer, number of cards
-*/
-card* SortCardsColor(card*, int);
-
-/*
- * Name:    SortCardsRank
- * Purpose: sorts cards by rank
- * Args:    card pointer, number of cards
-*/
-card* SortCardsRank(card*, int);

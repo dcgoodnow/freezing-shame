@@ -67,4 +67,6 @@ class queue{
       node<T>* back;
 };
 
+#include "list.cpp"
+
 #endif

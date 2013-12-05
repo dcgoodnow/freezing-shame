@@ -22,7 +22,7 @@ void PrintMenu()
    cout << "Enter q to quit the program" <<endl;
 }
 
-void LoadDeck(list<card>& load)
+list<card> LoadDeck(list<card>& load)
 {
    char * temp;
    temp = new char[30];
@@ -38,28 +38,42 @@ void LoadDeck(list<card>& load)
    unoDeck.open(fileName);
    delete [] fileName;
    fileName = NULL;
+   card def;
    card tempC;
 
    for(int i = 0; i < 108; i++)
    {
+      tempC = def;
       unoDeck >> tempC;
-      cout << tempC << endl;
       load.insertAfter(tempC);
    }
    unoDeck.close();
-   return;
+   return load;
 }
 
-void PrintDeck(list<card> deck)
+const void PrintDeck(list<card>& deck)
 {
    deck.gotoBeginning();
    card temp;
    for(int i = 0; i<108; i++)
    {
-      cout << i << '\t';
+      cout << i+1 << '\t';
       deck.getCursor(temp);
       cout << temp;
       deck.gotoNext();
+   }
+}
+
+const void PrintDeck(queue<card> deck)
+{
+   queue<card> tempD = deck;
+   card temp;
+   int i = 0;
+   while(!tempD.empty())
+   {
+      cout << ++i << '\t';
+      tempD.dequeue(temp);
+      cout << temp;
    }
 }
 
@@ -67,32 +81,46 @@ void ShuffleDeck(list<card>& unshuff, queue<card>& shuff)
 {
    srand(time(NULL));
    card temp;
-   int randA, randB;
-   for(int i = 0; i < 108; i++)
+   int randA;
+   for(int i = 107; i > 0; i--)
    {
-      randA = rand()%i+1;
-      randB = rand()%i+1;;
+      randA = rand()%(i+1);
+      //if(randA == 0)
+       //  randA = 1;
       unshuff.gotoBeginning();
+      for(int j = 0; j < randA; j++)
+      {
+         if(!unshuff.gotoNext())
+         {
+            unshuff.gotoBeginning();
+         }
+      }
       unshuff.remove(temp);
       shuff.enqueue(temp);
    }
+   unshuff.remove(temp);
+   shuff.enqueue(temp);
 }
 
-void WriteDeck(const card* deck, const char* filename)
+void WriteDeck(const queue<card>& deck, const char* filename)
 {
+   queue<card> tempD = deck;
    //open file
    ofstream shufDeck;
    shufDeck.open(filename);
+   card temp;
    //write each card to a file
    for(int i = 0; i < 108; i++)
    {
-      shufDeck << deck[i].getColor() << '\t';
-      shufDeck << deck[i].getRank()<< '\t';
-      shufDeck << deck[i].getAction() << '\n';
+      tempD.dequeue(temp);
+      shufDeck << i+1 << '\t';
+      shufDeck << temp.getColor() << '\t';
+      shufDeck << temp.getRank()<< '\t';
+      shufDeck << temp.getAction() << '\n';
    }
 }
 
-void LoadPlayers(player* list, ifstream &players, int numplayers)
+void LoadPlayers(list<player>& roster, ifstream& players, int numplayers)
 {
    char * temp;
    temp = new char[30];
@@ -100,11 +128,12 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
    int* iptr;
    iptr = new int[5];
    int* home = iptr;
+   player tempP;
    for( int i = 0; i < numplayers; i++)
    {
       //get player name
       players >> temp;
-      (*list).setName(temp);
+      tempP.setName(temp);
       for( int j = 0; j < 5; j ++)
       {
          //load each integer into temporary character
@@ -114,72 +143,46 @@ void LoadPlayers(player* list, ifstream &players, int numplayers)
          iptr++;
       }
       iptr = home;
-      (*list).setID(iptr);
-      list++;
+      tempP.setID(iptr);
+      roster.insertAfter(tempP);
    }
 }
 
-void DealCards(card* deck, card* disc, card* draw, player* players, int numpl)
+void PrintPlayers(list<player> roster ) const
 {
-   card* tempc = new card[7];
+   player temp;
+   roster.gotoBeginning();
+   roster.getCursor(temp);
+   cout << temp;
+   while(roster.gotoNext())
+   {
+      roster.getCursor(temp);
+      cout << temp;
+   }
+}
+
+void DealCards(queue<card> deck,stack<card>& disc, queue<card>& draw, list<player>& roster, int numpl)
+{
+   player tempP;
+   card tempC;
+   roster.gotoBeginning();
    for(int i = 0; i < numpl; i++)
    {
+      roster.getCursor(tempP);
       for(int j = 0; j < 7; j++)
       {
-         tempc[j]=deck[i*7+j];
-         tempc[j].setLocation(deck[i*7+j].getLocation());
+         deck.dequeue(tempC);
+         tempP.addCard(tempC);
       }
-      players[i].setHand(tempc);
+      cout << tempP;
+      roster.replace(tempP);
+      roster.gotoNext();
    }
-   delete[] tempc;
-   tempc = NULL;
 
    //deal first discard card
-   disc[0]=deck[numpl*7];
-   disc[0].setLocation("Discard");
+   deck.dequeue(tempC);
+   disc.push(tempC);
 
    //move the remainder of cards to draw pile
-   for( int i = numpl*7+1; i < 108; i++)
-   {
-      draw[i-(numpl*7+1)]=deck[i];
-
-      //set new location
-      draw[i-(numpl*7+1)].setLocation("Draw");
-   }
-}
-
-card* SortCardsColor(card* toSort, int num)
-{
-   bool swapped = true;
-   while(swapped)
-   {
-      swapped = false;
-      for(int i = 0; i < num-1; i++)
-      {
-         if(toSort[i] > toSort[i+1])
-         {
-            toSort[i].Swap(toSort[i+1]);
-            swapped = true;
-         }
-      }
-   }
-   return toSort;
-}
-
-card* SortCardsRank(card* toSort, int num)
-{
-   bool swapped = true;
-   while(swapped)
-   {
-      swapped = false;
-      for(int i = 0; i < num-1; i++)
-      {
-         if((toSort[i].getRank()) > (toSort[i+1].getRank()))
-         {
-            toSort[i].Swap(toSort[i+1]);
-            swapped = true;
-         }
-      }
-   }
-   return toSort;
+   draw = deck;
 }

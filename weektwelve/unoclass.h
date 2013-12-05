@@ -1,6 +1,10 @@
+#ifndef __UNOCLASS_H
+#define __UNOCLASS_H
 #include <iostream>
 #include "list.h"
 using namespace std;
+
+
 class card {
    public:
       card(int r = -1, const char* l = "Location");
@@ -44,9 +48,13 @@ class player {
       int* getID() const;
       bool removeCard(card&);
       bool addCard(card);
+      void SortCardsColor();
+      void SortCardsRank();
 
    private:
       char* name;
       int* id;
       list<card> hand;
 };
+
+#endif
