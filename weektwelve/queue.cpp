@@ -1,23 +1,23 @@
 #include "queue.h"
 
-template typename<T>
-node::node(T c, node* n)
+template <typename T>
+node<T>::node(T c, node<T>* n)
 {
    data = c; 
    next = n;
 }
 
-template typename<T>
+template <typename T>
 queue<T>::queue()
 {
    front = NULL;
    back = NULL;
 }
 
-template typename<T>
+template <typename T>
 queue<T>::~queue()
 {
-   node* tmp;
+   node<T>* tmp;
    if(!empty())
    {
 
@@ -33,34 +33,34 @@ queue<T>::~queue()
    back = NULL;
 }
 
-template typename<T>
+template <typename T>
 bool queue<T>::enqueue(T toQueue)
 {
    if(empty())
    {
-      front = new node(toQueue, NULL);
+      front = new node<T>(toQueue, NULL);
       back = front;
       return true;
    }
-   node* tmp = new node(toQueue, NULL);
+   node<T>* tmp = new node<T>(toQueue, NULL);
    back->next = tmp;
    back = tmp;
    return true;
 }
 
-template typename<T>
+template <typename T>
 bool queue<T>::dequeue(T& t)
 {
    if(empty())
       return false;
    t = front->data;
-   node* tmp = front;
+   node<T>* tmp = front;
    front = front->next;
    delete tmp;
    tmp = NULL;
 }
 
-template typename<T>
+template <typename T>
 bool queue<T>::empty() const
 {
    if(front == NULL && back == NULL)
@@ -68,16 +68,16 @@ bool queue<T>::empty() const
    return false;
 }
 
-template typename<T>
+template <typename T>
 bool queue<T>::full() const
 {
    return false;
 }
 
-template typename<T>
+template <typename T>
 bool queue<T>::clear()
 {
-   node* tmp;
+   node<T>* tmp;
    if(!empty())
    {
       //loop through all nodes and delete them
@@ -92,21 +92,21 @@ bool queue<T>::clear()
    back = NULL;
 }
 
-template typename<T>
+template <typename T>
 queue<T>& queue<T>::operator=(const queue& q)
 {
    clear();
    if(q.empty())
       return *this;
-   node* tmpS = q.front;;
-   node* tmpD;
-   front = new node(q.front->data, q.front->next);
+   node<T>* tmpS = q.front;;
+   node<T>* tmpD;
+   front = new node<T>(q.front->data, q.front->next);
    back = front;
    tmpD = front;
    tmpS = tmpS->next;
    while(back->next != NULL)
    {
-      tmpD = new node(tmpS->data, tmpS->next);
+      tmpD = new node<T>(tmpS->data, tmpS->next);
       back->next = tmpD;
       back = tmpD;
       tmpS = tmpS->next;

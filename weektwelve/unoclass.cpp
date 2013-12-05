@@ -226,7 +226,14 @@ player::player(const player& p)
 {
    name = new char[25];
    setName(p.name);
-   setID(p.id);
+  
+   int* iptr = id;
+   for(int i = 0; i < 5; i++)
+   {
+      *iptr = p.id[i];
+      iptr++;
+   }
+ 
    hand = NULL;
    setHand(p.hand);
 }

@@ -1,40 +1,38 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef __QUEUE_H
+#define __QUEUE_H
 #include <iostream>
 
 using namespace std;
 
-template typename<T>
+template <typename T>
 class queue;
 
-template typename<T>
-class node
-{
-	private:
-		node(T, node*);
-		T data;
-		Node* next;
-		friend class queue;
+template <typename T>
+class node{
+   private:
+      node(T, node<T>*);
+      T data;
+      node<T>* next;
+      friend class queue<T>;
 };
 
-template typename<T>
-class queue
-{
+template <typename T>
+class queue{
    public:
       queue();
-      queue(const queue&);
+      queue(const queue<T>&);
       ~queue();
       bool enqueue(T);
       bool dequeue(T&);
       bool empty() const;
       bool full() const;
       bool clear();
-      queue& operator=(const queue&);
-      friend ostream& operator<<(ostream&, const queue&);
-      bool operator==(const queue&) const;
+      queue& operator=(const queue<T>&);
+      friend ostream& operator<<(ostream&, const queue<T>&);
+      bool operator==(const queue<T>&) const;
    private:
-      Node* front;
-      Node* back;
+      node<T>* front;
+      node<T>* back;
 };
 
 #endif

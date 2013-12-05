@@ -20,7 +20,7 @@ void PrintMenu();
   *Args:    array for deck to be loaded into
   *Retval:  true if no errors, false if errors occur, loads array
 **/
-void LoadDeck(list);
+void LoadDeck(list<card>&);
 
 /**
   *Name:    Print Deck
@@ -28,7 +28,7 @@ void LoadDeck(list);
   *Args:    array of 108 cards 
   *retval:  none, prints deck to screen
 **/
-void PrintDeck(card*);
+void PrintDeck(list<card>);
 
 
 /**
@@ -37,7 +37,7 @@ void PrintDeck(card*);
   *Args:    array of 108 unshuffled cards, array of 108 cards to store shuffled deck
   *Retval:  moves shuffled deck into shuffled array by pointer
 **/
-void ShuffleDeck(card*, card*);
+void ShuffleDeck(list<card>&, queue<card>&);
 
 /**
   *Name:    WriteDeck

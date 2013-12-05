@@ -22,7 +22,7 @@ void PrintMenu()
    cout << "Enter q to quit the program" <<endl;
 }
 
-void LoadDeck(list load)
+void LoadDeck(list<card>& load)
 {
    char * temp;
    temp = new char[30];
@@ -38,48 +38,43 @@ void LoadDeck(list load)
    unoDeck.open(fileName);
    delete [] fileName;
    fileName = NULL;
-   card temp;
+   card tempC;
 
    for(int i = 0; i < 108; i++)
    {
-      unoDeck >> temp;
-      load.insertAfter(temp);
+      unoDeck >> tempC;
+      cout << tempC << endl;
+      load.insertAfter(tempC);
    }
    unoDeck.close();
    return;
 }
 
-void PrintDeck(list deck)
+void PrintDeck(list<card> deck)
 {
    deck.gotoBeginning();
    card temp;
    for(int i = 0; i<108; i++)
    {
       cout << i << '\t';
-      deck.getCursor(temp)
+      deck.getCursor(temp);
       cout << temp;
+      deck.gotoNext();
    }
 }
 
-void ShuffleDeck(card* unshuff, card* shuff)
+void ShuffleDeck(list<card>& unshuff, queue<card>& shuff)
 {
-   //copy all cards into shuffled deck
-   for(int i = 0; i < 108; i++)
-   {
-      shuff[i]=unshuff[i];
-      shuff[i].setLocation("Shuffled");
-   }
    srand(time(NULL));
    card temp;
    int randA, randB;
-   for(int i = 0; i < 1000; i++)
+   for(int i = 0; i < 108; i++)
    {
-      
-      randA = rand()%108;
-      randB = rand()%108;
-      temp=shuff[randA];
-      shuff[randA]=shuff[randB];
-      shuff[randB]=temp;
+      randA = rand()%i+1;
+      randB = rand()%i+1;;
+      unshuff.gotoBeginning();
+      unshuff.remove(temp);
+      shuff.enqueue(temp);
    }
 }
 

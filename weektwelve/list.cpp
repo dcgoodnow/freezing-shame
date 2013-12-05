@@ -1,7 +1,7 @@
 #include "list.h"
 
 template <typename T>
-node<T>::node(char c, node<T>* n)
+node<T>::node(T c, node<T>* n)
 {
    data = c; 
    next = n;
@@ -17,24 +17,31 @@ list<T>::list(int s)
 template <typename T>
 list<T>::list(const list<T>& l)
 {
-   node<T>* stmp = l.head;
-
-   //create first node
-   node<T>* dtmp = new node<T>(stmp->data, stmp->next);
-   head = dtmp;
-   if(l.cursor == stmp)
-      cursor = dtmp;
-
-   //copy the remaining nodes, including the cursor
-   while(stmp->next != NULL)
+   if(l.empty())
    {
-      stmp = stmp->next;
-      dtmp->next = new node<T>(stmp->data, stmp->next);
-      dtmp = dtmp->next;
+      head = NULL;
+      cursor = NULL;
+   }
+   else
+   {
+      node<T>* stmp = l.head;
+
+      //create first node
+      node<T>* dtmp = new node<T>(stmp->data, stmp->next);
+      head = dtmp;
       if(l.cursor == stmp)
          cursor = dtmp;
-   }
 
+      //copy the remaining nodes, including the cursor
+      while(stmp->next != NULL)
+      {
+         stmp = stmp->next;
+         dtmp->next = new node<T>(stmp->data, stmp->next);
+         dtmp = dtmp->next;
+         if(l.cursor == stmp)
+            cursor = dtmp;
+      }
+   }
 }
 
 template <typename T>
@@ -94,8 +101,7 @@ bool list<T>::gotoNext()
 
 template <typename T>
 bool list<T>::gotoPrior()
-{
-   if(cursor == head)
+{ if(cursor == head)
       return true;
    if(!empty())
    {
@@ -112,7 +118,7 @@ bool list<T>::gotoPrior()
 }
 
 template <typename T>
-bool list<T>::insertAfter(char c)
+bool list<T>::insertAfter(T c)
 {
    if(!empty() && !full())
    {
@@ -135,7 +141,7 @@ bool list<T>::insertAfter(char c)
 }
 
 template <typename T>
-bool list<T>::insertBefore(char c)
+bool list<T>::insertBefore(T c)
 {
    if(!empty() && !full())
    {
@@ -158,7 +164,7 @@ bool list<T>::insertBefore(char c)
 }
 
 template <typename T>
-bool list<T>::remove(char& c)
+bool list<T>::remove(T& c)
 {
    if(!empty())
    {
@@ -168,11 +174,21 @@ bool list<T>::remove(char& c)
       //use this if the in focus node is not the tail of the list
       if(cursor->next != NULL)
       {
-         node<T>* tmp2 = cursor->next;
-         gotoPrior();
-         delete tmp;
-         tmp = NULL;
-         cursor->next = tmp2;
+         if(cursor == head)
+         {
+            cursor = cursor->next;
+            head = cursor;
+            delete tmp;
+            tmp = NULL;
+         }
+         else
+         {
+            node<T>* tmp2 = cursor->next;
+            gotoPrior();
+            delete tmp;
+            tmp = NULL;
+            cursor->next = tmp2;
+         }
       }
       //use this if the cursor is on the tail
       else
@@ -200,7 +216,7 @@ bool list<T>::remove(char& c)
 }
 
 template <typename T>
-bool list<T>::replace(char c)
+bool list<T>::replace(T c)
 {
    if(!empty())
    {
@@ -211,7 +227,7 @@ bool list<T>::replace(char c)
 }
 
 template <typename T>
-bool list<T>::getCursor(char& c) const
+bool list<T>::getCursor(T& c) const
 {
    if(!empty())
    {
@@ -343,3 +359,139 @@ bool list<T>::operator==(const list<T>& l) const
    //are of different lengths
    return false;
 }
+
+template <typename T>
+queue<T>::queue()
+{
+   front = NULL;
+   back = NULL;
+}
+
+template <typename T>
+queue<T>::queue(const queue<T>& q)
+{
+   if(q.empty())
+   {
+      front = NULL;
+      back = NULL;
+   }
+   else
+   {
+      node<T>* tmpS = q.front;;
+      node<T>* tmpD;
+      front = new node<T>(q.front->data, q.front->next);
+      back = front;
+      tmpD = front;
+      tmpS = tmpS->next;
+      while(back->next != NULL)
+      {
+         tmpD = new node<T>(tmpS->data, tmpS->next);
+         back->next = tmpD;
+         back = tmpD;
+         tmpS = tmpS->next;
+      }
+   }
+}
+
+template <typename T>
+queue<T>::~queue()
+{
+   node<T>* tmp;
+   if(!empty())
+   {
+
+      //loop through all nodes and delete them
+      while(front != NULL)
+      {
+         tmp = front;
+         front = front->next;
+         delete tmp;
+      }
+   }
+   front = NULL;
+   back = NULL;
+}
+
+template <typename T>
+bool queue<T>::enqueue(T toQueue)
+{
+   if(empty())
+   {
+      front = new node<T>(toQueue, NULL);
+      back = front;
+      return true;
+   }
+   node<T>* tmp = new node<T>(toQueue, NULL);
+   back->next = tmp;
+   back = tmp;
+   return true;
+}
+
+template <typename T>
+bool queue<T>::dequeue(T& t)
+{
+   if(empty())
+      return false;
+   t = front->data;
+   node<T>* tmp = front;
+   front = front->next;
+   delete tmp;
+   tmp = NULL;
+   return true;
+}
+
+template <typename T>
+bool queue<T>::empty() const
+{
+   if(front == NULL)  
+      return true;
+   return false;
+}
+
+template <typename T>
+bool queue<T>::full() const
+{
+   return false;
+}
+
+template <typename T>
+bool queue<T>::clear()
+{
+   node<T>* tmp;
+   if(!empty())
+   {
+      //loop through all nodes and delete them
+      while(front != NULL)
+      {
+         tmp = front;
+         front = front->next;
+         delete tmp;
+      }
+   }
+   front = NULL;
+   back = NULL;
+   return true;
+}
+
+template <typename T>
+queue<T>& queue<T>::operator=(const queue& q)
+{
+   clear();
+   if(q.empty())
+      return *this;
+   node<T>* tmpS = q.front;;
+   node<T>* tmpD;
+   front = new node<T>(q.front->data, q.front->next);
+   back = front;
+   tmpD = front;
+   tmpS = tmpS->next;
+   while(back->next != NULL)
+   {
+      tmpD = new node<T>(tmpS->data, tmpS->next);
+      back->next = tmpD;
+      back = tmpD;
+      tmpS = tmpS->next;
+   }
+   return *this;
+}
+
