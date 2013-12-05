@@ -204,21 +204,8 @@ player::player()
    {
       id[i] = 0;
    }
-   hand = new card[7];
 }
 
-player::player(const char* n, const int* i, card* h)
-{
-   name = new char[30];
-   StringCopy(n, name);
-   id = new int[5];
-   for(int j = 0; j < 5; j++)
-   {
-      id[j] = i[j];
-   }
-   hand = NULL;
-   setHand(h);
-}
 
 player::player(const player& p)
 {
@@ -230,9 +217,8 @@ player::player(const player& p)
    {
       id[i] = p.id[i];
    }
+   hand = p.hand;
  
-   hand = NULL;
-   setHand(p.hand);
 }
 
 player::~player()
@@ -241,8 +227,6 @@ player::~player()
    name = NULL;
    delete[] id;
    id = NULL;
-   delete[] hand;
-   hand = NULL;
 }
 
 player player::operator=(const player& orig)
@@ -251,13 +235,14 @@ player player::operator=(const player& orig)
    {
       StringCopy(orig.name, name);
       setID(orig.id);
-      setHand(orig.hand);
+      hand.clear();
+      hand = orig.hand;
    }
    return *this;
 }
 
 
-ostream& operator<<(ostream& os, const player& p)
+ostream& operator<<(ostream& os, player& p)
 {
    os << p.getName() << endl;
    int* iptr = p.getID();
@@ -266,10 +251,14 @@ ostream& operator<<(ostream& os, const player& p)
       os << iptr[i];
    }
    os << endl;
-   card* cptr = p.getHand();
-   for(int i = 0; i < 7; i++)
+   card temp;
+   p.hand.gotoBeginning();
+   p.hand.getCursor(temp);
+   os << temp;
+   while(p.hand.gotoNext())
    {
-      os << cptr[i];
+      p.hand.getCursor(temp);
+      os << temp;
    }
    return os;
 }
@@ -323,43 +312,21 @@ int* player::getID() const
    return id;
 }
 
-void player::setHand(card* h)
+bool player::addCard(card toAdd)
 {
-   if(hand == NULL)
-   {
-      hand = new card[7];
-   }
-   card* cptr = hand;
-   
-   for( int i = 0; i < 7; i++)
-   {
-      (*cptr).copyCard(*h);
-      (*cptr).setLocation(name);
-      cptr++;
-      h++;
-   }
+   toAdd.setLocation(name);
+   hand.insertAfter(toAdd);
+   return true;
 }
 
-card* player::getHand() const 
+bool player::removeCard(card& toRemove)
 {
-   return hand;
+   if(!hand.empty())
+   {
+      hand.remove(toRemove);
+      return true;
+   }
+   return false;
 }
 
-void player::print() const
-{
-   cout << name << endl;
-   int* iptr = id;
-   for(int i = 0; i < 5; i++)
-   {
-      cout << *iptr;
-      iptr++;
-   }
-   cout << endl;
-   card* cptr = hand;
-   for(int i = 0; i < 7; i++)
-   {
-      cout << *cptr;
-      cptr++;
-   }
-}
 

@@ -1,7 +1,7 @@
 #include "stack.h"
 
 template <typename T>
-Stack<T>::Stack(int s)
+stack<T>::stack(int s)
 {
    maxSize = s;
    data = new T[maxSize];
@@ -10,7 +10,7 @@ Stack<T>::Stack(int s)
 }
 
 template <typename T>
-Stack<T>::Stack(const Stack& s)
+stack<T>::stack(const stack& s)
 {
    maxSize = s.maxSize;
    data = new T[maxSize];
@@ -26,14 +26,14 @@ Stack<T>::Stack(const Stack& s)
 }
 
 template <typename T>
-Stack<T>::~Stack()
+stack<T>::~stack()
 {
    delete[] data;
    data = NULL;
 }
 
 template <typename T>
-Stack<T>& Stack<T>::operator=(const Stack& s)
+stack<T>& stack<T>::operator=(const stack& s)
 {
    maxSize = s.maxSize;
    delete[] data;
@@ -50,7 +50,7 @@ Stack<T>& Stack<T>::operator=(const Stack& s)
 }
 
 template <typename T>
-bool Stack<T>::push(T toPush)
+bool stack<T>::push(T toPush)
 {
    if(!full())
    {
@@ -62,7 +62,7 @@ bool Stack<T>::push(T toPush)
 }
 
 template <typename T>
-bool Stack<T>::pop(T& popper)
+bool stack<T>::pop(T& popper)
 {
    if(!empty())
    {
@@ -74,7 +74,7 @@ bool Stack<T>::pop(T& popper)
 }
 
 template <typename T>
-bool Stack<T>::empty() const
+bool stack<T>::empty() const
 {
    if(top < 0)
       return true;
@@ -82,7 +82,7 @@ bool Stack<T>::empty() const
 }
 
 template <typename T>
-bool Stack<T>::full() const
+bool stack<T>::full() const
 {
    if(top >= maxSize - 1)
       return true;
@@ -90,13 +90,13 @@ bool Stack<T>::full() const
 }
 
 template <typename T>
-bool Stack<T>::clear()
+bool stack<T>::clear()
 {
    top = -1;
 }
 
 template <typename T>
-void Stack<T>::print() const
+void stack<T>::print() const
 {
    if(empty())
       return;

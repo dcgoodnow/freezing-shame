@@ -1,4 +1,5 @@
 #include <iostream>
+#include "list.h"
 using namespace std;
 class card {
    public:
@@ -32,22 +33,20 @@ class card {
 class player {
    public:
       player();
-      player(const char*, const int*, card*);
       player(const player&);
       ~player();
       player operator=(const player&);
-      friend ostream& operator<<(ostream&, const player&);
+      friend ostream& operator<<(ostream&, player&);
       friend istream& operator>>(istream&, player&);
       void setName(const char*);
       char* getName() const;
       void setID(int*);
       int* getID() const;
-      void setHand(card*);
-      card* getHand() const;
-      void print() const;
+      bool removeCard(card&);
+      bool addCard(card);
 
    private:
       char* name;
       int* id;
-      card* hand;
+      list<card> hand;
 };

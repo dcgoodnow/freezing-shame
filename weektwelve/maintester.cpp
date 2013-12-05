@@ -5,6 +5,8 @@
 #include <fstream>
 #include "list.cpp"
 #include "stdlib.h"
+#include "stack.h"
+#include "stack.cpp"
 
 using namespace std;
 
@@ -106,7 +108,7 @@ void WriteDeck(const queue<card>& deck, const char* filename)
    }
 }
 
-void LoadPlayers(queue<player>& list, ifstream& players, int numplayers)
+void LoadPlayers(list<player>& roster, ifstream& players, int numplayers)
 {
    char * temp;
    temp = new char[30];
@@ -130,20 +132,47 @@ void LoadPlayers(queue<player>& list, ifstream& players, int numplayers)
       }
       iptr = home;
       tempP.setID(iptr);
-      list.enqueue(tempP);
+      roster.insertAfter(tempP);
    }
 }
 
-const void PrintPlayers(queue<player> roster )
+const void PrintPlayers(list<player> roster )
 {
-   queue<player> tempP = roster;
    player temp;
-   int i = 0;
-   while(!tempP.empty())
+   roster.gotoBeginning();
+   roster.getCursor(temp);
+   cout << temp;
+   while(roster.gotoNext())
    {
-      tempP.dequeue(temp);
+      roster.getCursor(temp);
       cout << temp;
    }
+}
+
+void DealCards(queue<card> deck,stack<card>& disc, queue<card>& draw, list<player>& roster, int numpl)
+{
+   player tempP;
+   card tempC;
+   roster.gotoBeginning();
+   for(int i = 0; i < numpl; i++)
+   {
+      roster.getCursor(tempP);
+      for(int j = 0; j < 7; j++)
+      {
+         deck.dequeue(tempC);
+         tempP.addCard(tempC);
+      }
+      cout << tempP;
+      roster.replace(tempP);
+      roster.gotoNext();
+   }
+
+   //deal first discard card
+   deck.dequeue(tempC);
+   disc.push(tempC);
+
+   //move the remainder of cards to draw pile
+   draw = deck;
 }
 
 int main()
@@ -158,10 +187,14 @@ int main()
    ShuffleDeck(unshuffled, shuffled);
    PrintDeck(shuffled);
    WriteDeck(shuffled, "foo");
-   queue<player> players;
+   list<player> players;
    ifstream inPlayers;
    inPlayers.open("players.txt");
    LoadPlayers(players, inPlayers, 6);
+   PrintPlayers(players);
+   stack<card> discard;
+   queue<card> drawPile;
+   DealCards(shuffled, discard, drawPile, players, 6);
    PrintPlayers(players);
    return 0;
 }
