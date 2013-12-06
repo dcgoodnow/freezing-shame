@@ -23,7 +23,7 @@ int main()
    inPlayers.open("players.txt");
    LoadPlayers(players, inPlayers, 6);
    PrintPlayers(players);
-   stack<card> discard;
+   stack<card> discard(108);
    queue<card> drawPile;
    DealCards(shuffled, discard, drawPile, players, 6);
    PrintPlayers(players);

@@ -24,4 +24,6 @@ class stack{
       T* data;
 };
 
+#include "stack.cpp"
+
 #endif

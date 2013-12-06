@@ -4,6 +4,8 @@
 #include "time.h"
 #include "string.h"
 #include <fstream>
+#include "list.h"
+#include "stack.h"
 using namespace std;
 void PrintMenu()
 {
@@ -51,7 +53,7 @@ list<card> LoadDeck(list<card>& load)
    return load;
 }
 
-const void PrintDeck(list<card>& deck)
+void PrintDeck(list<card>& deck) 
 {
    deck.gotoBeginning();
    card temp;
@@ -64,7 +66,7 @@ const void PrintDeck(list<card>& deck)
    }
 }
 
-const void PrintDeck(queue<card> deck)
+void PrintDeck(queue<card> deck) 
 {
    queue<card> tempD = deck;
    card temp;
@@ -148,7 +150,7 @@ void LoadPlayers(list<player>& roster, ifstream& players, int numplayers)
    }
 }
 
-void PrintPlayers(list<player> roster ) const
+void PrintPlayers(list<player> roster )
 {
    player temp;
    roster.gotoBeginning();

@@ -21,7 +21,7 @@ void PrintMenu();
   *Args:    array for deck to be loaded into
   *Retval:  true if no errors, false if errors occur, loads array
 **/
-void LoadDeck(list<card>&);
+list<card> LoadDeck(list<card>&);
 
 /**
   *Name:    Print Deck
@@ -29,11 +29,11 @@ void LoadDeck(list<card>&);
   *Args:    array of 108 cards 
   *retval:  none, prints deck to screen
 **/
-void PrintDeck(list<card>);
+void PrintDeck(list<card>&);
 void PrintDeck(queue<card>);
 
 
-const void PrintPlayers(list<player>);
+void PrintPlayers(list<player>);
 
 /**
   *Name:    Shuffle Deck
@@ -55,7 +55,7 @@ void WriteDeck(const queue<card>&, const char* filename);
  * Purpose: Loads player information from the specified player file
  * Args:    array of  players, fstream object, number of players to load
 */
-void LoadPlayers(list<player>, ifstream&, int);
+void LoadPlayers(list<player>&, ifstream&, int);
 
 
 /*
