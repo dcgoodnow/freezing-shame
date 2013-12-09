@@ -1,21 +1,9 @@
-
-/*****************************************
- *Name: Daniel Goodnow
- *
- *
- *
- *Project two
- *
- *
- *
- *Last Updated: 9/11/2013
-*****************************************/
 #include "uno.h"
+#include "unoclass.h"
 #include <iostream>
 #include "string.h"
 #include "list.h"
 #include "stack.h"
-#include "queue.h"
 
 
 using namespace std;
@@ -31,6 +19,7 @@ int main()
    stack<card> discard;
    char * mainTemp;
    mainTemp = new char[30];
+   player tempPlayer;
 
    
    //Load deck
@@ -55,8 +44,7 @@ int main()
    }while(numpl >= 10 && numpl <= 2);
 
    //initialize player objects
-   player * players;
-   players = new player[numpl];
+   list<player> players;
 
    //load players
    LoadPlayers( players, pfile, numpl);
@@ -103,13 +91,10 @@ int main()
                WriteDeck(shuffled, mainTemp);
                break;
             }
-            
+            //print players 
             case '5':
             {
-               for(int i = 0; i < numpl; i ++)
-               {
-                  cout << players[i];
-               }
+               PrintPlayers(players);
                break;
             }
             
@@ -121,31 +106,47 @@ int main()
 
             case '7':
             {
+               players.gotoBeginning();
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsColor(players[i].getHand(), 7);
+                  players.getCursor(tempPlayer);
+                  tempPlayer.SortCardsColor();
+                  players.replace(tempPlayer);
+                  players.gotoNext();
                }
                break;
             }
 
             case '8':
             {
+               players.gotoBeginning();
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsRank(players[i].getHand(), 7);
+                  players.getCursor(tempPlayer);
+                  tempPlayer.SortCardsRank();
+                  players.replace(tempPlayer);
+                  players.gotoNext();
                }
                break;
             }
 
             case '9':
             {
+               players.gotoBeginning();
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsRank(players[i].getHand(), 7);
+                  players.getCursor(tempPlayer);
+                  tempPlayer.SortCardsColor();
+                  players.replace(tempPlayer);
+                  players.gotoNext();
                }
+               players.gotoBeginning();
                for(int i = 0; i < numpl; i++)
                {
-                  SortCardsColor(players[i].getHand(), 7);
+                  players.getCursor(tempPlayer);
+                  tempPlayer.SortCardsRank();
+                  players.replace(tempPlayer);
+                  players.gotoNext();
                }
                break;
             }
@@ -158,11 +159,6 @@ int main()
             }
          }
    }
-   delete[] unshuffled;
-   delete[] shuffled;
-   delete[] discard;
-   delete[] draw;
-   delete[] players;
    delete[] mainTemp;
    return 0;
 }

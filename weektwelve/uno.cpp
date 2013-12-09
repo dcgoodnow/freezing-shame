@@ -98,9 +98,11 @@ void ShuffleDeck(list<card>& unshuff, queue<card>& shuff)
          }
       }
       unshuff.remove(temp);
+      temp.setLocation("shuffled");
       shuff.enqueue(temp);
    }
    unshuff.remove(temp);
+   temp.setLocation("shuffled");
    shuff.enqueue(temp);
 }
 
@@ -176,7 +178,6 @@ void DealCards(queue<card> deck,stack<card>& disc, queue<card>& draw, list<playe
          deck.dequeue(tempC);
          tempP.addCard(tempC);
       }
-      cout << tempP;
       roster.replace(tempP);
       roster.gotoNext();
    }
