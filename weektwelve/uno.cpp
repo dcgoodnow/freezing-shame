@@ -82,6 +82,7 @@ void PrintDeck(queue<card> deck)
 void ShuffleDeck(list<card>& unshuff, queue<card>& shuff)
 {
    srand(time(NULL));
+   list<card> unshuffTemp = unshuff;
    card temp;
    int randA;
    for(int i = 107; i > 0; i--)
@@ -89,19 +90,19 @@ void ShuffleDeck(list<card>& unshuff, queue<card>& shuff)
       randA = rand()%(i+1);
       //if(randA == 0)
        //  randA = 1;
-      unshuff.gotoBeginning();
+      unshuffTemp.gotoBeginning();
       for(int j = 0; j < randA; j++)
       {
-         if(!unshuff.gotoNext())
+         if(!unshuffTemp.gotoNext())
          {
-            unshuff.gotoBeginning();
+            unshuffTemp.gotoBeginning();
          }
       }
-      unshuff.remove(temp);
+      unshuffTemp.remove(temp);
       temp.setLocation("shuffled");
       shuff.enqueue(temp);
    }
-   unshuff.remove(temp);
+   unshuffTemp.remove(temp);
    temp.setLocation("shuffled");
    shuff.enqueue(temp);
 }

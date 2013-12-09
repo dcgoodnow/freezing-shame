@@ -136,7 +136,7 @@ int main()
                for(int i = 0; i < numpl; i++)
                {
                   players.getCursor(tempPlayer);
-                  tempPlayer.SortCardsColor();
+                  tempPlayer.SortCardsRank();
                   players.replace(tempPlayer);
                   players.gotoNext();
                }
@@ -144,7 +144,7 @@ int main()
                for(int i = 0; i < numpl; i++)
                {
                   players.getCursor(tempPlayer);
-                  tempPlayer.SortCardsRank();
+                  tempPlayer.SortCardsColor();
                   players.replace(tempPlayer);
                   players.gotoNext();
                }

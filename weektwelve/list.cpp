@@ -4,6 +4,7 @@ node<T>::node(T c, node<T>* n)
 {
    data = c; 
    next = n;
+   if(true);
 }
 
 template <typename T>
